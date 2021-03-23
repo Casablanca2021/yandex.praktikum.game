@@ -13,6 +13,7 @@ module.exports = {
     extensions: ['.tsx', '.ts', '.js'],
     alias: {
       components: path.resolve(__dirname, 'src/components/'),
+      pages: path.resolve(__dirname, 'src/pages/'),
       modules: path.resolve(__dirname, 'src/modules/'),
       utilities: path.resolve(__dirname, 'src/utilities/'),
     },

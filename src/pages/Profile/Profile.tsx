@@ -1,12 +1,10 @@
-/* eslint-disable @typescript-eslint/ban-types */
-/* eslint-disable camelcase */
 import React, { PureComponent } from 'react';
 import { Button, Form, Image } from 'semantic-ui-react';
-import { profileForm } from 'components/Profile';
+import { ProfileForm } from 'pages/Profile';
 
 import './Profile.css';
 
-class Profile extends PureComponent<{}, Partial<profileForm>> {
+class Profile extends PureComponent<{}, Partial<ProfileForm>> {
   fileInput: React.RefObject<HTMLInputElement>;
 
   constructor(props = {}) {
