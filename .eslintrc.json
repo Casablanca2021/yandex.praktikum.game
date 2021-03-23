@@ -27,7 +27,6 @@
             1,
             {
                 "extensions": [
-                    ".css",
                     ".ts",
                     ".tsx"
                 ]
