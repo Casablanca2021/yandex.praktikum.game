@@ -73,7 +73,7 @@ export const SignUp: FC = () => {
   };
 
   return (
-    <Container className="signup">
+    <Container className="sign">
       <Header as="h1" textAlign="center">
         {t('signupTitle')}
       </Header>
@@ -148,6 +148,9 @@ export const SignUp: FC = () => {
         <Button type="submit" color="blue" fluid>
           {t('signupButton')}
         </Button>
+        <div className="sign__link">
+          <a href="/signin">{t('signinTitle')}</a>
+        </div>
       </Form>
     </Container>
   );
