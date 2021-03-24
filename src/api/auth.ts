@@ -1,13 +1,6 @@
 import { baseUrl } from 'common/consts';
 import { get, post } from './http';
-import {
-  LogOutResponse,
-  SignInData,
-  SignInResponse,
-  SignUpData,
-  SignUpResponse,
-  UserInfoResponse,
-} from './types';
+import { LogOutResponse, SignInData, SignInResponse, SignUpData, SignUpResponse, UserInfoResponse } from './types';
 import { headersJSON as headers } from 'common/consts';
 
 interface Auth {
