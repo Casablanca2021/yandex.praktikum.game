@@ -1,13 +1,10 @@
-enum METHODS {
-  GET = "GET",
-  POST = "POST",
-  PUT = "PUT",
+const enum METHODS {
+  GET = 'GET',
+  POST = 'POST',
+  PUT = 'PUT',
 }
 
-const http = async <Response extends unknown>(
-  path: string,
-  options: RequestInit
-): Promise<Response> => {
+const http = async <Response extends unknown>(path: string, options: RequestInit): Promise<Response> => {
   try {
     const request = new Request(path, options);
     const response = await fetch(request);
@@ -28,23 +25,16 @@ const http = async <Response extends unknown>(
   }
 };
 
-const include: RequestCredentials = "include";
+const include: RequestCredentials = 'include';
 const credentials = { credentials: include };
 
-export const get = async <Response extends unknown>(
-  path: string,
-  options?: RequestInit
-): Promise<Response> => {
+export const get = async <Response extends unknown>(path: string, options?: RequestInit): Promise<Response> => {
   const params = { ...options, ...credentials, method: METHODS.GET };
 
   return await http<Response>(path, params);
 };
 
-export const post = async <Request, Response extends unknown>(
-  path: string,
-  data: Request,
-  options?: RequestInit
-): Promise<Response> => {
+export const post = async <Request, Response extends unknown>(path: string, data: Request, options?: RequestInit): Promise<Response> => {
   const params = {
     ...options,
     ...credentials,
@@ -55,11 +45,7 @@ export const post = async <Request, Response extends unknown>(
   return await http<Response>(path, params);
 };
 
-export const put = async <Response extends unknown>(
-  path: string,
-  data: Request,
-  options?: RequestInit
-): Promise<Response> => {
+export const put = async <Response extends unknown>(path: string, data: Request, options?: RequestInit): Promise<Response> => {
   const params = {
     ...options,
     ...credentials,
