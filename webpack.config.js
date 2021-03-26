@@ -15,7 +15,9 @@ module.exports = {
       components: path.resolve(__dirname, 'src/components/'),
       pages: path.resolve(__dirname, 'src/pages/'),
       modules: path.resolve(__dirname, 'src/modules/'),
-      utilities: path.resolve(__dirname, 'src/utilities/'),
+      utils: path.resolve(__dirname, 'src/utils/'),
+      common: path.resolve(__dirname, 'src/common/'),
+      api: path.resolve(__dirname, 'src/api/'),
     },
   },
   module: {
