@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { LeaderboardPage, Leaders } from 'pages/Leaderboard';
+import { LeaderboardPage, Leaders, LeaderboardServices } from 'pages/Leaderboard';
 import {
   List,
   Menu,
@@ -9,7 +9,11 @@ import {
 } from 'semantic-ui-react';
 import './Leaderboard.css';
 
+type ItemClickEvent = React.MouseEvent<HTMLAnchorElement, MouseEvent>;
+
 class Leaderboard extends PureComponent<{}, Partial<LeaderboardPage>> {
+  services = new LeaderboardServices();
+
   constructor(props = {}) {
     super(props);
     this.state = {
@@ -18,46 +22,23 @@ class Leaderboard extends PureComponent<{}, Partial<LeaderboardPage>> {
   }
 
   componentDidMount(): void {
-    const avatar = 'https://image.flaticon.com/icons/png/512/147/147144.png';
-    this.setState({
-      leaders: [
-        {
-          id: 1, name: 'Иванов Иван', points: 1000, avatar,
-        },
-        {
-          id: 2, name: 'Сидоров Сидор', points: 500, avatar,
-        },
-        {
-          id: 3, name: 'Матроскин Кот', points: 300, avatar,
-        },
-        {
-          id: 4, name: 'Иванов Иван', points: 200, avatar,
-        },
-        {
-          id: 5, name: 'Иванов Иван', points: 100, avatar,
-        },
-        {
-          id: 6, name: 'Матроскин', points: 50, avatar,
-        },
-        {
-          id: 7, name: 'Сидоров Сидор', points: 25, avatar,
-        },
-        {
-          id: 8, name: 'Матроскин', points: 10, avatar,
-        },
-      ],
-    });
+    this.services.getLeaderboard('All time')
+      .then((leaders) => {
+        this.setState({
+          leaders,
+        });
+      });
   }
 
-  handleItemClick = (e : React.MouseEvent<HTMLAnchorElement,
-    MouseEvent>, data : MenuItemProps) : void => {
-    const name = data.name || 'This week';
-    const { leaders } = this.state;
-    leaders?.splice(leaders.length - 2, leaders.length - 1);
-    this.setState({
-      activeItem: name,
-      leaders,
-    });
+  handleItemClick = (e : ItemClickEvent, data : MenuItemProps) : void => {
+    const name = data.name as 'This week' | 'All time' | 'Last week' || 'This week';
+
+    this.services.getLeaderboard(name)
+      .then((leaders) => {
+        this.setState({
+          leaders,
+        });
+      });
   }
 
   render() : JSX.Element {
