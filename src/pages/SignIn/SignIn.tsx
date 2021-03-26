@@ -1,14 +1,10 @@
 import React, { FC, useState } from 'react';
-import {
-  Button,
-  Container,
-  Form,
-  Header,
-  InputOnChangeData,
-
-} from 'semantic-ui-react';
+import { useHistory } from 'react-router-dom';
+import { Button, Container, Form, Header, InputOnChangeData, Message } from 'semantic-ui-react';
 import { t } from 'common/dictionary';
 import { validateLoginAndPassword } from 'utils/validateUtils';
+import { ROUTES } from 'common/consts';
+import { Auth } from 'api/auth';
 import { Fields, FieldErrors } from './types';
 import './SignIn.css';
 
@@ -19,11 +15,11 @@ export const SignIn: FC = () => {
   });
 
   const [errors, setErrors] = useState<Partial<FieldErrors>>({});
+  const [errorMessage, setErrorMessage] = useState('');
+  const history = useHistory();
 
-  const handleChange = (
-    _event: React.ChangeEvent<HTMLInputElement>,
-    { name, value }: InputOnChangeData,
-  ): void => setFields((prevState) => ({ ...prevState, [name]: value }));
+  const handleChange = (_event: React.ChangeEvent<HTMLInputElement>, { name, value }: InputOnChangeData): void =>
+    setFields((prevState) => ({ ...prevState, [name]: value }));
 
   const handleBlur = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = event.target;
@@ -36,7 +32,16 @@ export const SignIn: FC = () => {
 
   const handleSubmit = (event: React.SyntheticEvent): void => {
     event.preventDefault();
-    console.log(fields);
+    const data = {
+      ...fields,
+    };
+
+    Auth.signIn(data)
+      .then(() => history.push(ROUTES.ROOT))
+      .catch((error) => {
+        console.log(error);
+        setErrorMessage(error.message);
+      });
   };
 
   return (
@@ -64,6 +69,11 @@ export const SignIn: FC = () => {
           onBlur={handleBlur}
           error={errors.password}
         />
+        {errorMessage && (
+          <Message negative>
+            <Message.Header className="sign__error">{errorMessage}</Message.Header>
+          </Message>
+        )}
 
         <Button type="submit" color="blue" fluid>
           {t('signinButton')}
