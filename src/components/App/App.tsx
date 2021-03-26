@@ -2,19 +2,15 @@ import React, { FC } from "react";
 import { Switch, Route } from "react-router-dom";
 import { ROUTES } from "common/consts";
 import "./App.css";
+import SignIn from "pages/SignIn";
+import SignUp from "pages/SignUp";
 
 export const App: FC = () => (
   <Switch>
-    <Route path={ROUTES.SIGNIN}>
-      <h1>Signin</h1>
-    </Route>
-    <Route path={ROUTES.SIGNUP}>
-      <h1>Signup</h1>
-    </Route>
+    <Route path={ROUTES.SIGNIN} component={SignIn} />
+    <Route path={ROUTES.SIGNUP} component={SignUp} />
     <Route path={ROUTES.ROOT}>
-      <div className="appcomponent">
-        <h1>App component</h1>
-      </div>
+      <h1>App component</h1>
     </Route>
   </Switch>
 );

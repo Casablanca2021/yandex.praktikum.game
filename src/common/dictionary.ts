@@ -7,7 +7,9 @@ const dictionary = {
   password: "Пароль",
   password_confirm: "Пароль (еще раз)",
   signupTitle: "Регистрация",
-  signupButton: "Зарегестрироваться",
+  signinTitle: "Вход",
+  signupButton: "Зарегистрироваться",
+  signinButton: "Войти",
 };
 
 export const t = (key: keyof typeof dictionary): string => dictionary[key];
