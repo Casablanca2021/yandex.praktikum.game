@@ -12,11 +12,12 @@ const http = async <Response extends unknown>(path: string, options: RequestInit
     if (!response.ok) {
       if (response.statusText) {
         throw new Error(response.statusText);
-      } else
+      } else {
         return response.text().then((responseText) => {
           const errorText = JSON.parse(responseText)?.reason ?? responseText;
           throw new Error(errorText);
         });
+      }
     }
 
     return response.json().catch((error) => console.warn(error));
@@ -45,11 +46,21 @@ export const post = async <Request, Response extends unknown>(path: string, data
   return await http<Response>(path, params);
 };
 
-export const put = async <Response extends unknown>(path: string, data: Request, options?: RequestInit): Promise<Response> => {
+export const put = async <Request, Response extends unknown>(path: string, data: Request, options?: RequestInit): Promise<Response> => {
   const params = {
     ...options,
     ...credentials,
     body: JSON.stringify(data),
+    method: METHODS.PUT,
+  };
+
+  return await http<Response>(path, params);
+};
+
+export const putFormData = async <Response extends unknown>(path: string, data: FormData): Promise<Response> => {
+  const params = {
+    ...credentials,
+    body: data,
     method: METHODS.PUT,
   };
 

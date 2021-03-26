@@ -14,9 +14,12 @@ type Profile = {
 
 type ProfileValidations = Record<keyof Profile, boolean>;
 
+type Notification = { message: string, color:'red'|'green' }
+
 type ProfileForm = {
   profile: Partial<Profile>;
   errors: Partial<ProfileValidations>;
+  notification: Notification;
 };
 
-export default ProfileForm;
+export { ProfileForm, Profile, Notification };
