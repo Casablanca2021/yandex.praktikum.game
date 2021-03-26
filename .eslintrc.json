@@ -23,6 +23,9 @@
     ],
     "rules": {
         "no-use-before-define": "off",
+        "import/prefer-default-export": "off",
+        "import/extensions": "off",
+        "default-case": "off",
         "react/jsx-filename-extension": [
             1,
             {
