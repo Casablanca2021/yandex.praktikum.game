@@ -1,7 +1,10 @@
 type Profile = {
     id: number,
+    // eslint-disable-next-line camelcase
     first_name: string;
+    // eslint-disable-next-line camelcase
     second_name: string;
+    // eslint-disable-next-line camelcase
     display_name: string;
     login: string;
     email: string;
@@ -9,11 +12,11 @@ type Profile = {
     avatar: string;
 }
 
-type profileValidations = Record<keyof Profile, boolean>
+type ProfileValidations = Record<keyof Profile, boolean>
 
 type ProfileForm = {
     profile :Partial<Profile>;
-    isError: Partial<profileValidations>;
+    errors: Partial<ProfileValidations>;
 }
 
 export default ProfileForm;

@@ -1,17 +1,23 @@
 import React, { PureComponent } from 'react';
 import { Button, Form, Image } from 'semantic-ui-react';
 import { ProfileForm } from 'pages/Profile';
-
+import { t } from 'common/dictionary';
 import './Profile.css';
 
-class Profile extends PureComponent<{}, Partial<ProfileForm>> {
+type Props = {
+
+};
+
+type InputChangeEvent = React.ChangeEvent<HTMLInputElement>;
+
+class Profile extends PureComponent<Props, Partial<ProfileForm>> {
   fileInput: React.RefObject<HTMLInputElement>;
 
   constructor(props = {}) {
     super(props);
     this.state = {
       profile: {},
-      isError: {},
+      errors: {},
     };
     this.fileInput = React.createRef();
   }
@@ -21,27 +27,24 @@ class Profile extends PureComponent<{}, Partial<ProfileForm>> {
     console.log(state.profile);
   }
 
-  handleUserInput = (e : React.ChangeEvent<HTMLInputElement>): void => {
-    const { profile } = this.state;
+  handleUserInput = (e : InputChangeEvent): void => {
     const { id, value } = e.target;
-    this.setState({
-      profile: { ...profile, [id]: value },
-    });
+    this.setState((state) => ({
+      profile: { ...state.profile, [id]: value },
+    }));
   }
 
-  onBlur = (e : React.ChangeEvent<HTMLInputElement>) : void => {
-    const { isError } = this.state;
+  onBlur = (e : InputChangeEvent) : void => {
     const { id, value } = e.target;
-    this.setState({ isError: { ...isError, [id]: !(value.length > 0) } });
+    this.setState((state) => ({ errors: { ...state.errors, [id]: !(value.length > 0) } }));
   }
 
-  onFocus = (e : React.ChangeEvent<HTMLInputElement>) : void => {
+  onFocus = (e : InputChangeEvent) : void => {
     const { id } = e.target;
-    const { isError } = this.state;
-    this.setState({ isError: { ...isError, [id]: false } });
+    this.setState((state) => ({ errors: { ...state.errors, [id]: false } }));
   }
 
-  handleUserAvatar = (e : React.ChangeEvent<HTMLInputElement>): void => {
+  handleUserAvatar = (e : InputChangeEvent): void => {
     if (e.target.files && e.target.files?.length > 0) {
       const avatar = e.target.files[0];
       console.log(avatar);
@@ -61,66 +64,66 @@ class Profile extends PureComponent<{}, Partial<ProfileForm>> {
           </div>
           <Form.Input
             id="display_name"
-            label="Ник"
+            label={t('display_name')}
             fluid
             onChange={this.handleUserInput}
             value={state.profile?.display_name || ''}
-            error={state.isError?.display_name}
+            error={state.errors?.display_name}
             onBlur={this.onBlur}
             onFocus={this.onFocus}
           />
           <Form.Input
             id="second_name"
-            label="Фамилия"
+            label={t('second_name')}
             fluid
             value={state.profile?.second_name || ''}
             onChange={this.handleUserInput}
-            error={state.isError?.second_name}
+            error={state.errors?.second_name}
             onBlur={this.onBlur}
             onFocus={this.onFocus}
           />
           <Form.Input
             id="first_name"
-            label="Имя"
+            label={t('first_name')}
             fluid
             onChange={this.handleUserInput}
             value={state.profile?.first_name || ''}
-            error={state.isError?.first_name}
+            error={state.errors?.first_name}
             onBlur={this.onBlur}
             onFocus={this.onFocus}
           />
           <Form.Input
             id="login"
-            label="Логин"
+            label={t('login')}
             fluid
             onChange={this.handleUserInput}
             value={state.profile?.login || ''}
-            error={state.isError?.login}
+            error={state.errors?.login}
             onBlur={this.onBlur}
             onFocus={this.onFocus}
           />
           <Form.Input
             id="email"
-            label="Электронный адрес"
+            label={t('email')}
             fluid
             onChange={this.handleUserInput}
             value={state.profile?.email || ''}
-            error={state.isError?.email}
+            error={state.errors?.email}
             onBlur={this.onBlur}
             onFocus={this.onFocus}
           />
           <Form.Input
             id="phone"
-            label="Телефон"
+            label={t('phone')}
             fluid
             onChange={this.handleUserInput}
             value={state.profile?.phone || ''}
-            error={state.isError?.phone}
+            error={state.errors?.phone}
             onBlur={this.onBlur}
             onFocus={this.onFocus}
           />
-          <Button onClick={this.saveChanges} color="green" type="button">Сохранить</Button>
-          <Button type="button">Отмена</Button>
+          <Button onClick={this.saveChanges} color="blue" type="button">{t('saveButton')}</Button>
+          <Button type="button">{t('cancelButton')}</Button>
         </Form>
       </div>
 
