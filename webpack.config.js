@@ -1,35 +1,35 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-  entry: "./src/index.tsx",
+  entry: './src/index.tsx',
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "app-[hash].js",
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'app-[hash].js',
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js"],
+    extensions: ['.tsx', '.ts', '.js'],
     alias: {
-      components: path.resolve(__dirname, "src/components/"),
-      pages: path.resolve(__dirname, "src/pages/"),
-      modules: path.resolve(__dirname, "src/modules/"),
-      utils: path.resolve(__dirname, "src/utils/"),
-      common: path.resolve(__dirname, "src/common/"),
-      api: path.resolve(__dirname, "src/api/"),
+      components: path.resolve(__dirname, 'src/components/'),
+      pages: path.resolve(__dirname, 'src/pages/'),
+      modules: path.resolve(__dirname, 'src/modules/'),
+      utils: path.resolve(__dirname, 'src/utils/'),
+      common: path.resolve(__dirname, 'src/common/'),
+      api: path.resolve(__dirname, 'src/api/'),
     },
   },
   module: {
     rules: [
       {
         test: /\.html$/i,
-        loader: "html-loader",
+        loader: 'html-loader',
       },
       {
         test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
         use: {
-          loader: "url-loader",
+          loader: 'url-loader',
           options: {
             limit: 100000,
           },
@@ -41,20 +41,19 @@ module.exports = {
           {
             loader: MiniCssExtractPlugin.loader,
             options: {
-              publicPath: (resourcePath, context) =>
-                `${path.relative(path.dirname(resourcePath), context)}/`,
+              publicPath: (resourcePath, context) => `${path.relative(path.dirname(resourcePath), context)}/`,
             },
           },
-          "css-loader",
-          "postcss-loader",
+          'css-loader',
+          'postcss-loader',
         ],
       },
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      filename: "index.html",
-      template: "www/index.html",
+      filename: 'index.html',
+      template: 'www/index.html',
       minify: {
         collapseWhitespace: true,
         removeComments: true,
@@ -64,7 +63,7 @@ module.exports = {
     }),
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
-      filename: "style-[hash].css",
+      filename: 'style-[hash].css',
     }),
   ],
 };

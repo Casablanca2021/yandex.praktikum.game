@@ -34,7 +34,7 @@ export const get = async <Response extends unknown>(path: string, options?: Requ
   return await http<Response>(path, params);
 };
 
-export const post = async <Request, Response extends unknown>(path: string, data: Request, options?: RequestInit): Promise<Response> => {
+export const post = async <Request, Response extends unknown>(path: string, data?: Request, options?: RequestInit): Promise<Response> => {
   const params = {
     ...options,
     ...credentials,
