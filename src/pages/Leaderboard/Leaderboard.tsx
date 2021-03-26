@@ -10,8 +10,11 @@ import {
 import './Leaderboard.css';
 
 type ItemClickEvent = React.MouseEvent<HTMLAnchorElement, MouseEvent>;
+type Props = {
 
-class Leaderboard extends PureComponent<{}, Partial<LeaderboardPage>> {
+}
+
+class Leaderboard extends PureComponent<Props, Partial<LeaderboardPage>> {
   services = new LeaderboardServices();
 
   constructor(props = {}) {
