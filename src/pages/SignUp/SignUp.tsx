@@ -1,10 +1,12 @@
 import React, { FC, useState } from "react";
+import { useHistory } from "react-router-dom";
 import {
   Button,
   Container,
   Form,
   Header,
   InputOnChangeData,
+  Message,
 } from "semantic-ui-react";
 import { t } from "common/dictionary";
 import {
@@ -13,6 +15,8 @@ import {
   validateName,
   validatePhone,
 } from "utils/validateUtils";
+import { ROUTES } from "common/consts";
+import { Auth } from "api/auth";
 import { Fields, FieldErrors } from "./types";
 import "./SignUp.css";
 
@@ -28,6 +32,8 @@ export const SignUp: FC = () => {
   });
 
   const [errors, setErrors] = useState<Partial<FieldErrors>>({});
+  const [errorMessage, setErrorMessage] = useState("");
+  const history = useHistory();
 
   const handleChange = (
     _event: React.ChangeEvent<HTMLInputElement>,
@@ -69,7 +75,13 @@ export const SignUp: FC = () => {
 
   const handleSubmit = (event: React.SyntheticEvent): void => {
     event.preventDefault();
-    console.log(fields);
+    const { password_confirm, ...data } = fields;
+    Auth.signUp(data)
+      .then(() => history.push(ROUTES.ROOT))
+      .catch((error) => {
+        console.log(error);
+        setErrorMessage(error.message);
+      });
   };
 
   return (
@@ -144,6 +156,13 @@ export const SignUp: FC = () => {
           onBlur={handleBlur}
           error={errors.password_confirm}
         />
+        {errorMessage && (
+          <Message negative>
+            <Message.Header className="sign__error">
+              {errorMessage}
+            </Message.Header>
+          </Message>
+        )}
 
         <Button type="submit" color="blue" fluid>
           {t("signupButton")}
