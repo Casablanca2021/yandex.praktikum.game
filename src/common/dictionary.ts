@@ -13,6 +13,8 @@ const dictionary = {
   signinButton: 'Войти',
   saveButton: 'Сохранить',
   cancelButton: 'Отмена',
+  errorBoundaryMessage: 'Упс, что-то пошло не так...',
+  errorBoundaryButton: 'На страницу с игрой',
 };
 
 export const t = (key: keyof typeof dictionary): string => dictionary[key];

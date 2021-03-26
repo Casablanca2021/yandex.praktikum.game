@@ -37,4 +37,4 @@
     "settings": {
         "import/resolver": "webpack"
     }
-}
+  }
