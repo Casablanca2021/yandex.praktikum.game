@@ -18,6 +18,7 @@ module.exports = {
       utils: path.resolve(__dirname, 'src/utils/'),
       common: path.resolve(__dirname, 'src/common/'),
       api: path.resolve(__dirname, 'src/api/'),
+      assets: path.resolve(__dirname, 'assets/'),
     },
   },
   module: {
@@ -27,7 +28,7 @@ module.exports = {
         loader: 'html-loader',
       },
       {
-        test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
+        test: /\.(png|jpg|jpeg|gif|svg|eot|ttf|woff|woff2)$/,
         use: {
           loader: 'url-loader',
           options: {
