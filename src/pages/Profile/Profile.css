@@ -1,0 +1,22 @@
+.profile{
+    padding: 25px;
+    max-width: 550px;
+    margin: auto;
+}
+
+.profile__avatar{
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile__avatar-image{
+    border-radius: 10px;
+}
+
+.profile__avatar-image:hover{
+    opacity: 0.5;
+    cursor: pointer;
+}

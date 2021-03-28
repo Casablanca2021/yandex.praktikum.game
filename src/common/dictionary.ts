@@ -1,6 +1,7 @@
 const dictionary = {
   first_name: 'Имя',
   second_name: 'Фамилия',
+  display_name: 'Ник',
   login: 'Логин',
   email: 'Почта',
   phone: 'Телефон',
@@ -12,6 +13,8 @@ const dictionary = {
   signinButton: 'Войти',
   errorBoundaryMessage: 'Упс, что-то пошло не так...',
   errorBoundaryButton: 'На страницу с игрой',
+  saveButton: 'Сохранить',
+  cancelButton: 'Отмена',
 };
 
 export const t = (key: keyof typeof dictionary): string => dictionary[key];
