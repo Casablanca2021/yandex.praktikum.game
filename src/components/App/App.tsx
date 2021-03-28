@@ -4,11 +4,13 @@ import { ROUTES } from 'common/consts';
 import './App.css';
 import SignIn from 'pages/SignIn';
 import SignUp from 'pages/SignUp';
+import Home from 'pages/Home';
 
 export const App: FC = () => (
   <Switch>
     <Route path={ROUTES.SIGNIN} component={SignIn} />
     <Route path={ROUTES.SIGNUP} component={SignUp} />
+    <Route path={ROUTES.HOME} component={Home} />
     <Route path={ROUTES.ROOT}>
       <h1>App component</h1>
     </Route>

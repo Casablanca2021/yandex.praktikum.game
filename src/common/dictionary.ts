@@ -1,4 +1,5 @@
 const dictionary = {
+  to_begin: 'Начать',
   first_name: 'Имя',
   second_name: 'Фамилия',
   display_name: 'Ник',
