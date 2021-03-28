@@ -108,3 +108,5 @@ dist
 
 # WebStorm
 .idea/
+
+.DS_Store
