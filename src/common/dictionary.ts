@@ -12,6 +12,10 @@ const dictionary = {
   signinButton: 'Войти',
   errorBoundaryMessage: 'Упс, что-то пошло не так...',
   errorBoundaryButton: 'На страницу с игрой',
+  forumTitle: 'Форум',
+  appName: 'SUPER GAME',
+  question: 'Вопрос',
+  categories: 'Категории',
 };
 
 export const t = (key: keyof typeof dictionary): string => dictionary[key];

@@ -2,6 +2,9 @@ export enum ROUTES {
   ROOT = '/',
   SIGNIN = '/signin',
   SIGNUP = '/signup',
+  FORUM = '/forum',
+  FORUM_BY_CATEGORY = '/forum/category/:category',
+  FORUM_VIEW = '/forum/:id'
 }
 
 export const baseUrl = 'https://ya-praktikum.tech/api/v2';
