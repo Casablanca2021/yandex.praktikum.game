@@ -7,6 +7,7 @@ import { ROUTES } from 'common/consts';
 import { Auth } from 'api/auth';
 import { Fields, FieldErrors } from './types';
 import './SignIn.css';
+import Layout from 'components/Layout';
 
 export const SignIn: FC = () => {
   const [fields, setFields] = useState<Fields>({
@@ -45,6 +46,7 @@ export const SignIn: FC = () => {
   };
 
   return (
+    <Layout transparent={true}>
     <Container className="sign">
       <Header as="h1" textAlign="center">
         {t('signinTitle')}
@@ -83,5 +85,6 @@ export const SignIn: FC = () => {
         </div>
       </Form>
     </Container>
+    </Layout>
   );
 };

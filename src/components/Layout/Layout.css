@@ -1,29 +1,32 @@
-.layout__app-name {
-    font-size: 3em;
-}
+.layout {
+    &__app-name {
+         font-size: 3em;
+         color: #ffffff;
+         padding: 5px 10px;
+         border-radius: 10px;
+         display: inline-block;
+         line-height: 1;
+         background-color: black;
+         font-weight: 700;
+         margin-bottom: 13px;
 
-.layout__app-name {
-    color: #ffffff;
-    padding: 5px 10px;
-    border-radius: 10px;
-    display: inline-block;
-    line-height: 1;
-    background-color: black;
-    font-weight: 700;
-    margin-bottom: 13px;
-}
+        &:hover {
+             color: #ffffff;
+             opacity: 0.8;
+         }
+    }
 
-.layout__app-name:hover {
-    color: #ffffff;
-    opacity: 0.8;
-}
-
-.layout__main {
-    margin-top: 20px;
+    &__main {
+         margin-top: 20px;
+    }
 }
 
 .ui.menu.layout__main-menu {
     margin-bottom: 30px;
+}
+
+h1.ui.header.layout__header {
+    font-size: 2.7em;
 }
 
 .main {
@@ -31,13 +34,9 @@
     border-radius: 4px;
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
     padding: 15px;
-}
 
-h1.ui.header.layout__header {
-    font-size: 2.7em;
-}
-
-.main_transparent {
-    background-color: transparent;
-    box-shadow: none;
+    &_transparent {
+        background-color: transparent;
+        box-shadow: none;
+    }
 }

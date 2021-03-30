@@ -7,7 +7,7 @@ const LabelList: FC<OwnProps> = (props) => {
   return (
     <div className="label-list">
       {props.items.map((item, key) => {
-        return <Link to={item.path} key = {key} className={`label-list__item ${item.active === true ? 'label-list__item_active' : ''}`}>{item.name}</Link>
+        return <Link to={item.path} key = {key} className={`label-list__item ${item.active ? 'label-list__item_active' : ''}`}>{item.name}</Link>
       })}
     </div>
   );

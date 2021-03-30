@@ -5,7 +5,7 @@ import './App.css';
 import SignIn from 'pages/SignIn';
 import SignUp from 'pages/SignUp';
 import Forum from "pages/Forum";
-import ForumView from "pages/ForumView/index";
+import ForumView from "pages/ForumView";
 
 export const App: FC = () => (
   <Switch>

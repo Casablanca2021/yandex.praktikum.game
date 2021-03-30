@@ -9,24 +9,16 @@ import { OwnProps } from './types';
 
 const Layout: FC<OwnProps> = (props) => {
 
-  let {transparent, children} = props;
-
-  let renderTitle = () => {
-    if (props.title) {
-      return <div>
-        <Header as='h1' className="layout__header">{props.title}</Header>
-      </div>;
-    }
-    return <div />
-  };
+  const {transparent, children} = props;
 
   return <div className="layout">
     <Container>
       <Link to = {ROUTES.ROOT} className="layout__app-name">{t('appName')}</Link>
       <MainMenu />
-      {renderTitle()}
+      { props.title && <Header as='h1' className="layout__header">{props.title}</Header> }
       <div className={`layout__main main ${transparent ? 'main_transparent' : ''}`}>
         {children}
+
       </div>
     </Container>
   </div>;

@@ -16,6 +16,7 @@ const dictionary = {
   appName: 'SUPER GAME',
   question: 'Вопрос',
   categories: 'Категории',
+  homeTitle: 'Главная',
 };
 
 export const t = (key: keyof typeof dictionary): string => dictionary[key];

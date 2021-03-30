@@ -9,17 +9,15 @@ const MainMenu: FC = () => {
   let activeItem = useLocation().pathname;
   let history = useHistory();
 
-  let handleClick = (path: string) => {
-    history.push(path);
-  };
+  let handleClick = (path: string) => () => history.push(path);
 
   let items = [
     {
-      name: 'Home',
+      name: t('homeTitle'),
       path: ROUTES.ROOT,
     },
     {
-      name: 'Forum',
+      name: t('forumTitle'),
       path: ROUTES.FORUM,
     },
   ];
@@ -30,23 +28,19 @@ const MainMenu: FC = () => {
         className="main-menu__item"
         key={'unique' + key.toString()}
         active={activeItem === item.path}
-        onClick={() => handleClick(item.path)}
+        onClick={handleClick(item.path)}
       >{item.name}</Menu.Item>;
     })}
     <Menu.Menu position='right'>
       <Menu.Item
         className="main-menu__item"
         name={t('signinButton')}
-        onClick={() => {
-          history.push(ROUTES.SIGNIN);
-        }}
+        onClick={handleClick(ROUTES.SIGNIN)}
       />
       <Menu.Item
         className="main-menu__item"
         name={t('signupButton')}
-        onClick={() => {
-          history.push(ROUTES.SIGNUP);
-        }}
+        onClick={handleClick(ROUTES.SIGNUP)}
       />
     </Menu.Menu>
   </Menu>;

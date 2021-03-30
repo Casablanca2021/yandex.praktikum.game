@@ -1,7 +1,7 @@
 .app {
     padding: 50px;
     min-height: 100vh;
-    background-image: linear-gradient(to right top, #e5e5e5, #d4d4d4, #c2c2c2, #b2b2b2, #a1a1a1);
+    background-image: linear-gradient(to right top, #f8f8f8, #efefef, #e7e7e7, #c9c9c9, #a1a1a1);
 }
 
 /*что-то типа <hr> кастомного*/
