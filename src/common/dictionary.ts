@@ -15,7 +15,7 @@ const dictionary = {
   errorBoundaryMessage: 'Упс, что-то пошло не так...',
   errorBoundaryButton: 'На страницу с игрой',
   forumTitle: 'Форум',
-  appName: 'SUPER GAME',
+  appName: 'Casablanca racing',
   question: 'Вопрос',
   categories: 'Категории',
   saveButton: 'Сохранить',

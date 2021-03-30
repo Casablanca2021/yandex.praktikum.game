@@ -46,7 +46,7 @@ export const SignIn: FC = () => {
   };
 
   return (
-    <Layout transparent={true}>
+    <Layout transparent={true} verticalAlign={true}>
     <Container className="sign">
       <Header as="h1" textAlign="center">
         {t('signinTitle')}

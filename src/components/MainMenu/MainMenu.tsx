@@ -14,7 +14,7 @@ const MainMenu: FC = () => {
   let items = [
     {
       name: t('homeTitle'),
-      path: ROUTES.ROOT,
+      path: ROUTES.HOME,
     },
     {
       name: t('forumTitle'),
