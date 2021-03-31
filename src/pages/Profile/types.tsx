@@ -1,22 +1,11 @@
-type Profile = {
-    id: number,
-    // eslint-disable-next-line camelcase
-    first_name: string;
-    // eslint-disable-next-line camelcase
-    second_name: string;
-    // eslint-disable-next-line camelcase
-    display_name: string;
-    login: string;
-    email: string;
-    phone: string;
-    avatar: string;
-}
+import { UserInfoResponse } from 'api/types';
 
-type ProfileValidations = Record<keyof Profile, boolean>
+export type ProfileValidations = Record<keyof UserInfoResponse, boolean>;
 
-type ProfileForm = {
-    profile :Partial<Profile>;
+export type Notification = { message: string, color:'red'|'green' }
+
+export type ProfileForm = {
+    profile: Partial<UserInfoResponse>;
     errors: Partial<ProfileValidations>;
-}
-
-export default ProfileForm;
+    notification: Notification | null;
+  };

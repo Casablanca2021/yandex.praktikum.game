@@ -16,6 +16,10 @@ const dictionary = {
   errorBoundaryButton: 'На страницу с игрой',
   saveButton: 'Сохранить',
   cancelButton: 'Отмена',
+  error: 'Ошибка',
+  changesSaved: 'Изменения сохранены',
+  requiredFields: 'Заполните обязательные поля',
+  avatarChanged: 'Аватар изменен',
 };
 
 export const t = (key: keyof typeof dictionary): string => dictionary[key];

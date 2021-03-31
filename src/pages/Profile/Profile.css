@@ -20,3 +20,8 @@
     opacity: 0.5;
     cursor: pointer;
 }
+
+
+.profile__notification{
+    margin-top: 10px;
+}

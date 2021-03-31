@@ -1,7 +1,3 @@
-import Leaderboard from 'pages/Leaderboard/Leaderboard';
-import { LeaderboardPage, Leaders } from 'pages/Leaderboard/types';
-import LeaderboardServices from 'pages/Leaderboard/services';
-
-export {
-  Leaderboard, LeaderboardPage, Leaders, LeaderboardServices,
-};
+export { Leaderboard } from './Leaderboard';
+export { LeaderboardState, Leaders } from './types';
+export { LeaderboardServices } from './LeaderboardServices';

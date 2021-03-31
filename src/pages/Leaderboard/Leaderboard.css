@@ -1,7 +1,11 @@
-.leaderboard__top-bar{
-    padding: 10px;
-}
+.leaderboard__top{
+    width: 100vw;
+    height: 100vh;
+    .leaderboard__top-bar{
+        padding: 10px;
+    }
 
-.leaderboard__list{
-    padding: 20px;
+    .leaderboard__list{
+        padding: 20px;
+    }
 }

@@ -1,13 +1,11 @@
-type Leaders = {
+export type Leaders = {
     id: number;
     name: string;
     points: number;
     avatar: string;
 }
 
-type LeaderboardPage = {
+export type LeaderboardState = {
     activeItem: string;
     leaders: Leaders[];
 }
-
-export { LeaderboardPage, Leaders };

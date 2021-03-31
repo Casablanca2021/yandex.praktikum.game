@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
 import { Button } from 'semantic-ui-react';
-import { t } from 'common/dictionary';
+import { t } from 'common';
 import './Home.css';
 
-class Home extends PureComponent {
+export class Home extends PureComponent {
   render() : JSX.Element {
     return (
       <div className="home">
@@ -25,5 +25,3 @@ class Home extends PureComponent {
     );
   }
 }
-
-export default Home;

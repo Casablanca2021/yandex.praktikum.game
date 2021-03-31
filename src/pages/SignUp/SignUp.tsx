@@ -1,14 +1,19 @@
 import React, { FC, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Button, Container, Form, Header, InputOnChangeData, Message } from 'semantic-ui-react';
-import { t } from 'common/dictionary';
-import { validateEmail, validateLoginAndPassword, validateName, validatePhone } from 'utils/validateUtils';
-import { ROUTES } from 'common/consts';
+import {
+  Button, Container, Form, Header, InputOnChangeData, Message,
+} from 'semantic-ui-react';
+import { t, ROUTES } from 'common';
+import {
+  validateEmail, validateLoginAndPassword, validateName, validatePhone,
+} from 'utils';
 import { Auth } from 'api/auth';
 import { Fields, FieldErrors } from './types';
 import './SignUp.css';
 
-export const SignUp: FC = () => {
+type ChangeEvent = React.ChangeEvent<HTMLInputElement>
+
+const SignUp: FC = () => {
   const [fields, setFields] = useState<Fields>({
     first_name: '',
     second_name: '',
@@ -23,8 +28,8 @@ export const SignUp: FC = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const history = useHistory();
 
-  const handleChange = (_event: React.ChangeEvent<HTMLInputElement>, { name, value }: InputOnChangeData): void =>
-    setFields((prevState) => ({ ...prevState, [name]: value }));
+  const handleChange = (_event: ChangeEvent, { name, value }: InputOnChangeData)
+  : void => setFields((prevState) => ({ ...prevState, [name]: value }));
 
   const handleBlur = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = event.target;
@@ -56,11 +61,15 @@ export const SignUp: FC = () => {
           ...prevState,
           [name]: validatePhone(value),
         }));
+        break;
+      default:
+        break;
     }
   };
 
   const handleSubmit = (event: React.SyntheticEvent): void => {
     event.preventDefault();
+    // eslint-disable-next-line camelcase
     const { password_confirm, ...data } = fields;
     Auth.signUp(data)
       .then(() => history.push(ROUTES.ROOT))
@@ -123,6 +132,7 @@ export const SignUp: FC = () => {
           error={errors.phone}
         />
         <Form.Input
+          autoComplete="true"
           name="password"
           value={fields.password}
           type="password"
@@ -133,6 +143,7 @@ export const SignUp: FC = () => {
           error={errors.password}
         />
         <Form.Input
+          autoComplete="true"
           name="password_confirm"
           value={fields.password_confirm}
           type="password"
@@ -158,3 +169,5 @@ export const SignUp: FC = () => {
     </Container>
   );
 };
+
+export default SignUp;

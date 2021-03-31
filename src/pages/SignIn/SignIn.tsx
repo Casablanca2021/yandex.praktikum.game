@@ -1,12 +1,15 @@
 import React, { FC, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Button, Container, Form, Header, InputOnChangeData, Message } from 'semantic-ui-react';
-import { t } from 'common/dictionary';
-import { validateLoginAndPassword } from 'utils/validateUtils';
-import { ROUTES } from 'common/consts';
+import {
+  Button, Container, Form, Header, InputOnChangeData, Message,
+} from 'semantic-ui-react';
+import { t, ROUTES } from 'common';
+import { validateLoginAndPassword } from 'utils';
 import { Auth } from 'api/auth';
 import { Fields, FieldErrors } from './types';
 import './SignIn.css';
+
+type ChangeEvent = React.ChangeEvent<HTMLInputElement>;
 
 export const SignIn: FC = () => {
   const [fields, setFields] = useState<Fields>({
@@ -18,8 +21,8 @@ export const SignIn: FC = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const history = useHistory();
 
-  const handleChange = (_event: React.ChangeEvent<HTMLInputElement>, { name, value }: InputOnChangeData): void =>
-    setFields((prevState) => ({ ...prevState, [name]: value }));
+  const handleChange = (_event: ChangeEvent, { name, value }: InputOnChangeData)
+  : void => setFields((prevState) => ({ ...prevState, [name]: value }));
 
   const handleBlur = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = event.target;
