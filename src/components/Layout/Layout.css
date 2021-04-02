@@ -6,13 +6,13 @@
   &__app-name {
     font-size: 3em;
     color: #ffffff;
-    padding: 5px 10px;
-    border-radius: 10px;
+    padding: 4px 8px;
+    border-radius: 8px;
     display: inline-block;
     line-height: 1;
     background-color: black;
     font-weight: 700;
-    margin-bottom: 13px;
+    margin-bottom: 12px;
     text-transform: uppercase;
     position: relative;
     &:hover {
