@@ -45,7 +45,6 @@ const forumItems: ForumItems = [
     categoryId: 'cat-3',
   },
 ];
-let activeItems: ForumItems = [];
 
 const categories: CategoryItems = [
   {
@@ -70,17 +69,15 @@ const Forum: FC = () => {
     categoryItem.active = categoryItem.path === location.pathname;
   }
 
-  if (category) {
-    activeItems = forumItems.filter((item) => category === item.categoryId)
-  } else {
-    activeItems = forumItems;
+  for (let item of forumItems) {
+    item.active = category === item.categoryId;
   }
 
   return (
     <Layout title={t('forumTitle')}>
       {t('categories') + ':'}
       <LabelList items={categories} />
-      <ForumList items={activeItems} />
+      <ForumList items={forumItems} />
     </Layout>
   );
 };

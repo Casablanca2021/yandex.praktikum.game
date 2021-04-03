@@ -5,6 +5,7 @@ export type Item = {
   createdBy: string,
   date: string,
   category: string,
+  active?: boolean,
 };
 
 export type Items = Item[];
