@@ -17,6 +17,7 @@ const ForumList: FC<OwnProps> = (props) => {
 
     <Table.Body>
       {props.items.map((item, key) => {
+
         return <Table.Row key = {key}>
           <Table.Cell><Link to={ROUTES.FORUM_VIEW.replace(':id', item.id.toString())}>{item.name}</Link></Table.Cell>
           <Table.Cell>{item.answersCount} answers</Table.Cell>
