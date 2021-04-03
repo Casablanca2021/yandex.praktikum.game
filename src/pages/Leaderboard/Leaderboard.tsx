@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import { LeaderboardPage, Leaders, LeaderboardServices } from 'pages/Leaderboard';
 import {
   List,
   Menu,
@@ -7,6 +6,8 @@ import {
   Image,
   Label,
 } from 'semantic-ui-react';
+import { LeaderboardState, Leaders } from './types';
+import { LeaderboardServices } from './LeaderboardServices';
 import './Leaderboard.css';
 
 type ItemClickEvent = React.MouseEvent<HTMLAnchorElement, MouseEvent>;
@@ -14,7 +15,7 @@ type Props = {
 
 }
 
-class Leaderboard extends PureComponent<Props, Partial<LeaderboardPage>> {
+export class Leaderboard extends PureComponent<Props, Partial<LeaderboardState>> {
   services = new LeaderboardServices();
 
   constructor(props = {}) {
@@ -47,7 +48,7 @@ class Leaderboard extends PureComponent<Props, Partial<LeaderboardPage>> {
   render() : JSX.Element {
     const { activeItem, leaders } = this.state;
     return (
-      <div>
+      <div className="leaderboard__top">
         <div className="leaderboard__top-bar">
           <Menu color="blue" inverted widths={3}>
             <Menu.Item
@@ -90,5 +91,3 @@ class Leaderboard extends PureComponent<Props, Partial<LeaderboardPage>> {
     );
   }
 }
-
-export default Leaderboard;

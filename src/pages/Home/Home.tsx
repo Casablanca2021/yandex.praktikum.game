@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react';
 import { Button } from 'semantic-ui-react';
-import { t } from 'common/dictionary';
+import { t } from 'common';
 import './Home.css';
 import Layout from 'components/Layout';
 
-class Home extends PureComponent {
+export class Home extends PureComponent {
   render() : JSX.Element {
     return (
       <Layout className="home" transparent={true}>
@@ -13,5 +13,3 @@ class Home extends PureComponent {
     );
   }
 }
-
-export default Home;

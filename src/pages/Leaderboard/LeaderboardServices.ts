@@ -1,6 +1,6 @@
 import { Leaders } from 'pages/Leaderboard';
 
-class LeaderboardServices {
+export class LeaderboardServices {
  getLeaderboard = async (perion : 'This week' | 'All time' | 'Last week') : Promise<Leaders[]> => {
    const avatar = 'https://image.flaticon.com/icons/png/512/147/147144.png';
 
@@ -49,5 +49,3 @@ class LeaderboardServices {
    }
  }
 }
-
-export default LeaderboardServices;

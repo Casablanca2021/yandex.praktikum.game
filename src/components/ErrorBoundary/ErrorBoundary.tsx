@@ -1,7 +1,9 @@
 import { ROUTES } from 'common/consts';
 import { t } from 'common/dictionary';
 import React, { Component, ErrorInfo } from 'react';
-import { Button, Header, Icon, Segment } from 'semantic-ui-react';
+import {
+  Button, Header, Icon, Segment,
+} from 'semantic-ui-react';
 import './ErrorBoundary.css';
 
 type ErrorState = {
@@ -16,11 +18,11 @@ export class ErrorBoundary extends Component<unknown, ErrorState> {
     this.state = {};
   }
 
-  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) : void {
     this.setState({ error, errorInfo });
   }
 
-  render() {
+  render() : React.ReactNode {
     const { error, errorInfo } = this.state;
     const { children } = this.props;
 

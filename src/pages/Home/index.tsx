@@ -1,3 +1,1 @@
-import Home from 'pages/Home/Home';
-
-export default Home;
+export { Home } from './Home';
