@@ -6,6 +6,7 @@ import { Leaderboard } from 'pages/Leaderboard';
 import { Home } from 'pages/Home';
 import { SignIn } from 'pages/SignIn';
 import { SignUp } from 'pages/SignUp';
+import { Game } from 'pages/Game';
 import './App.css';
 import Forum from "pages/Forum";
 import ForumView from "pages/ForumView";
@@ -20,6 +21,7 @@ export const App: FC = () => (
     <Route path={ROUTES.PROFILE} component={Profile} />
     <Route path={ROUTES.HOME} component={Home} />
     <Route path={ROUTES.LEADERBOARD} component={Leaderboard} />
+    <Route path={ROUTES.GAME} component={Game} />
     <Route path={ROUTES.ROOT}>
       <h1>App component</h1>
     </Route>
