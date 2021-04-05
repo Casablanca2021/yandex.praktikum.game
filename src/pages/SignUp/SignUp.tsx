@@ -10,6 +10,7 @@ import {
 import { Auth } from 'api/auth';
 import { Fields, FieldErrors } from './types';
 import './SignUp.css';
+import Layout from 'components/Layout';
 
 type ChangeEvent = React.ChangeEvent<HTMLInputElement>
 
@@ -80,6 +81,7 @@ const SignUp: FC = () => {
   };
 
   return (
+    <Layout transparent={true} verticalAlign={true}>
     <Container className="sign">
       <Header as="h1" textAlign="center">
         {t('signupTitle')}
@@ -159,14 +161,15 @@ const SignUp: FC = () => {
           </Message>
         )}
 
-        <Button type="submit" color="blue" fluid>
-          {t('signupButton')}
-        </Button>
-        <div className="sign__link">
-          <a href="/signin">{t('signinTitle')}</a>
-        </div>
-      </Form>
-    </Container>
+          <Button type="submit" color="blue" fluid>
+            {t('signupButton')}
+          </Button>
+          <div className="sign__link">
+            <a href={ROUTES.SIGNIN}>{t('signinTitle')}</a>
+          </div>
+        </Form>
+      </Container>
+    </Layout>
   );
 };
 

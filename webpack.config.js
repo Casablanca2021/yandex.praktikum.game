@@ -8,6 +8,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'app-[hash].js',
+    publicPath: '/', // иначе relative path использует для загрузки ассетов
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],

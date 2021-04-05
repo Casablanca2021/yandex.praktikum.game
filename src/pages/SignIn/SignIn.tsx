@@ -8,6 +8,7 @@ import { validateLoginAndPassword } from 'utils';
 import { Auth } from 'api/auth';
 import { Fields, FieldErrors } from './types';
 import './SignIn.css';
+import Layout from 'components/Layout';
 
 type ChangeEvent = React.ChangeEvent<HTMLInputElement>;
 
@@ -48,6 +49,7 @@ export const SignIn: FC = () => {
   };
 
   return (
+    <Layout transparent={true} verticalAlign={true}>
     <Container className="sign">
       <Header as="h1" textAlign="center">
         {t('signinTitle')}
@@ -86,5 +88,6 @@ export const SignIn: FC = () => {
         </div>
       </Form>
     </Container>
+    </Layout>
   );
 };

@@ -1,0 +1,18 @@
+.ui.menu {
+  &.main-menu {
+    background: #1678c2;
+  }
+  & .item.main-menu__item {
+    font-weight: 700;
+    color: #ffffff;
+    &.active {
+      color: #ffffff;
+      font-weight: 700;
+    }
+  }
+}
+
+.ui.menu .main_transparent {
+  background-color: transparent;
+  box-shadow: none;
+}
