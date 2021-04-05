@@ -1,0 +1,39 @@
+.game{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color:#fff7e6;
+
+    canvas {
+        position: absolute;
+    }
+    
+    .game__road {
+        z-index: 0;
+        box-shadow: 0 0 10px 5px rgba(0,0,0.9);
+    }
+    
+    .game__car { z-index: 1; }
+    
+    .game__form{
+        padding: 15px;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        top: -210px;
+        opacity: 0;
+        z-index: 2;
+        background: white;
+        width: 800px;
+        height: 200px;
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.8);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}

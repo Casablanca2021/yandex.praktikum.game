@@ -25,6 +25,11 @@ const dictionary = {
   changesSaved: 'Изменения сохранены',
   requiredFields: 'Заполните обязательные поля',
   avatarChanged: 'Аватар изменен',
+  level: 'Уровень',
+  closeMessage: 'Вы действительно хотите завершить игру?',
+  ok: 'Да',
+  canсel: 'Отмена',
+  quitGame: 'Завершение игры',
 };
 
 export const t = (key: keyof typeof dictionary): string => dictionary[key];

@@ -8,6 +8,7 @@ export enum ROUTES {
   PROFILE = '/profile',
   HOME = '/home',
   LEADERBOARD = '/leaderboard',
+  GAME = '/game',
 }
 
 export const baseUrl = 'https://ya-praktikum.tech/api/v2';
