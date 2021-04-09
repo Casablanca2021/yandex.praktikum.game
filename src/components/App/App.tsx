@@ -8,8 +8,8 @@ import { SignIn } from 'pages/SignIn';
 import { SignUp } from 'pages/SignUp';
 import { Game } from 'pages/Game';
 import './App.css';
-import Forum from "pages/Forum";
-import ForumView from "pages/ForumView";
+import Forum from 'pages/Forum';
+import ForumView from 'pages/ForumView';
 
 export const App: FC = () => (
   <Switch>
