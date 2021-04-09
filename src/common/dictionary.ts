@@ -29,6 +29,7 @@ const dictionary = {
   closeMessage: 'Вы действительно хотите завершить игру?',
   ok: 'Да',
   canсel: 'Отмена',
+  exit: 'Выйти',
   quitGame: 'Завершение игры',
 };
 

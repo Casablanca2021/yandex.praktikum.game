@@ -7,7 +7,7 @@ export const animate = (timing: Timing, draw: Draw, duration: number, sign: Sign
 
   requestAnimationFrame(function animateFn(time) {
     let timeFraction = (time - start) / duration;
-    
+
     if (timeFraction > 1) {
       timeFraction = 1;
     }

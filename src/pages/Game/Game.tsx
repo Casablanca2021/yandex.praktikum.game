@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
-import { animate } from 'utils';
 import { t } from 'common';
 import { ModalWindow } from 'components/ModalWindow';
-import { Road, Car } from './types';
+import { GameProcess } from 'core';
+import { Button } from 'semantic-ui-react';
 import './Game.css';
 
 type Props = {
@@ -10,100 +10,46 @@ type Props = {
 }
 
 export class Game extends PureComponent<Props, { modalStatus: boolean }> {
-  canvasWidth = 500;
+  canvasWidth = 800;
+
+  canvasHeight = window.innerHeight;
 
   canvasRoad = React.createRef<HTMLCanvasElement>();
 
-  canvasCar = React.createRef<HTMLCanvasElement>();
-
-  requestAnimationId = 0;
-
-  height = window.innerHeight;
-
-  road: Road;
-
-  car: Car;
-
-  last = 0;
-
-  fps: number = 1000 / 120;
+  gameProcess?: GameProcess;
 
   constructor(props = {}) {
     super(props);
-    this.road = new Road(this.canvasWidth, this.height);
-    this.car = new Car(this.canvasWidth, this.height);
     this.state = {
       modalStatus: false,
     };
   }
 
   componentDidMount(): void {
-    this.initGame();
-    window.addEventListener('keyup', this.exit);
+    const canvasRoad = this.canvasRoad?.current as HTMLCanvasElement;
+    this.gameProcess = new GameProcess(this.canvasWidth, this.canvasHeight, canvasRoad);
+    this.gameProcess.initGame();
+    window.addEventListener('keyup', this.handleKeyUp);
   }
 
-  componentWillUnmount() {
-    window.removeEventListener('keyup', this.exit);
+  componentWillUnmount(): void {
+    window.removeEventListener('keyup', this.handleKeyUp);
   }
 
-  exit = (key : KeyboardEvent) => {
-    if (key.code === 'Escape') {
-      this.stopGame();
-      this.setState({
-        modalStatus: true,
-      });
+  handleKeyUp = (event: KeyboardEvent) : void => {
+    if (event.code === 'Escape') {
+      this.exit();
     }
   }
 
-  private update(now: number): void {
-    const delay = now - this.last;
-    if (delay > this.fps) {
-      this.last = now;
-      this.road.draw();
-      this.car.draw();
-    }
-    this.requestAnimationId = requestAnimationFrame(this.update.bind(this));
+  exit = (): void => {
+    this.gameProcess?.stopGame();
+    this.setState({
+      modalStatus: true,
+    });
   }
 
-  startGame(): void {
-    this.last = performance.now();
-    this.update(performance.now());
-  }
-
-  stopGame(): void {
-    cancelAnimationFrame(this.requestAnimationId);
-  }
-
-  initGame(): void {
-    const ctxRoad = this.canvasRoad.current?.getContext('2d') as CanvasRenderingContext2D;
-    const ctxCar = this.canvasCar.current?.getContext('2d') as CanvasRenderingContext2D;
-    this.road.init(ctxRoad);
-    this.car.init(ctxCar);
-    this.startGame();
-    const el = document.getElementById('form');
-    setTimeout(() => {
-      animate((timing) => timing,
-        (progressOne) => {
-          el?.style.setProperty('top', `${progressOne * 50}%`);
-          el?.style.setProperty('opacity', `${progressOne}`);
-          if (progressOne === 1) {
-            setTimeout(() => {
-              animate((timing) => timing,
-                (progressTwo) => {
-                  el?.style.setProperty('top', `${50 + progressTwo * 50}%`);
-                  el?.style.setProperty('opacity', `${1 - progressTwo}`);
-                  if (progressTwo === 1) {
-                    el?.style.setProperty('display', 'none');
-                    this.car.toUp.bind(this.car)();
-                  }
-                }, 500);
-            }, 2000);
-          }
-        }, 1500);
-    }, 1000);
-  }
-
-  renderModalWindow() :JSX.Element {
+  renderModalWindow(): JSX.Element {
     const { modalStatus } = this.state;
     return ModalWindow(modalStatus,
       t('quitGame'),
@@ -112,7 +58,7 @@ export class Game extends PureComponent<Props, { modalStatus: boolean }> {
         this.setState({
           modalStatus: false,
         });
-        this.startGame();
+        this.gameProcess?.startGame();
       }, () => {
         console.log('Конец');
       }, t('ok'), t('canсel'));
@@ -126,8 +72,15 @@ export class Game extends PureComponent<Props, { modalStatus: boolean }> {
         <div id="form" className="game__form">
           <h1>{`${t('level')} 1`}</h1>
         </div>
-        <canvas className="game__road" id="road" ref={this.canvasRoad} width={this.canvasWidth} height={this.height} />
-        <canvas className="game__car" id="car" ref={this.canvasCar} width={this.canvasWidth} height={this.height} />
+        <div className="game__left-bar" />
+        <div className="game__center-bar">
+          <canvas className="game__road" id="road" ref={this.canvasRoad} width={this.canvasWidth} height={this.canvasHeight} />
+        </div>
+        <div className="game__right-bar">
+          <div className="game__top-bar">
+            <Button color="blue" onClick={this.exit}>{t('exit')}</Button>
+          </div>
+        </div>
       </div>
     );
   }
