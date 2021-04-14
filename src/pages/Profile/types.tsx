@@ -1,11 +1,5 @@
-import { UserInfoResponse } from 'api/types';
+import { UserInfo } from 'api/types';
+type ErrorFields = keyof Omit<Profile, 'avatar'>;
 
-export type ProfileValidations = Record<keyof UserInfoResponse, boolean>;
-
-export type Notification = { message: string, color:'red'|'green' }
-
-export type ProfileForm = {
-    profile: Partial<UserInfoResponse>;
-    errors: Partial<ProfileValidations>;
-    notification: Notification | null;
-  };
+export type Profile = Partial<Omit<UserInfo, 'id' | 'password'>>;
+export type ProfileErrors = Partial<Record<ErrorFields, boolean>>;
