@@ -31,6 +31,8 @@ const dictionary = {
   canсel: 'Отмена',
   exit: 'Выйти',
   quitGame: 'Завершение игры',
+  fullScreen: 'На весь экран',
+  normalScreen: 'Обычный экран',
 };
 
 export const t = (key: keyof typeof dictionary): string => dictionary[key];
