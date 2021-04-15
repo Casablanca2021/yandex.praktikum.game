@@ -1,15 +1,23 @@
 import React, { PureComponent } from 'react';
-import { t } from 'common';
 import { ModalWindow } from 'components/ModalWindow';
 import { GameProcess } from 'core';
 import { Button } from 'semantic-ui-react';
+import { t } from 'common';
+import b_ from 'b_';
 import './Game.css';
 
 type Props = {
 
 }
 
-export class Game extends PureComponent<Props, { modalStatus: boolean }> {
+type State = {
+  fullscreenMode: boolean;
+  modalStatus: boolean;
+}
+
+const b = b_.with('game');
+
+export class Game extends PureComponent<Props, State> {
   canvasWidth = 800;
 
   canvasHeight = window.innerHeight;
@@ -21,6 +29,7 @@ export class Game extends PureComponent<Props, { modalStatus: boolean }> {
   constructor(props = {}) {
     super(props);
     this.state = {
+      fullscreenMode: false,
       modalStatus: false,
     };
   }
@@ -36,7 +45,7 @@ export class Game extends PureComponent<Props, { modalStatus: boolean }> {
     window.removeEventListener('keyup', this.handleKeyUp);
   }
 
-  handleKeyUp = (event: KeyboardEvent) : void => {
+  handleKeyUp = (event: KeyboardEvent): void => {
     if (event.code === 'Escape') {
       this.exit();
     }
@@ -47,6 +56,20 @@ export class Game extends PureComponent<Props, { modalStatus: boolean }> {
     this.setState({
       modalStatus: true,
     });
+  }
+
+  toggleFullScreen = (): void => {
+    if (!document.fullscreenElement) {
+      this.setState({
+        fullscreenMode: true,
+      });
+      document.documentElement.requestFullscreen();
+    } else if (document.exitFullscreen) {
+      this.setState({
+        fullscreenMode: false,
+      });
+      document.exitFullscreen();
+    }
   }
 
   renderModalWindow(): JSX.Element {
@@ -65,20 +88,22 @@ export class Game extends PureComponent<Props, { modalStatus: boolean }> {
   }
 
   render(): JSX.Element {
+    const { fullscreenMode } = this.state;
     const modal = this.renderModalWindow();
     return (
-      <div className="game">
+      <div className={b()}>
         {modal}
-        <div id="form" className="game__form">
+        <div id="form" className={b('form')}>
           <h1>{`${t('level')} 1`}</h1>
         </div>
-        <div className="game__left-bar" />
-        <div className="game__center-bar">
-          <canvas className="game__road" id="road" ref={this.canvasRoad} width={this.canvasWidth} height={this.canvasHeight} />
+        <div className={b('column', { position: 'left' })} />
+        <div className={b('column', { position: 'center' })}>
+          <canvas className={b('road')} id="road" ref={this.canvasRoad} width={this.canvasWidth} height={this.canvasHeight} />
         </div>
-        <div className="game__right-bar">
-          <div className="game__top-bar">
-            <Button color="blue" onClick={this.exit}>{t('exit')}</Button>
+        <div className={b('column', { position: 'right' })}>
+          <div className={b('bar', { position: 'top' })}>
+            <Button color="blue" onClick={this.toggleFullScreen}>{t(fullscreenMode ? 'normalScreen' : 'fullScreen')}</Button>
+            <Button color="red" onClick={this.exit}>{t('exit')}</Button>
           </div>
         </div>
       </div>

@@ -9,33 +9,36 @@
 
     canvas {
         position: absolute;
+        height: 100vh
     }
 
-    .game__top-bar{
+
+    .game__bar_position_top{
         display: flex;
         height: 40px;
         width: 100%;
-        flex-direction: column;
+        flex-direction: row;
         justify-content: flex-end;
-        align-items: flex-end;
     }
 
-    .game__center-bar{
+    .game__column{
         height: 100vh;
+    }
+
+    .game__column_position_left{
+        padding: 10px;
+        flex: 1;
+    }
+
+    .game__column_position_center{
         width: 800px;
     }
 
-    .game__left-bar{
+    .game__column_position_right{
         padding: 10px;
-        height: 100vh;
         flex: 1;
     }
 
-    .game__right-bar{
-        padding: 10px;
-        height: 100vh;
-        flex: 1;
-    }
 
     .game__road {
         z-index: 0;
