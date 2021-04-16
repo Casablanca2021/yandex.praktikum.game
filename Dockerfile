@@ -9,8 +9,7 @@ COPY . /var/www
 
 WORKDIR /var/www
 
-RUN apk add --update python make g++ && \
-    rm -rf /var/cache/apk/* && \
+RUN apk add --no-cache python3 py3-pip && \
     apk add --update npm --no-cache && \
     npm install && \
     npm run build
