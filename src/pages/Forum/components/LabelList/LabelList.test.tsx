@@ -1,11 +1,11 @@
-import * as React from 'react';
-import * as renderer from 'react-test-renderer';
+import { ConnectedRouter } from 'connected-react-router';
 import LabelList from 'pages/Forum/components/LabelList/index';
 import { Items } from 'pages/Forum/components/LabelList/types';
+import * as React from 'react';
 import { Provider } from 'react-redux';
+import * as renderer from 'react-test-renderer';
 import store from 'store';
 import history from 'store/history';
-import { ConnectedRouter } from 'connected-react-router';
 
 describe(`LabelList Component`, () => {
   it(`renders correctly with some items`, () => {
@@ -26,7 +26,7 @@ describe(`LabelList Component`, () => {
           <ConnectedRouter history={history}>
             <LabelList items={items} />
           </ConnectedRouter>
-        </Provider>,
+        </Provider>
       )
       .toJSON();
 
@@ -50,11 +50,13 @@ describe(`LabelList Component`, () => {
     ];
 
     const tree = renderer
-      .create(<Provider store={store}>
-        <ConnectedRouter history={history}>
-          <LabelList items={items} />
-        </ConnectedRouter>
-      </Provider>)
+      .create(
+        <Provider store={store}>
+          <ConnectedRouter history={history}>
+            <LabelList items={items} />
+          </ConnectedRouter>
+        </Provider>
+      )
       .toJSON();
 
     expect(tree).toMatchSnapshot();
