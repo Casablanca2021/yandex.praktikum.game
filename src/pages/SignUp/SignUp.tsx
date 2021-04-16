@@ -1,6 +1,9 @@
 import './SignUp.css';
 
 import { InputChangeEvent, ROUTES, t } from 'common';
+import { useThunkAction } from 'common/hooks/actionHooks';
+import { useAuth } from 'common/hooks/authHook';
+import { useStringField } from 'common/hooks/formHooks';
 import Layout from 'components/Layout';
 import React, { FC, memo, useState } from 'react';
 import { Button, Container, Form, Header } from 'semantic-ui-react';
@@ -8,10 +11,10 @@ import { signUpAction } from 'store/actions/auth';
 import { setNotificationError, validateEmail, validateLoginAndPassword, validateName, validatePhone } from 'utils';
 
 import { FieldErrors } from './types';
-import { useThunkAction } from 'common/hooks/actionHooks';
-import { useStringField } from 'common/hooks/formHooks';
 
 const SignUp: FC = memo(() => {
+  useAuth();
+
   const [first_name, handleChangeFirstName] = useStringField('');
   const [second_name, handleChangeSecondName] = useStringField('');
   const [login, handleChangeLogin] = useStringField('');

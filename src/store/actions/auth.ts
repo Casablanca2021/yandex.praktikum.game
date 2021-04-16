@@ -4,7 +4,7 @@ import { push } from 'connected-react-router';
 import { AppThunkAction } from '../types';
 import { ROUTES } from 'common/consts';
 import { setNotificationError } from 'utils/notifications';
-import { getUserAction } from './user';
+import { clearUserInfo, getUserAction } from './user';
 import { LOG_OUT, SET_AUTH, SIGN_IN, SIGN_UP } from 'store/consts';
 
 export const setAuth = (payload: boolean) => ({ type: SET_AUTH, payload });
@@ -42,6 +42,7 @@ export const logOutAction = (): AppThunkAction<string> => async (dispatch) => {
     await Auth.logOut();
 
     dispatch(setAuth(false));
+    dispatch(clearUserInfo());
     dispatch(push(ROUTES.SIGNIN));
   } catch (error) {
     setNotificationError(error);

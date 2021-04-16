@@ -10,6 +10,8 @@ import { setAuth } from './auth';
 
 const setUserInfo = (payload: UserInfoResponse) => ({ type: SET_USER_INFO, payload });
 
+export const clearUserInfo = () => ({ type: SET_USER_INFO, payload: {} as UserInfoResponse });
+
 export const getUserAction = (): AppThunkAction<string> => async (dispatch) => {
   dispatch({ type: GET_USER });
 

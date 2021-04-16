@@ -1,6 +1,7 @@
 import './App.css';
 
 import { ROUTES } from 'common/consts';
+import Root from 'components/Root';
 import Forum from 'pages/Forum';
 import ForumView from 'pages/ForumView';
 import { Game } from 'pages/Game';
@@ -16,7 +17,7 @@ import { Route, Switch } from 'react-router-dom';
 export const App: FC = () => (
   <>
     <Switch>
-      <Route path={ROUTES.ROOT} exact component={SignIn} />
+      <Route path={ROUTES.ROOT} exact component={Root} />
       <Route path={ROUTES.SIGNIN} component={SignIn} />
       <Route path={ROUTES.SIGNUP} component={SignUp} />
       <Route path={ROUTES.FORUM_BY_CATEGORY} component={Forum} exact />

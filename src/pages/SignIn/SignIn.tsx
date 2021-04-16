@@ -1,6 +1,9 @@
 import './SignIn.css';
 
 import { InputChangeEvent, t } from 'common';
+import { useThunkAction } from 'common/hooks/actionHooks';
+import { useAuth } from 'common/hooks/authHook';
+import { useStringField } from 'common/hooks/formHooks';
 import Layout from 'components/Layout';
 import React, { FC, memo, useState } from 'react';
 import { Button, Container, Form, Header } from 'semantic-ui-react';
@@ -8,10 +11,10 @@ import { signInAction } from 'store/actions/auth';
 import { validateLoginAndPassword } from 'utils';
 
 import { FieldErrors } from './types';
-import { useStringField } from 'common/hooks/formHooks';
-import { useThunkAction } from 'common/hooks/actionHooks';
 
 const SignIn: FC = memo(() => {
+  useAuth();
+
   const [login, handleChangeLogin] = useStringField('');
   const [password, handleChangePassword] = useStringField('');
 

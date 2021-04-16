@@ -1,25 +1,27 @@
 import './Profile.css';
 
 import { InputChangeEvent, t } from 'common';
-
+import { useThunkAction } from 'common/hooks/actionHooks';
+import { useAuth } from 'common/hooks/authHook';
 import Layout from 'components/Layout';
 import React, { FC, memo, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Button, Form, Image } from 'semantic-ui-react';
 import { changeAvatarAction, changeUserInfoAction } from 'store/actions/user';
-import { AppState } from 'store/types';
+import { getUserSelector } from 'store/selectors';
 import { validateEmail, validateLoginAndPassword, validateName, validatePhone } from 'utils';
 
 import { Profile, ProfileErrors } from './types';
-import { useThunkAction } from 'common/hooks/actionHooks';
 
 const Profile: FC = memo(() => {
+  useAuth();
+
   const [profile, setProfile] = useState<Profile>({});
   const [errors, setErrors] = useState<ProfileErrors>({});
 
   const fileInput = useRef<HTMLInputElement>(null);
 
-  const profileState = useSelector((state: AppState) => state.user);
+  const profileState = useSelector(getUserSelector);
 
   const changeUserInfo = useThunkAction(changeUserInfoAction);
   const changeAvatar = useThunkAction(changeAvatarAction);
@@ -28,7 +30,9 @@ const Profile: FC = memo(() => {
     setProfile({ ...profileState });
   }, [profileState]);
 
-  const handleSaveProfile = (): void => changeUserInfo(profile);
+  const handleSaveProfile = (): void => {
+    changeUserInfo(profile);
+  };
 
   const handleUserInput = (event: InputChangeEvent): void => {
     const { id, value } = event.target;
