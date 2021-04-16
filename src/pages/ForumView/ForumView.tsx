@@ -1,9 +1,12 @@
 import { t } from 'common/dictionary';
+import { useAuth } from 'common/hooks/authHook';
 import Layout from 'components/Layout';
 import React, { FC } from 'react';
 import { Button, Comment, Form, Label } from 'semantic-ui-react';
 
 const ForumList: FC = () => {
+  useAuth();
+
   const question = {
     createdBy: 'Jack',
     date: '21.01.2020',
