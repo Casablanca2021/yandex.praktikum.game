@@ -1,7 +1,7 @@
 # Casablanca Race 🏁 
 > Игра в стиле гонки
 
-https://casandra-race.herokuapp.com/
+https://casablanca-racing.herokuapp.com/
 
 ## Установка и запуск
 
