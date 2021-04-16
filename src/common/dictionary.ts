@@ -1,5 +1,5 @@
 const dictionary = {
-  to_begin: 'Начать',
+  to_begin: 'Играть',
   first_name: 'Имя',
   second_name: 'Фамилия',
   display_name: 'Ник',
@@ -21,6 +21,7 @@ const dictionary = {
   saveButton: 'Сохранить',
   cancelButton: 'Отмена',
   homeTitle: 'Главная',
+  profileTitle: 'Профиль',
   error: 'Ошибка',
   changesSaved: 'Изменения сохранены',
   requiredFields: 'Заполните обязательные поля',
@@ -33,6 +34,7 @@ const dictionary = {
   quitGame: 'Завершение игры',
   fullScreen: 'На весь экран',
   normalScreen: 'Обычный экран',
+  passwordsNotMatch: 'Пароли не совпадают',
 };
 
 export const t = (key: keyof typeof dictionary): string => dictionary[key];

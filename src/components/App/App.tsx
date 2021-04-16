@@ -1,29 +1,32 @@
-import React, { FC } from 'react';
-import { Switch, Route } from 'react-router-dom';
-import { ROUTES } from 'common/consts';
-import { Profile } from 'pages/Profile';
-import { Leaderboard } from 'pages/Leaderboard';
-import { Home } from 'pages/Home';
-import { SignIn } from 'pages/SignIn';
-import { SignUp } from 'pages/SignUp';
-import { Game } from 'pages/Game';
 import './App.css';
+
+import { ROUTES } from 'common/consts';
 import Forum from 'pages/Forum';
 import ForumView from 'pages/ForumView';
+import { Game } from 'pages/Game';
+import Home from 'pages/Home';
+import { Leaderboard } from 'pages/Leaderboard';
+import Profile from 'pages/Profile';
+import SignIn from 'pages/SignIn';
+import SignUp from 'pages/SignUp';
+import React, { FC } from 'react';
+import { NotificationContainer } from 'react-notifications';
+import { Route, Switch } from 'react-router-dom';
 
 export const App: FC = () => (
-  <Switch>
-    <Route path={ROUTES.SIGNIN} component={SignIn} />
-    <Route path={ROUTES.SIGNUP} component={SignUp} />
-    <Route path={ROUTES.FORUM_BY_CATEGORY} component={Forum} exact />
-    <Route path={ROUTES.FORUM_VIEW} component={ForumView} exact />
-    <Route path={ROUTES.FORUM} component={Forum} />
-    <Route path={ROUTES.PROFILE} component={Profile} />
-    <Route path={ROUTES.HOME} component={Home} />
-    <Route path={ROUTES.LEADERBOARD} component={Leaderboard} />
-    <Route path={ROUTES.GAME} component={Game} />
-    <Route path={ROUTES.ROOT}>
-      <h1>App component</h1>
-    </Route>
-  </Switch>
+  <>
+    <Switch>
+      <Route path={ROUTES.ROOT} exact component={SignIn} />
+      <Route path={ROUTES.SIGNIN} component={SignIn} />
+      <Route path={ROUTES.SIGNUP} component={SignUp} />
+      <Route path={ROUTES.FORUM_BY_CATEGORY} component={Forum} exact />
+      <Route path={ROUTES.FORUM_VIEW} component={ForumView} exact />
+      <Route path={ROUTES.FORUM} component={Forum} />
+      <Route path={ROUTES.PROFILE} component={Profile} />
+      <Route path={ROUTES.HOME} component={Home} />
+      <Route path={ROUTES.LEADERBOARD} component={Leaderboard} />
+      <Route path={ROUTES.GAME} component={Game} />
+    </Switch>
+    <NotificationContainer />
+  </>
 );

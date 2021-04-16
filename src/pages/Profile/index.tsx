@@ -1,3 +1,3 @@
-export { User } from 'api/user';
-export { Profile } from './Profile';
-export { ProfileForm, Notification } from './types';
+export { default } from './Profile';
+export * from './types';
+export * from 'api/user';

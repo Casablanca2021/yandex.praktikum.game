@@ -1,9 +1,10 @@
-import React, { FC } from 'react';
-import Layout from 'components/Layout';
 import { t } from 'common/dictionary';
 import ForumList from 'components/ForumList';
+import Layout from 'components/Layout';
 import LabelList from 'pages/Forum/components/LabelList/LabelList';
+import React, { FC } from 'react';
 import { useLocation, useParams } from 'react-router';
+
 import { Items as CategoryItems } from './components/LabelList/types';
 import { ForumItems } from './types';
 
@@ -57,25 +58,25 @@ const categories: CategoryItems = [
   },
   {
     name: 'Cat 3',
-    path: '/forum/category/cat-3'
+    path: '/forum/category/cat-3',
   },
 ];
 
 const Forum: FC = () => {
   const location = useLocation();
-  const { category } = useParams<{category: string}>();
+  const { category } = useParams<{ category: string }>();
 
-  for (let categoryItem of categories) {
+  for (const categoryItem of categories) {
     categoryItem.active = categoryItem.path === location.pathname;
   }
 
-  for (let item of forumItems) {
+  for (const item of forumItems) {
     item.active = category === item.categoryId;
   }
 
   return (
     <Layout title={t('forumTitle')}>
-      {t('categories') + ':'}
+      {`${t('categories')}:`}
       <LabelList items={categories} />
       <ForumList items={forumItems} />
     </Layout>

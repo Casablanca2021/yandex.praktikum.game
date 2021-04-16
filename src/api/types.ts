@@ -9,7 +9,7 @@ export type SignUpResponse = {
 
 export type SignInResponse = string;
 
-export type UserInfoResponse = {
+export type UserInfo = {
   id: number;
   // eslint-disable-next-line camelcase
   first_name: string;
@@ -20,9 +20,12 @@ export type UserInfoResponse = {
   login: string;
   email: string;
   phone: string;
+  password: string;
   avatar: string;
 };
 
-export type SignUpData = Omit<UserInfoResponse, 'display_name' | 'avatar' | 'id'>
+export type UserInfoResponse = Omit<UserInfo, 'password'>;
+
+export type SignUpData = Omit<UserInfo, 'display_name' | 'avatar' | 'id'>;
 
 export type LogOutResponse = string;

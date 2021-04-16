@@ -1,31 +1,25 @@
-import React, { FC, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import {
-  Button, Container, Form, Header, InputOnChangeData, Message,
-} from 'semantic-ui-react';
-import { t, ROUTES } from 'common';
-import { validateLoginAndPassword } from 'utils';
-import { Auth } from 'api/auth';
-import { Fields, FieldErrors } from './types';
 import './SignIn.css';
+
+import { InputChangeEvent, t } from 'common';
 import Layout from 'components/Layout';
+import React, { FC, memo, useState } from 'react';
+import { Button, Container, Form, Header } from 'semantic-ui-react';
+import { signInAction } from 'store/actions/auth';
+import { validateLoginAndPassword } from 'utils';
 
-type ChangeEvent = React.ChangeEvent<HTMLInputElement>;
+import { FieldErrors } from './types';
+import { useStringField } from 'common/hooks/formHooks';
+import { useThunkAction } from 'common/hooks/actionHooks';
 
-export const SignIn: FC = () => {
-  const [fields, setFields] = useState<Fields>({
-    login: '',
-    password: '',
-  });
+const SignIn: FC = memo(() => {
+  const [login, handleChangeLogin] = useStringField('');
+  const [password, handleChangePassword] = useStringField('');
 
   const [errors, setErrors] = useState<Partial<FieldErrors>>({});
-  const [errorMessage, setErrorMessage] = useState('');
-  const history = useHistory();
 
-  const handleChange = (_event: ChangeEvent, { name, value }: InputOnChangeData)
-  : void => setFields((prevState) => ({ ...prevState, [name]: value }));
+  const signIn = useThunkAction(signInAction);
 
-  const handleBlur = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleBlur = (event: InputChangeEvent): void => {
     const { name, value } = event.target;
 
     setErrors((prevState) => ({
@@ -34,60 +28,46 @@ export const SignIn: FC = () => {
     }));
   };
 
-  const handleSubmit = (event: React.SyntheticEvent): void => {
-    event.preventDefault();
-    const data = {
-      ...fields,
-    };
-
-    Auth.signIn(data)
-      .then(() => history.push(ROUTES.ROOT))
-      .catch((error) => {
-        console.log(error);
-        setErrorMessage(error.message);
-      });
+  const handleSubmit = (): void => {
+    signIn({ login, password });
   };
 
   return (
-    <Layout transparent={true} verticalAlign={true}>
-    <Container className="sign">
-      <Header as="h1" textAlign="center">
-        {t('signinTitle')}
-      </Header>
-      <Form onSubmit={handleSubmit}>
-        <Form.Input
-          name="login"
-          value={fields.login}
-          label={t('login')}
-          placeholder={t('login')}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={errors.login}
-        />
-        <Form.Input
-          name="password"
-          value={fields.password}
-          type="password"
-          label={t('password')}
-          placeholder={t('password')}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={errors.password}
-        />
-        {errorMessage && (
-          <Message negative>
-            <Message.Header className="sign__error">{errorMessage}</Message.Header>
-          </Message>
-        )}
-
-        <Button type="submit" color="blue" fluid>
-          {t('signinButton')}
-        </Button>
-        <div className="sign__link">
-          <a href="/signup">{t('signupButton')}</a>
-        </div>
-      </Form>
-    </Container>
+    <Layout transparent verticalAlign>
+      <Container className="sign">
+        <Header as="h1" textAlign="center">
+          {t('signinTitle')}
+        </Header>
+        <Form onSubmit={handleSubmit}>
+          <Form.Input
+            name="login"
+            value={login}
+            label={t('login')}
+            placeholder={t('login')}
+            onChange={handleChangeLogin}
+            onBlur={handleBlur}
+            error={errors.login}
+          />
+          <Form.Input
+            name="password"
+            value={password}
+            type="password"
+            label={t('password')}
+            placeholder={t('password')}
+            onChange={handleChangePassword}
+            onBlur={handleBlur}
+            error={errors.password}
+          />
+          <Button type="submit" color="blue" fluid>
+            {t('signinButton')}
+          </Button>
+          <div className="sign__link">
+            <a href="/signup">{t('signupButton')}</a>
+          </div>
+        </Form>
+      </Container>
     </Layout>
   );
-};
+});
+
+export default SignIn;

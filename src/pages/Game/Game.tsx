@@ -6,14 +6,12 @@ import { t } from 'common';
 import b_ from 'b_';
 import './Game.css';
 
-type Props = {
-
-}
+type Props = {};
 
 type State = {
   fullscreenMode: boolean;
   modalStatus: boolean;
-}
+};
 
 const b = b_.with('game');
 
@@ -49,14 +47,14 @@ export class Game extends PureComponent<Props, State> {
     if (event.code === 'Escape') {
       this.exit();
     }
-  }
+  };
 
   exit = (): void => {
     this.gameProcess?.stopGame();
     this.setState({
       modalStatus: true,
     });
-  }
+  };
 
   toggleFullScreen = (): void => {
     if (!document.fullscreenElement) {
@@ -70,11 +68,12 @@ export class Game extends PureComponent<Props, State> {
       });
       document.exitFullscreen();
     }
-  }
+  };
 
   renderModalWindow(): JSX.Element {
     const { modalStatus } = this.state;
-    return ModalWindow(modalStatus,
+    return ModalWindow(
+      modalStatus,
       t('quitGame'),
       t('closeMessage'),
       () => {
@@ -82,9 +81,13 @@ export class Game extends PureComponent<Props, State> {
           modalStatus: false,
         });
         this.gameProcess?.startGame();
-      }, () => {
+      },
+      () => {
         console.log('Конец');
-      }, t('ok'), t('canсel'));
+      },
+      t('ok'),
+      t('canсel')
+    );
   }
 
   render(): JSX.Element {
@@ -102,8 +105,12 @@ export class Game extends PureComponent<Props, State> {
         </div>
         <div className={b('column', { position: 'right' })}>
           <div className={b('bar', { position: 'top' })}>
-            <Button color="blue" onClick={this.toggleFullScreen}>{t(fullscreenMode ? 'normalScreen' : 'fullScreen')}</Button>
-            <Button color="red" onClick={this.exit}>{t('exit')}</Button>
+            <Button color="blue" onClick={this.toggleFullScreen}>
+              {t(fullscreenMode ? 'normalScreen' : 'fullScreen')}
+            </Button>
+            <Button color="red" onClick={this.exit}>
+              {t('exit')}
+            </Button>
           </div>
         </div>
       </div>

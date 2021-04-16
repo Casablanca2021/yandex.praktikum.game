@@ -1,5 +1,4 @@
 .layout {
-  padding: 50px;
   min-height: 100vh;
   display: flex;
 
@@ -15,25 +14,23 @@
     margin-bottom: 12px;
     text-transform: uppercase;
     position: relative;
+
     &:hover {
-     color: #ffffff;
-     opacity: 0.8;
+      color: #ffffff;
+      opacity: 0.8;
     }
   }
 
   &__app-name-wrapper {
-   text-align: center;
+    margin-top: 50px;
+    text-align: center;
   }
 
   &__app-name[data-highlightword]:before {
-   content: attr(data-highlightword);
-   color: red;
-   position: absolute;
-   text-shadow: 0 0 5px #000000;
-  }
-
-  &__main {
-   margin-top: 20px;
+    content: attr(data-highlightword);
+    color: red;
+    position: absolute;
+    text-shadow: 0 0 5px #000000;
   }
 
   .ui.layout__container {
@@ -41,7 +38,6 @@
       display: flex;
       flex-direction: column;
       .layout__main {
-        margin-bottom: 170px;
         flex-grow: 1;
         display: flex;
         align-items: center;
@@ -59,7 +55,7 @@ h1.ui.header.layout__header {
 }
 
 .main {
-  background-color: #ECECEC;
+  background-color: #ececec;
   border-radius: 4px;
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
   padding: 15px;

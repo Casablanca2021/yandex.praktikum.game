@@ -1,38 +1,30 @@
-import React, { FC, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import {
-  Button, Container, Form, Header, InputOnChangeData, Message,
-} from 'semantic-ui-react';
-import { t, ROUTES } from 'common';
-import {
-  validateEmail, validateLoginAndPassword, validateName, validatePhone,
-} from 'utils';
-import { Auth } from 'api/auth';
-import { Fields, FieldErrors } from './types';
 import './SignUp.css';
+
+import { InputChangeEvent, ROUTES, t } from 'common';
 import Layout from 'components/Layout';
+import React, { FC, memo, useState } from 'react';
+import { Button, Container, Form, Header } from 'semantic-ui-react';
+import { signUpAction } from 'store/actions/auth';
+import { setNotificationError, validateEmail, validateLoginAndPassword, validateName, validatePhone } from 'utils';
 
-type ChangeEvent = React.ChangeEvent<HTMLInputElement>
+import { FieldErrors } from './types';
+import { useThunkAction } from 'common/hooks/actionHooks';
+import { useStringField } from 'common/hooks/formHooks';
 
-const SignUp: FC = () => {
-  const [fields, setFields] = useState<Fields>({
-    first_name: '',
-    second_name: '',
-    login: '',
-    email: '',
-    phone: '',
-    password: '',
-    password_confirm: '',
-  });
+const SignUp: FC = memo(() => {
+  const [first_name, handleChangeFirstName] = useStringField('');
+  const [second_name, handleChangeSecondName] = useStringField('');
+  const [login, handleChangeLogin] = useStringField('');
+  const [email, handleChangeEmail] = useStringField('');
+  const [phone, handleChangePhone] = useStringField('');
+  const [password, handleChangePassword] = useStringField('');
+  const [password_confirm, handleChangePasswordConfirm] = useStringField('');
 
   const [errors, setErrors] = useState<Partial<FieldErrors>>({});
-  const [errorMessage, setErrorMessage] = useState('');
-  const history = useHistory();
 
-  const handleChange = (_event: ChangeEvent, { name, value }: InputOnChangeData)
-  : void => setFields((prevState) => ({ ...prevState, [name]: value }));
+  const signUp = useThunkAction(signUpAction);
 
-  const handleBlur = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleBlur = (event: InputChangeEvent): void => {
     const { name, value } = event.target;
 
     switch (name) {
@@ -68,98 +60,89 @@ const SignUp: FC = () => {
     }
   };
 
-  const handleSubmit = (event: React.SyntheticEvent): void => {
-    event.preventDefault();
-    // eslint-disable-next-line camelcase
-    const { password_confirm, ...data } = fields;
-    Auth.signUp(data)
-      .then(() => history.push(ROUTES.ROOT))
-      .catch((error) => {
-        console.log(error);
-        setErrorMessage(error.message);
-      });
+  const handleSubmit = (): void => {
+    if (password !== password_confirm) {
+      setNotificationError({ message: t('passwordsNotMatch') } as Error);
+    } else {
+      signUp({ first_name, second_name, login, email, phone, password });
+    }
   };
 
   return (
-    <Layout transparent={true} verticalAlign={true}>
-    <Container className="sign">
-      <Header as="h1" textAlign="center">
-        {t('signupTitle')}
-      </Header>
-      <Form onSubmit={handleSubmit}>
-        <Form.Input
-          name="first_name"
-          value={fields.first_name}
-          label={t('first_name')}
-          placeholder={t('first_name')}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={errors.first_name}
-        />
-        <Form.Input
-          name="second_name"
-          value={fields.second_name}
-          label={t('second_name')}
-          placeholder={t('second_name')}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={errors.second_name}
-        />
-        <Form.Input
-          name="login"
-          value={fields.login}
-          label={t('login')}
-          placeholder={t('login')}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={errors.login}
-        />
-        <Form.Input
-          name="email"
-          value={fields.email}
-          type="email"
-          label={t('email')}
-          placeholder={t('email')}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={errors.email}
-        />
-        <Form.Input
-          name="phone"
-          value={fields.phone}
-          label={t('phone')}
-          placeholder={t('phone')}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={errors.phone}
-        />
-        <Form.Input
-          autoComplete="true"
-          name="password"
-          value={fields.password}
-          type="password"
-          label={t('password')}
-          placeholder={t('password')}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={errors.password}
-        />
-        <Form.Input
-          autoComplete="true"
-          name="password_confirm"
-          value={fields.password_confirm}
-          type="password"
-          label={t('password_confirm')}
-          placeholder={t('password_confirm')}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={errors.password_confirm}
-        />
-        {errorMessage && (
-          <Message negative>
-            <Message.Header className="sign__error">{errorMessage}</Message.Header>
-          </Message>
-        )}
+    <Layout transparent verticalAlign>
+      <Container className="sign">
+        <Header as="h1" textAlign="center">
+          {t('signupTitle')}
+        </Header>
+        <Form onSubmit={handleSubmit}>
+          <Form.Input
+            name="first_name"
+            value={first_name}
+            label={t('first_name')}
+            placeholder={t('first_name')}
+            onChange={handleChangeFirstName}
+            onBlur={handleBlur}
+            error={errors.first_name}
+          />
+          <Form.Input
+            name="second_name"
+            value={second_name}
+            label={t('second_name')}
+            placeholder={t('second_name')}
+            onChange={handleChangeSecondName}
+            onBlur={handleBlur}
+            error={errors.second_name}
+          />
+          <Form.Input
+            name="login"
+            value={login}
+            label={t('login')}
+            placeholder={t('login')}
+            onChange={handleChangeLogin}
+            onBlur={handleBlur}
+            error={errors.login}
+          />
+          <Form.Input
+            name="email"
+            value={email}
+            type="email"
+            label={t('email')}
+            placeholder={t('email')}
+            onChange={handleChangeEmail}
+            onBlur={handleBlur}
+            error={errors.email}
+          />
+          <Form.Input
+            name="phone"
+            value={phone}
+            label={t('phone')}
+            placeholder={t('phone')}
+            onChange={handleChangePhone}
+            onBlur={handleBlur}
+            error={errors.phone}
+          />
+          <Form.Input
+            autoComplete="true"
+            name="password"
+            value={password}
+            type="password"
+            label={t('password')}
+            placeholder={t('password')}
+            onChange={handleChangePassword}
+            onBlur={handleBlur}
+            error={errors.password}
+          />
+          <Form.Input
+            autoComplete="true"
+            name="password_confirm"
+            value={password_confirm}
+            type="password"
+            label={t('password_confirm')}
+            placeholder={t('password_confirm')}
+            onChange={handleChangePasswordConfirm}
+            onBlur={handleBlur}
+            error={errors.password_confirm}
+          />
 
           <Button type="submit" color="blue" fluid>
             {t('signupButton')}
@@ -171,6 +154,6 @@ const SignUp: FC = () => {
       </Container>
     </Layout>
   );
-};
+});
 
 export default SignUp;
