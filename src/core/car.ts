@@ -1,16 +1,18 @@
-import car from 'assets/car.png';
 import { animate } from 'utils';
 
-type Range = {
-  min: number,
-  max: number
-}
+export type Range = {
+  min: number;
+  max: number;
+};
 
 export class Car {
-  // Разаменр автомобиля
-  private carHeight = 140;
+  private speed;
 
-  private carWidth = 100;
+  private scale;
+
+  private animateId = 0;
+
+  private userCar: boolean;
 
   // Координаты расположения автомобиля
   private y = 0;
@@ -18,83 +20,110 @@ export class Car {
   private x = 0;
 
   // Максимальные значения для перемещения автомобиля
-  private rangeX : Range;
+  private rangeX: Range;
 
-  private rangeY : Range;
+  private rangeY: Range;
 
   // Сам автомобиль (фотография)
   private image = new Image();
 
-  constructor(rangeX: Range, rangeY: Range) {
+  constructor(rangeX: Range, rangeY: Range, x: number, y: number, speed: number, car: string, scale: number, userCar = false) {
     this.image.src = car;
     this.rangeY = rangeY;
     this.rangeX = rangeX;
-    this.x = this.rangeX.min;
-    this.y = this.rangeY.max;
+    this.x = x;
+    this.y = y;
+    this.speed = speed;
+    this.userCar = userCar;
+    this.scale = scale;
   }
 
-  get getImage() : HTMLImageElement {
+  get getImage(): HTMLImageElement {
     return this.image;
   }
 
-  get getX() : number {
+  get getX(): number {
     return this.x;
   }
 
-  get getY() : number {
+  get getY(): number {
     return this.y;
   }
 
-  get getCarHeight() : number {
-    return this.carHeight;
+  get getCarHeight(): number {
+    return this.image.height * this.scale;
   }
 
-  get getCarWidth() : number {
-    return this.carWidth;
+  get getCarWidth(): number {
+    return this.image.width * this.scale;
   }
 
   // Изменеие положения автомобиля по оси X
-  private setX = (value: number): void => {
+  private setX = (value: number, animateId: number): void => {
+    this.animateId = animateId;
+
     let x = this.x + value;
     if (x < this.rangeX.min) {
       x = this.rangeX.min;
-    }
-
-    if (x > this.rangeX.max - this.carWidth) {
-      x = this.rangeX.max - this.carWidth;
+    } else if (x > this.rangeX.max - this.getCarWidth) {
+      x = this.rangeX.max - this.getCarWidth;
     }
 
     this.x = x;
-  }
+  };
 
   // Изменеие положения автомобиля по оси Y
-  private setY = (value: number): void => {
-    let y = this.y + value;
-    if (y < this.rangeY.min) {
-      y = this.rangeY.min;
-    }
+  private setY = (value: number, animateId: number): void => {
+    this.animateId = animateId;
 
-    if (y > this.rangeY.max - this.carHeight) {
-      y = this.rangeY.max - this.carHeight;
+    let y = this.y + value;
+
+    if (this.userCar) {
+      if (y < this.rangeY.min) {
+        y = this.rangeY.min;
+      } else if (y > this.rangeY.max - this.getCarHeight) {
+        y = this.rangeY.max - this.getCarHeight;
+      }
     }
 
     this.y = y;
-  }
+  };
+
+  // Cтолкновение
+  collide = (car: Car): boolean => {
+    let hit = false;
+    if (this.y < car.y + car.getCarHeight && this.y + this.getCarHeight > car.y) {
+      if (this.x + this.getCarWidth > car.x && this.x < car.x + car.getCarWidth) {
+        hit = true;
+      }
+    }
+    return hit;
+  };
+
+  duration = 300;
 
   // Методы для перемещения автомобиля
   toLeft = (): void => {
-    animate((time: number) => time + 6, this.setX, 300, -1);
-  }
+    cancelAnimationFrame(this.animateId);
+    animate((time: number) => time + this.speed, this.setX, this.duration, -1);
+  };
 
   toRight = (): void => {
-    animate((time: number) => time + 6, this.setX, 300, 1);
-  }
+    cancelAnimationFrame(this.animateId);
+    animate((time: number) => time + this.speed, this.setX, this.duration, 1);
+  };
 
   toUp = (): void => {
-    animate((time: number) => time + 6, this.setY, 300, -1);
-  }
+    cancelAnimationFrame(this.animateId);
+    animate((time: number) => time + this.speed, this.setY, this.duration, -1);
+  };
 
   toDown = (): void => {
-    animate((time: number) => time + 6, this.setY, 300, 1);
-  }
+    cancelAnimationFrame(this.animateId);
+    animate((time: number) => time + this.speed, this.setY, this.duration, 1);
+  };
+
+  cancelAction = (): void => {
+    cancelAnimationFrame(this.animateId);
+  };
 }

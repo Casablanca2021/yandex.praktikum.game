@@ -1,5 +1,7 @@
-import { Car } from './car';
+import { Car, Range } from './car';
 import { Road } from './road';
 import { GameProcess } from './gameProcess';
 
-export { Car, Road, GameProcess };
+export {
+  Car, Road, GameProcess, Range,
+};
