@@ -11,6 +11,19 @@ import history from 'store/history';
 import { App } from './components/App';
 import { ErrorBoundary } from './components/ErrorBoundary';
 
+const startServiceWorker = () => {
+  if (window.navigator && 'serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .catch((err) => {
+          console.error(err);
+        });
+    });
+  }
+};
+
+startServiceWorker();
+
 ReactDom.render(
   <ErrorBoundary>
     <Provider store={store}>
