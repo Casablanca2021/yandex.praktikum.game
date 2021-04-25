@@ -1,4 +1,4 @@
-# Casablanca Race 🏁 
+# Casablanca Racing 🏁 
 > Игра в стиле гонки
 
 https://casablanca-racing.herokuapp.com/
