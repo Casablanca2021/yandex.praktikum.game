@@ -13,6 +13,7 @@ module.exports = merge(common, {
         options: {
           configFile: 'tsconfig.json',
         },
+        exclude: /\.test.tsx?$/,
       },
     ],
   },

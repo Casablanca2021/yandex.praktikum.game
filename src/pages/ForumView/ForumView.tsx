@@ -33,14 +33,14 @@ const ForumList: FC = () => {
   return (
     <Layout title={t('question')}>
       <h3>
-        Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на
+        Lorem Ipsum - это текст-&quot;рыба&quot;, часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной &quot;рыбой&quot; для текстов на
         латинице с начала XVI века?
       </h3>
       <Label>{question.date}</Label> by
       {question.createdBy}
       <Comment.Group>
         {question.answers.map((item, key) => (
-          <Comment key={key}>
+          <Comment key={key + 'k'}>
             <Comment.Avatar src={item.authorImage} />
             <Comment.Content>
               <Comment.Author as="a">{item.createdBy}</Comment.Author>

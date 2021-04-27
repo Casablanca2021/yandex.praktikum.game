@@ -1,10 +1,11 @@
-import React, { PureComponent } from 'react';
+import './Game.css';
+
+import b_ from 'b_';
+import { t } from 'common';
 import { ModalWindow } from 'components/ModalWindow';
 import { GameProcess } from 'core';
+import React, { PureComponent } from 'react';
 import { Button } from 'semantic-ui-react';
-import { t } from 'common';
-import b_ from 'b_';
-import './Game.css';
 
 type Props = {};
 

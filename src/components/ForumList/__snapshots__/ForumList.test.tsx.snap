@@ -1,0 +1,107 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ForumList Component renders correctly 1`] = `
+<table
+  className="ui celled table"
+>
+  <thead
+    className=""
+  >
+    <tr
+      className=""
+    >
+      <th
+        className=""
+      >
+        Вопрос
+      </th>
+      <th
+        className=""
+      />
+      <th
+        className=""
+      />
+    </tr>
+  </thead>
+  <tbody
+    className=""
+  >
+    <tr
+      className=""
+    >
+      <td
+        className=""
+      >
+        <a
+          href="/forum/1"
+          onClick={[Function]}
+        >
+          TEST
+        </a>
+      </td>
+      <td
+        className=""
+      >
+        5
+         answers
+      </td>
+      <td
+        className=""
+      >
+         
+        <strong>
+          cat 1
+        </strong>
+         
+        <br />
+         by 
+        <strong>
+          me
+        </strong>
+         
+        <br />
+         
+        21.03.2015
+      </td>
+    </tr>
+    <tr
+      className=""
+    >
+      <td
+        className=""
+      >
+        <a
+          href="/forum/2"
+          onClick={[Function]}
+        >
+          TEST 3
+        </a>
+      </td>
+      <td
+        className=""
+      >
+        15
+         answers
+      </td>
+      <td
+        className=""
+      >
+         
+        <strong>
+          cat 3
+        </strong>
+         
+        <br />
+         by 
+        <strong>
+          Arnold
+        </strong>
+         
+        <br />
+         
+        21.01.2011
+      </td>
+    </tr>
+  </tbody>
+</table>
+`;

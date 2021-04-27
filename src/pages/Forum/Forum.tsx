@@ -71,6 +71,10 @@ const Forum: FC = () => {
   }
 
   for (const item of forumItems) {
+    if (category === undefined) {
+      item.active = category === item.categoryId;
+      continue;
+    }
     item.active = category === item.categoryId;
   }
 

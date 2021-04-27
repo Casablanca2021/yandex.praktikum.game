@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MainMenu Component 'Forum' tab active when uri is /forum 1`] = `
+<div
+  className="ui main-menu layout__main-menu menu"
+>
+  <a
+    className="item main-menu__item"
+    onClick={[Function]}
+  >
+    Главная
+  </a>
+  <a
+    className="item main-menu__item"
+    onClick={[Function]}
+  >
+    Профиль
+  </a>
+  <a
+    className="active item main-menu__item"
+    onClick={[Function]}
+  >
+    Форум
+  </a>
+  <div
+    className="right menu"
+  >
+    <a
+      className="item main-menu__item"
+      onClick={[Function]}
+    >
+      Войти
+    </a>
+    <a
+      className="item main-menu__item"
+      onClick={[Function]}
+    >
+      Зарегистрироваться
+    </a>
+  </div>
+</div>
+`;
+
+exports[`MainMenu Component 'Home' tab active when uri is /home 1`] = `
+<div
+  className="ui main-menu layout__main-menu menu"
+>
+  <a
+    className="active item main-menu__item"
+    onClick={[Function]}
+  >
+    Главная
+  </a>
+  <a
+    className="item main-menu__item"
+    onClick={[Function]}
+  >
+    Профиль
+  </a>
+  <a
+    className="item main-menu__item"
+    onClick={[Function]}
+  >
+    Форум
+  </a>
+  <div
+    className="right menu"
+  >
+    <a
+      className="item main-menu__item"
+      onClick={[Function]}
+    >
+      Войти
+    </a>
+    <a
+      className="item main-menu__item"
+      onClick={[Function]}
+    >
+      Зарегистрироваться
+    </a>
+  </div>
+</div>
+`;
