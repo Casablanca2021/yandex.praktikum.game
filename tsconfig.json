@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
     "lib": ["dom", "es2017"],
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "noImplicitThis": true,
-    "module": "esnext",
+    "module": "commonjs",
     "moduleResolution": "node",
     "target": "es5",
     "jsx": "react",
@@ -21,8 +21,8 @@
     "paths": {
       "*": ["./src/*"]
     },
-    "typeRoots": ["typings/**/*.d.ts", "node_modules/@types"]
+    "typeRoots": ["typings/**/*.d.ts", "node_modules/@types", "./@types/**/*.d.ts"]
   },
-  "include": ["src", "typings/**/*.d.ts", "./node_modules/@types"],
+  "include": ["src", "typings/**/*.d.ts", "./node_modules/@types", "./@types/**/*.d.ts"],
   "exclude": ["**/*.js"]
 }
