@@ -29,12 +29,15 @@ const dictionary = {
   level: 'Уровень',
   closeMessage: 'Вы действительно хотите завершить игру?',
   ok: 'Да',
-  canсel: 'Отмена',
+  cancel: 'Отмена',
   exit: 'Выйти',
   quitGame: 'Завершение игры',
   fullScreen: 'На весь экран',
   normalScreen: 'Обычный экран',
   passwordsNotMatch: 'Пароли не совпадают',
+  restart: 'Запустить снова',
+  gameOverScore: 'Ваш счет:',
+  gameOver: 'Игра окончена!',
 };
 
 export const t = (key: keyof typeof dictionary): string => dictionary[key];

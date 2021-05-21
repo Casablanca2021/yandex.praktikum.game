@@ -29,3 +29,15 @@ export type UserInfoResponse = Omit<UserInfo, 'password'>;
 export type SignUpData = Omit<UserInfo, 'display_name' | 'avatar' | 'id'>;
 
 export type LogOutResponse = string;
+
+export type LeaderboardResponseItem = {
+  data: {
+    // eslint-disable-next-line camelcase
+    casablanca_score: number;
+    level: number;
+    login?: string;
+    avatar?: string;
+  };
+};
+
+export type LeaderboardResponse = [LeaderboardResponseItem] | [];

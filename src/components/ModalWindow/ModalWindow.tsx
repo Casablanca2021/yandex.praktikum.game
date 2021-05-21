@@ -7,10 +7,10 @@ export const ModalWindow = (
   status: boolean,
   title: string,
   text: string,
-  onCancel: btnClick,
+  onCancel: btnClick | undefined,
   onOk: btnClick,
   saveButton: string,
-  cancelButton: string
+  cancelButton?: string
 ): JSX.Element => (
   <Modal open={status}>
     <Header icon="archive" content={title} />
@@ -18,9 +18,11 @@ export const ModalWindow = (
       <p>{text}</p>
     </Modal.Content>
     <Modal.Actions>
-      <Button onClick={onCancel} color="grey">
-        <Icon name="remove" /> {cancelButton}
-      </Button>
+      {cancelButton !== undefined && onCancel !== undefined && (
+        <Button onClick={onCancel} color="grey">
+          <Icon name="remove" /> {cancelButton}
+        </Button>
+      )}
       <Button color="blue" onClick={onOk}>
         <Icon name="checkmark" /> {saveButton}
       </Button>

@@ -1,64 +1,54 @@
 import './Leaderboard.css';
 
+import { LeaderboardResponseItem } from 'api/types';
 import React, { PureComponent } from 'react';
-import { Image, Label, List, Menu, MenuItemProps } from 'semantic-ui-react';
+import { Image, Label, List, Menu } from 'semantic-ui-react';
 
 import { LeaderboardServices } from './LeaderboardServices';
-import { LeaderboardState, Leaders } from './types';
+import { LeaderboardState } from './types';
 
-type ItemClickEvent = React.MouseEvent<HTMLAnchorElement, MouseEvent>;
-type Props = {};
+type Props = Record<string, never>;
 
 export class Leaderboard extends PureComponent<Props, Partial<LeaderboardState>> {
   services = new LeaderboardServices();
 
   constructor(props = {}) {
     super(props);
-    this.state = {
-      activeItem: 'All time',
-    };
+    this.state = {};
   }
 
   componentDidMount(): void {
-    this.services.getLeaderboard('All time').then((leaders) => {
+    this.services.getLeaderboard().then((leaders) => {
       this.setState({
         leaders,
       });
     });
   }
 
-  handleItemClick = (e: ItemClickEvent, data: MenuItemProps): void => {
-    const name = (data.name as 'This week' | 'All time' | 'Last week') || 'This week';
-
-    this.services.getLeaderboard(name).then((leaders) => {
-      this.setState({
-        leaders,
-      });
-    });
-  };
-
   render(): JSX.Element {
-    const { activeItem, leaders } = this.state;
+    const { leaders } = this.state;
     return (
       <div className="leaderboard__top">
         <div className="leaderboard__top-bar">
           <Menu color="blue" inverted widths={3}>
-            <Menu.Item name="All time" active={activeItem === 'All time'} onClick={this.handleItemClick} />
-            <Menu.Item name="This week" active={activeItem === 'This week'} onClick={this.handleItemClick} />
-            <Menu.Item name="Last week" active={activeItem === 'Last week'} onClick={this.handleItemClick} />
+            <Menu.Item name="All time" />
           </Menu>
         </div>
         <div className="leaderboard__list">
           <List divided verticalAlign="middle">
-            {leaders?.map((leader: Leaders, index: number) => (
-              <List.Item key={leader.id}>
+            {leaders?.map((item: LeaderboardResponseItem, index: number) => (
+              <List.Item key={index}>
                 <Label color="blue">{index + 1}</Label>
-                <Image avatar src={leader.avatar} />
-                <List.Content>{leader.name}</List.Content>
+                <Image avatar src={item.data.avatar} />
+                <List.Content>{item.data.login}</List.Content>
                 <List.Content floated="right">
-                  <Label color="blue" as="a">
+                  <Label color="blue">
                     Очки
-                    <Label.Detail>{leader.points}</Label.Detail>
+                    <Label.Detail>{item.data.casablanca_score}</Label.Detail>
+                  </Label>
+                  <Label color="black">
+                    Уровень
+                    <Label.Detail>{item.data.level}</Label.Detail>
                   </Label>
                 </List.Content>
               </List.Item>
