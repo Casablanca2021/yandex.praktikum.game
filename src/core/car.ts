@@ -14,7 +14,7 @@ export class Car {
 
   private animateId = 0;
 
-  private userCar: boolean;
+  public userCar: boolean;
 
   // Координаты расположения автомобиля
   private y = 0;

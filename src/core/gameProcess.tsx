@@ -151,18 +151,22 @@ export class GameProcess {
     this.lastLevelIncreasedAt = now;
     this.setInfo(this.score, this.level);
 
-    this.cars[0].setPositionNoAnimation(this.rangeX.max / 2, this.rangeY.max);
+    // по полам что бы машинка по центру была
+    const centerCarPositionX = this.rangeX.max / 2;
+    this.cars[0].setPositionNoAnimation(centerCarPositionX, this.rangeY.max);
 
-    // Удаляем все машины
-    for (let i = 1; i < this.cars.length; i += 1) {
-      this.cars[i].cancelAction();
+    // Удаляем все машины, кроме машинки юзера
+    for (let i = 0; i < this.cars.length; i += 1) {
+      if (!this.cars[i].userCar) {
+        this.cars[i].cancelAction();
+      }
     }
 
     this.cars = [this.cars[0]];
     this.cars[0].toUp();
   };
 
-  // Каждые 2 секунды
+  // Каждые 2 секунд
   increaseScore(now: number): void {
     const delay = now - this.lastScoreIncreasedAt;
 
@@ -175,7 +179,7 @@ export class GameProcess {
     }
   }
 
-  // Каждые 20 секунды
+  // Каждые 20 секунд
   increaseLevel(now: number): void {
     const delay = now - this.lastLevelIncreasedAt;
 
