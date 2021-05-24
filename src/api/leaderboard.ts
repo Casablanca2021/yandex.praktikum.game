@@ -25,7 +25,7 @@ export const leaderboard = {
         data: {
           casablanca_score: score,
           level,
-          login: user.avatar,
+          login: user.login,
           avatar: user.avatar,
         },
         ratingFieldName: 'casablanca_score',
