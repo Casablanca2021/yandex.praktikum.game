@@ -44,7 +44,7 @@ describe(`Layout Component`, () => {
       .create(
         <Provider store={store}>
           <ConnectedRouter history={history}>
-            <Layout title="Title" transparent={true} className="class-name" verticalAlign={true}>
+            <Layout title="Title" transparent className="class-name" verticalAlign>
               <div>Hello world</div>
             </Layout>
           </ConnectedRouter>
