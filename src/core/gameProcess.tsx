@@ -110,6 +110,7 @@ export class GameProcess {
       }
     } else {
       // Перемещение автомобиля по оси Y
+      // eslint-disable-next-line no-lonely-if
       if (y < 0) {
         userCar.toUp();
       } else if (y > 0) {
@@ -189,7 +190,7 @@ export class GameProcess {
     this.cars[0].toUp();
   };
 
-  // Каждые 2 секунд
+  // Каждые 2 секунды
   increaseScore(now: number): void {
     const delay = now - this.lastScoreIncreasedAt;
 

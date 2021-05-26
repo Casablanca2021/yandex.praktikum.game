@@ -82,7 +82,8 @@ export class Game extends PureComponent<Props, State> {
     });
   }
 
-  addPointerLock = (canvasElem: HTMLCanvasElement) => {
+  addPointerLock = (canvasElem: HTMLCanvasElement): void => {
+    // eslint-disable-next-line no-param-reassign
     canvasElem.requestPointerLock =
       canvasElem.requestPointerLock || (canvasElem as Canvas).mozRequestPointerLock || (canvasElem as Canvas).webkitRequestPointerLock;
 
@@ -94,6 +95,7 @@ export class Game extends PureComponent<Props, State> {
       }
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     const debounceMouseHandler = debounce(this.gameProcess?.handleMouseMove ?? (() => {}), 10);
 
     const pointerLockCallback = () => {
@@ -101,6 +103,7 @@ export class Game extends PureComponent<Props, State> {
         'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
 
       if (!havePointerLock) {
+        // eslint-disable-next-line no-console
         console.warn('Ваш браузер не поддерживает Pointer Lock');
         return;
       }
