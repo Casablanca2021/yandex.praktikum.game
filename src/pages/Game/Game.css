@@ -13,7 +13,7 @@
     }
 
 
-    .game__bar_position_top{
+    &__bar_position_top{
         display: flex;
         height: 40px;
         width: 100%;
@@ -21,31 +21,31 @@
         justify-content: flex-end;
     }
 
-    .game__column{
+    &__column{
         height: 100vh;
     }
 
-    .game__column_position_left{
+    &__column_position_left{
         padding: 10px;
         flex: 1;
     }
 
-    .game__column_position_center{
+    &__column_position_center{
         width: 800px;
     }
 
-    .game__column_position_right{
+    &__column_position_right{
         padding: 10px;
         flex: 1;
     }
 
 
-    .game__road {
+    &__road {
         z-index: 0;
         box-shadow: 0 0 10px 5px rgba(0,0,0.9);
     }
 
-    .game__form{
+    &__alert {
         padding: 15px;
         position: absolute;
         left: 50%;
@@ -62,5 +62,22 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+    }
+
+    &__info {
+        padding-top: 8px;
+    }
+
+    &__info-item {
+        font-weight: bold;
+        font-size: 25px;
+        color: #2185d0;
+        padding: 4px 8px;
+        text-align: right;
+    }
+    
+    &__info-item_size_small {
+        font-size: 16px;
+        color: #000;
     }
 }

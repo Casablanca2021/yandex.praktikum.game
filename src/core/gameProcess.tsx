@@ -1,14 +1,18 @@
-import car from 'assets/car.png';
-import userCarcar from 'assets/usercar.png';
+import { leaderboard } from 'api/leaderboard';
+import { t } from 'common';
 import { Car, Range, Road } from 'core';
-import { animate, getRandomIntInclusive } from 'utils';
+import { getRandomIntInclusive, setNotificationError } from 'utils';
+
+type InformAlert = (text: string, hide?: boolean) => Promise<void> | undefined;
+type SetInfo = (score: number, level: number) => void;
+type RestartModal = () => void;
 
 export class GameProcess {
   private canvasRoad: HTMLCanvasElement;
 
-  private canvasWidth: number;
+  private readonly canvasWidth: number;
 
-  private canvasHeight: number;
+  private readonly canvasHeight: number;
 
   private requestAnimationId = 0;
 
@@ -16,11 +20,25 @@ export class GameProcess {
 
   private scale = 0.8;
 
+  private level = 1;
+
+  private paused = false;
+
+  private carSpeedOriginal = 5;
+
+  private carSpeed = this.carSpeedOriginal;
+
+  score = 0;
+
   road: Road;
 
   cars: Car[] = [];
 
-  last = 0;
+  lastFrameAt = 0;
+
+  lastScoreIncreasedAt = 0;
+
+  lastLevelIncreasedAt = 0;
 
   carGenerationInterval = 0;
 
@@ -31,7 +49,20 @@ export class GameProcess {
   // Кол-во кадров в секунду
   fps: number = 1000 / 120;
 
-  constructor(canvasWidth: number, canvasHeight: number, canvasRoad: HTMLCanvasElement) {
+  private informAlert: InformAlert;
+
+  private setInfo: SetInfo;
+
+  private restartModal: RestartModal;
+
+  constructor(
+    canvasWidth: number,
+    canvasHeight: number,
+    canvasRoad: HTMLCanvasElement,
+    informAlert: InformAlert,
+    setInfo: SetInfo,
+    restartModal: RestartModal
+  ) {
     this.canvasHeight = canvasHeight;
     this.canvasWidth = canvasWidth;
     this.canvasRoad = canvasRoad;
@@ -40,6 +71,10 @@ export class GameProcess {
 
     this.rangeX = { min: this.curb, max: this.canvasWidth - this.curb };
     this.rangeY = { min: 0, max: this.canvasHeight };
+
+    this.informAlert = informAlert;
+    this.setInfo = setInfo;
+    this.restartModal = restartModal;
   }
 
   handleKeyUp = (event: KeyboardEvent): void => {
@@ -75,6 +110,7 @@ export class GameProcess {
       }
     } else {
       // Перемещение автомобиля по оси Y
+      // eslint-disable-next-line no-lonely-if
       if (y < 0) {
         userCar.toUp();
       } else if (y > 0) {
@@ -86,10 +122,10 @@ export class GameProcess {
   // Генерация автомобилей
   generateCar = (now: number): void => {
     const delay = now - this.carGenerationInterval;
-    const speed = 5;
+    const speed = this.carSpeed;
 
     // Добавляем машину
-    if (delay > 1500) {
+    if (delay >= 1500) {
       this.cars.push(
         new Car(
           this.rangeX,
@@ -97,7 +133,6 @@ export class GameProcess {
           getRandomIntInclusive(this.rangeX.min, this.rangeX.max - this.curb),
           this.rangeY.min - this.curb,
           speed,
-          car,
           this.scale
         )
       );
@@ -108,8 +143,10 @@ export class GameProcess {
   // Старт игры
   startGame(): void {
     const now = performance.now();
-    this.last = now;
+    this.lastFrameAt = now;
     this.carGenerationInterval = now;
+    this.lastScoreIncreasedAt = now;
+    this.lastLevelIncreasedAt = now;
     this.update(now);
     window.addEventListener('keydown', this.handleKeyUp);
   }
@@ -120,13 +157,82 @@ export class GameProcess {
     window.removeEventListener('keydown', this.handleKeyUp);
   };
 
+  // Пауза
+  pauseGame(): void {
+    this.paused = true;
+  }
+
+  // Перезапуск
+  restartGame = (): void => {
+    const now = performance.now();
+    this.setLevel(1);
+    this.carSpeed = this.carSpeedOriginal;
+    this.score = 0;
+    this.paused = false;
+    this.lastFrameAt = now;
+    this.lastScoreIncreasedAt = now;
+    this.lastScoreIncreasedAt = now;
+    this.lastLevelIncreasedAt = now;
+    this.setInfo(this.score, this.level);
+
+    // по полам что бы машинка по центру была
+    const centerCarPositionX = this.rangeX.max / 2;
+    this.cars[0].setPositionNoAnimation(centerCarPositionX, this.rangeY.max);
+
+    // Удаляем все машины, кроме машинки юзера
+    for (let i = 0; i < this.cars.length; i += 1) {
+      if (!this.cars[i].userCar) {
+        this.cars[i].cancelAction();
+      }
+    }
+
+    this.cars = [this.cars[0]];
+    this.cars[0].toUp();
+  };
+
+  // Каждые 2 секунды
+  increaseScore(now: number): void {
+    const delay = now - this.lastScoreIncreasedAt;
+
+    if (delay >= 2000) {
+      this.score += 1;
+
+      this.lastScoreIncreasedAt = now;
+
+      this.setInfo(this.score, this.level);
+    }
+  }
+
+  // Каждые 20 секунд
+  increaseLevel(now: number): void {
+    const delay = now - this.lastLevelIncreasedAt;
+
+    if (delay >= 20000) {
+      this.setLevel(this.level + 1);
+      this.lastLevelIncreasedAt = now;
+
+      this.setInfo(this.score, this.level);
+      this.updateCarSpeed();
+    }
+  }
+
+  updateCarSpeed(): void {
+    const speedUp = 1;
+
+    this.carSpeed = this.carSpeedOriginal + speedUp * (this.level - 1);
+  }
+
   // Перерисовка экрана
   private update = (now: number): void => {
-    const delay = now - this.last;
-    if (delay > this.fps) {
-      this.generateCar(now);
-      this.draw();
-      this.last = now;
+    if (!this.paused) {
+      const delay = now - this.lastFrameAt;
+      if (delay > this.fps) {
+        this.generateCar(now);
+        this.increaseScore(now);
+        this.increaseLevel(now);
+        this.draw();
+        this.lastFrameAt = now;
+      }
     }
     this.requestAnimationId = requestAnimationFrame(this.update);
   };
@@ -180,7 +286,10 @@ export class GameProcess {
       // Перехватываем столкновения
       const value = this.cars[0].collide(this.cars[i]);
       if (value) {
-        alert('Game Over');
+        this.pauseGame();
+        this.saveScore().then(() => {
+          this.restartModal();
+        });
       }
 
       // Удаляем машину которая пропала из виду
@@ -195,43 +304,27 @@ export class GameProcess {
     this.cars = [];
 
     // Машина пользователя
-    const speed = 6;
-    this.cars.push(new Car(this.rangeX, this.rangeY, this.rangeX.max / 2, this.rangeY.max, speed, userCarcar, this.scale, true));
+    const speed = 2.5;
+    this.cars.push(new Car(this.rangeX, this.rangeY, this.rangeX.max / 2, this.rangeY.max, speed, this.scale, true));
 
     this.startGame();
-    const form = document.getElementById('form');
-
-    if (!form) {
-      return;
-    }
 
     // Показваем баннер в начале игры
-    form.style.setProperty('display', 'flex');
-    animate(
-      (timing) => timing,
-      (progressOne) => {
-        form.style.setProperty('top', `${progressOne * 50}%`);
-        form.style.setProperty('opacity', `${progressOne}`);
-        if (progressOne === 1) {
-          setTimeout(() => {
-            // Двигаем баннер вниз
-            animate(
-              (timing) => timing,
-              (progressTwo) => {
-                form.style.setProperty('top', `${50 + progressTwo * 50}%`);
-                form.style.setProperty('opacity', `${1 - progressTwo}`);
-                if (progressTwo === 1) {
-                  // Убираем баннер
-                  form.style.setProperty('display', 'none');
-                  this.cars[0].toUp();
-                }
-              },
-              500
-            );
-          }, 500);
-        }
-      },
-      1000
-    );
+    this.setLevel(this.level);
+
+    this.cars[0].toUp();
+  }
+
+  setLevel(level: number): void {
+    this.level = level;
+    this.informAlert(`${t('level')} ${level}`);
+  }
+
+  async saveScore(): Promise<void> {
+    try {
+      await leaderboard.save(this.score, this.level);
+    } catch (error) {
+      setNotificationError(error);
+    }
   }
 }

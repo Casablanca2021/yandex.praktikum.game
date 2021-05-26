@@ -1,3 +1,5 @@
+import carImage from 'assets/car.png';
+import userCarImage from 'assets/usercar.png';
 import { animate } from 'utils';
 
 export type Range = {
@@ -12,7 +14,7 @@ export class Car {
 
   private animateId = 0;
 
-  private userCar: boolean;
+  public userCar: boolean;
 
   // Координаты расположения автомобиля
   private y = 0;
@@ -27,8 +29,7 @@ export class Car {
   // Сам автомобиль (фотография)
   private image = new Image();
 
-  constructor(rangeX: Range, rangeY: Range, x: number, y: number, speed: number, car: string, scale: number, userCar = false) {
-    this.image.src = car;
+  constructor(rangeX: Range, rangeY: Range, x: number, y: number, speed: number, scale: number, userCar = false) {
     this.rangeY = rangeY;
     this.rangeX = rangeX;
     this.x = x;
@@ -36,6 +37,11 @@ export class Car {
     this.speed = speed;
     this.userCar = userCar;
     this.scale = scale;
+    this.image.src = carImage;
+
+    if (this.userCar) {
+      this.image.src = userCarImage;
+    }
   }
 
   get getImage(): HTMLImageElement {
@@ -88,6 +94,15 @@ export class Car {
 
     this.y = y;
   };
+
+  setPositionNoAnimation(x?: number, y?: number): void {
+    if (x !== undefined) {
+      this.x = x;
+    }
+    if (y !== undefined) {
+      this.y = y;
+    }
+  }
 
   // Cтолкновение
   collide = (car: Car): boolean => {
