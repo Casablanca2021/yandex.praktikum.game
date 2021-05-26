@@ -1,5 +1,4 @@
-import { createBrowserHistory } from 'history';
+import { createBrowserHistory, createMemoryHistory } from 'history';
+import isServer from 'utils/isServerEnvCheker';
 
-const history = createBrowserHistory();
-
-export default history;
+export default !isServer ? createBrowserHistory() : createMemoryHistory();
