@@ -60,6 +60,29 @@ export class GameProcess {
     }
   };
 
+  handleMouseMove = (event: MouseEvent): void => {
+    const userCar = this.cars[0];
+
+    const x = event.movementX;
+    const y = event.movementY;
+
+    if (Math.abs(x) > Math.abs(y)) {
+      // Перемещение автомобиля по оси X
+      if (x > 0) {
+        userCar.toRight();
+      } else if (x < 0) {
+        userCar.toLeft();
+      }
+    } else {
+      // Перемещение автомобиля по оси Y
+      if (y < 0) {
+        userCar.toUp();
+      } else if (y > 0) {
+        userCar.toDown();
+      }
+    }
+  };
+
   // Генерация автомобилей
   generateCar = (now: number): void => {
     const delay = now - this.carGenerationInterval;
