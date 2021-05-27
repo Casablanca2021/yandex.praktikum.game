@@ -1,3 +1,3 @@
 export { InputChangeEvent } from './types';
-export { baseUrl, ROUTES, headersJSON } from './consts';
+export { ROUTES } from './consts';
 export { t } from './dictionary';

@@ -41,3 +41,8 @@ export type LeaderboardResponseItem = {
 };
 
 export type LeaderboardResponse = [LeaderboardResponseItem] | [];
+
+export type YandexOAuthServiceId = {
+  // eslint-disable-next-line camelcase
+  service_id: string;
+};

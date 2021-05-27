@@ -7,7 +7,7 @@ import { useStringField } from 'common/hooks/formHooks';
 import Layout from 'components/Layout';
 import React, { FC, memo, useState } from 'react';
 import { Button, Container, Form, Header } from 'semantic-ui-react';
-import { signInAction } from 'store/actions/auth';
+import { signInAction, signInYandexAction } from 'store/actions/auth';
 import { validateLoginAndPassword } from 'utils';
 
 import { FieldErrors } from './types';
@@ -22,6 +22,8 @@ const SignIn: FC = memo(() => {
 
   const signIn = useThunkAction(signInAction);
 
+  const signInYandex = useThunkAction(signInYandexAction);
+
   const handleBlur = (event: InputChangeEvent): void => {
     const { name, value } = event.target;
 
@@ -33,6 +35,10 @@ const SignIn: FC = memo(() => {
 
   const handleSubmit = (): void => {
     signIn({ login, password });
+  };
+
+  const handleYandexOAuth = (): void => {
+    signInYandex();
   };
 
   return (
@@ -64,6 +70,10 @@ const SignIn: FC = memo(() => {
           <Button type="submit" color="blue" fluid>
             {t('signinButton')}
           </Button>
+          <div className="yandex_oauth" onClick={handleYandexOAuth}>
+            <div>Войти через </div>
+            <div className="yandex_logo" />
+          </div>
           <div className="sign__link">
             <a href="/signup">{t('signupButton')}</a>
           </div>

@@ -1,18 +1,25 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
+import https from 'https';
+import fs from 'fs';
 
-import html from './render';
+import { ssr } from './ssr';
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 443; //3000 localhost
 const app = express();
 
 app.use('/', express.static('./dist/static'));
 
-app.get('*', (req: Request, res: Response) => {
-  const context = {};
+ssr(app);
 
-  return res.send(html(req, context));
-});
+if (process.env.NODE_ENV !== 'production') {
+  const key = fs.readFileSync('./key.pem');
+  const cert = fs.readFileSync('./cert.pem');
 
-app.listen(PORT, () => {
-  console.log(`Server is listening on port ${PORT}`);
-});
+  https.createServer({ key, cert }, app).listen(PORT, () => {
+    console.info(`HTTPS Listening on port ${PORT}`);
+  });
+} else {
+  app.listen(PORT, () => {
+    console.log(`Server is listening on port ${PORT}`);
+  });
+}

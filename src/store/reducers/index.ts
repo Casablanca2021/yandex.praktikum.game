@@ -4,11 +4,13 @@ import { connectRouter } from 'connected-react-router';
 import history from '../history';
 import auth from './auth';
 import user from './user';
+import ssr from './ssr';
 
-const router = combineReducers({
+const reducer = combineReducers({
   router: connectRouter(history),
   auth,
   user,
+  ssr,
 });
 
-export default router;
+export default reducer;
