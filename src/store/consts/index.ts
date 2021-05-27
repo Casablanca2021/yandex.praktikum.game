@@ -13,3 +13,10 @@ export const CHANGE_AVATAR = 'CHANGE_AVATAR';
 
 // SSR actions
 export const SET_SSR = 'SET_SSR';
+
+// Theme actions
+export const GET_THEME = 'GET_THEME';
+export const SET_THEME = 'SET_THEME';
+
+// Leaderboard actions
+export const SET_LEADERBOARD = 'SET_LEADERBOARD';

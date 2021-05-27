@@ -1,33 +1,17 @@
 import './Leaderboard.css';
 
 import { LeaderboardResponseItem } from 'api/types';
-import React, { PureComponent } from 'react';
+import React, { FC } from 'react';
 import { Image, Label, List, Menu } from 'semantic-ui-react';
+import { useSelector } from 'react-redux';
+import { getLeaderboardSelector } from 'store/selectors';
+import Layout from 'components/Layout';
 
-import { LeaderboardServices } from './LeaderboardServices';
-import { LeaderboardState } from './types';
+const Leaderboard: FC = () => {
+  const leaders = useSelector(getLeaderboardSelector);
 
-type Props = Record<string, never>;
-
-export class Leaderboard extends PureComponent<Props, Partial<LeaderboardState>> {
-  services = new LeaderboardServices();
-
-  constructor(props = {}) {
-    super(props);
-    this.state = {};
-  }
-
-  componentDidMount(): void {
-    this.services.getLeaderboard().then((leaders) => {
-      this.setState({
-        leaders,
-      });
-    });
-  }
-
-  render(): JSX.Element {
-    const { leaders } = this.state;
-    return (
+  return (
+    <Layout className="leaderboard" transparent>
       <div className="leaderboard__top">
         <div className="leaderboard__top-bar">
           <Menu color="blue" inverted widths={3}>
@@ -56,6 +40,8 @@ export class Leaderboard extends PureComponent<Props, Partial<LeaderboardState>>
           </List>
         </div>
       </div>
-    );
-  }
-}
+    </Layout>
+  );
+};
+
+export default Leaderboard;

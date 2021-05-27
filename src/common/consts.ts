@@ -10,3 +10,8 @@ export enum ROUTES {
   LEADERBOARD = '/leaderboard',
   GAME = '/game',
 }
+
+export enum THEME {
+  LIGHT = 'light',
+  DARK = 'dark',
+}
