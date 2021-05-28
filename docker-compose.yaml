@@ -1,0 +1,80 @@
+version: '3.5'
+
+services:
+
+  backend-app:
+    build:
+      context: ./backend
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./backend/dev.env
+    depends_on:
+      - postgres
+      - mongo
+    volumes:
+      - ./shared:/var/www/shared
+    networks:
+      - main-networks
+    restart: always
+
+  postgres:
+    container_name: postgres_container
+    image: postgres
+    env_file:
+      - ./backend/dev.env
+    environment:
+      PGDATA: /data/postgres
+    volumes:
+        - postgres-volume:/data/postgres
+    ports:
+      - "5433:5432"
+    networks:
+      - main-networks
+    restart: always
+
+  pgadmin:
+    container_name: pgadmin_container
+    image: dpage/pgadmin4
+    env_file:
+      - ./backend/dev.env
+    environment:
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+        - pgadmin-volume:/root/.pgadmin
+    ports:
+      - "${PGADMIN_PORT:-5050}:80"
+    networks:
+      - main-networks
+    restart: always
+
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    env_file:
+      - ./backend/dev.env
+    volumes:
+      - mongo-volume:/data/mongo
+    networks:
+      - main-networks
+    restart: always
+
+  mongo-express:
+    image: mongo-express
+    ports:
+      - 8081:8081
+    env_file:
+      - ./backend/dev.env
+    networks:
+      - main-networks
+    restart: always
+
+networks:
+  main-networks:
+    driver: bridge
+
+volumes:
+    postgres-volume:
+    pgadmin-volume:
+    mongo-volume:
