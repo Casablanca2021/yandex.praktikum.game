@@ -1,5 +1,5 @@
 import { get, put, putFormData } from 'api/http';
-import { baseUrl, headersJSON as headers } from 'common';
+import { ApiPath, headersJSON as headers } from 'api/consts';
 import { Profile } from 'pages/Profile/types';
 import { UserInfoResponse } from './types';
 
@@ -10,10 +10,9 @@ interface User {
 }
 
 export const User: User = {
-  getUser: (): Promise<UserInfoResponse> => get(`${baseUrl}/auth/user`),
+  getUser: (): Promise<UserInfoResponse> => get(ApiPath.USER),
 
-  changeUserInfo: (profile: Profile): Promise<UserInfoResponse> =>
-    put<Profile, UserInfoResponse>(`${baseUrl}/user/profile`, profile, { headers }),
+  changeUserInfo: (profile: Profile): Promise<UserInfoResponse> => put<Profile, UserInfoResponse>(ApiPath.PROFILE, profile, { headers }),
 
-  changeAvatar: (profile: FormData): Promise<UserInfoResponse> => putFormData<UserInfoResponse>(`${baseUrl}/user/profile/avatar`, profile),
+  changeAvatar: (profile: FormData): Promise<UserInfoResponse> => putFormData<UserInfoResponse>(ApiPath.AVATAR, profile),
 };

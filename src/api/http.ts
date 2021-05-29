@@ -1,11 +1,10 @@
-enum METHODS {
+export enum HTTP_METHODS {
   GET = 'GET',
   POST = 'POST',
   PUT = 'PUT',
 }
 
-const http = async <Response extends unknown>(path: string, options: RequestInit):
-Promise<Response> => {
+export const http = async <Response extends unknown>(path: string, options: RequestInit): Promise<Response> => {
   try {
     const request = new Request(path, options);
     const response = await fetch(request);
@@ -30,44 +29,39 @@ Promise<Response> => {
 const include: RequestCredentials = 'include';
 const credentials = { credentials: include };
 
-export const get = <Response extends unknown> (path: string,
-  options?: RequestInit): Promise<Response> => {
-  const params = { ...options, ...credentials, method: METHODS.GET };
+export const get = <Response extends unknown>(path: string, options?: RequestInit): Promise<Response> => {
+  const params = { ...options, ...credentials, method: HTTP_METHODS.GET };
 
   return http<Response>(path, params);
 };
 
-export const post = <Request, Response extends unknown> (path: string,
-  data?: Request, options?: RequestInit):
-Promise<Response> => {
+export const post = <Request, Response extends unknown>(path: string, data?: Request, options?: RequestInit): Promise<Response> => {
   const params = {
     ...options,
     ...credentials,
     body: JSON.stringify(data),
-    method: METHODS.POST,
+    method: HTTP_METHODS.POST,
   };
 
   return http<Response>(path, params);
 };
 
-export const put = <Request, Response extends unknown> (path: string,
-  data: Request, options?: RequestInit): Promise<Response> => {
+export const put = <Request, Response extends unknown>(path: string, data: Request, options?: RequestInit): Promise<Response> => {
   const params = {
     ...options,
     ...credentials,
     body: JSON.stringify(data),
-    method: METHODS.PUT,
+    method: HTTP_METHODS.PUT,
   };
 
   return http<Response>(path, params);
 };
 
-export const putFormData = <Response extends unknown> (path: string,
-  data: FormData): Promise<Response> => {
+export const putFormData = <Response extends unknown>(path: string, data: FormData): Promise<Response> => {
   const params = {
     ...credentials,
     body: data,
-    method: METHODS.PUT,
+    method: HTTP_METHODS.PUT,
   };
 
   return http<Response>(path, params);
