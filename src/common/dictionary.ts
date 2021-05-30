@@ -39,6 +39,10 @@ const dictionary = {
   gameOverScore: 'Ваш счет:',
   gameOver: 'Игра окончена!',
   leaderboardTitle: 'Рейтинг',
+  feedbackTitle: 'Обратная связь',
+  send: 'Отправить',
+  message: 'Сообщение',
+  feedbackMessage: 'Спасибо за обратную связь!',
 };
 
 export const t = (key: keyof typeof dictionary): string => dictionary[key];

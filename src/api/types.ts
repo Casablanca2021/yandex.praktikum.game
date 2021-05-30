@@ -46,3 +46,9 @@ export type YandexOAuthServiceId = {
   // eslint-disable-next-line camelcase
   service_id: string;
 };
+
+export type FeedBack = {
+  name: string;
+  email: string;
+  text: string;
+};
