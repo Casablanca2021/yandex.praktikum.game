@@ -1,13 +1,14 @@
-import { get, put } from 'api/http';
-import { ApiPath } from './consts';
+import { get, post } from 'api/http';
+import { ApiPath } from 'api/consts';
+import { ThemeRequest } from 'api/types';
 
 interface Theme {
   getTheme: (user: string) => Promise<string>;
-  setTheme: (theme: string) => Promise<void>;
+  setTheme: (data: ThemeRequest) => Promise<void>;
 }
 
 export const Theme: Theme = {
   getTheme: (user: string): Promise<string> => get(`${ApiPath.THEME}?user=${user}`),
 
-  setTheme: (theme: string): Promise<void> => put(ApiPath.THEME, { theme }),
+  setTheme: (data: ThemeRequest): Promise<void> => post(ApiPath.THEME, data),
 };

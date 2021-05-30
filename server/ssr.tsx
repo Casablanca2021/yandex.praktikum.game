@@ -8,6 +8,7 @@ import { applyMiddleware, createStore } from 'redux';
 import thunk from 'redux-thunk';
 
 import { App } from '../src/components/App';
+import { setTheme } from '../src/store/actions/theme';
 import history from '../src/store/history';
 import reducer from '../src/store/reducers';
 import { renderObject } from './utils/renderObject';
@@ -15,7 +16,7 @@ import { renderObject } from './utils/renderObject';
 import { Express } from 'express';
 import fetch from 'node-fetch';
 import { HTTP_METHODS } from '../src/api/http';
-import { baseUrl, baseUrlResources, headersJSON } from '../src/api/consts';
+import { ApiPath, baseUrl, baseUrlResources, headersJSON } from '../src/api/consts';
 import { setUserInfo } from '../src/store/actions/user';
 import { setAuth } from '../src/store/actions/auth';
 import { setSSR } from '../src/store/actions/ssr';
@@ -66,7 +67,7 @@ export const ssr = (app: Express) => {
     /** Получение данных пользователя */
     const getUser = async (headers: Record<string, string | undefined>) => {
       try {
-        const response = await fetch(`${baseUrl}/auth/user`, {
+        const response = await fetch(ApiPath.USER, {
           method: HTTP_METHODS.GET,
           headers,
         });
@@ -76,6 +77,9 @@ export const ssr = (app: Express) => {
 
           store.dispatch(setUserInfo({ ...userInfo, avatar: `${baseUrlResources}${userInfo.avatar}` }));
           store.dispatch(setAuth(true));
+
+          const userTheme = await fetch(`${ApiPath.THEME}?user=${userInfo.login}`);
+          store.dispatch(setTheme(userTheme));
         }
       } catch (error) {
         console.warn(error);

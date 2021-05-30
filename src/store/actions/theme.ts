@@ -2,7 +2,7 @@ import { Theme } from '../../api/theme';
 import { GET_THEME, SET_THEME } from '../consts';
 import { AppState, AppThunkAction } from '../types';
 
-const setTheme = (payload: string) => ({ type: SET_THEME, payload });
+export const setTheme = (payload: string) => ({ type: SET_THEME, payload });
 
 export const getTheme = (): AppThunkAction<string> => async (dispatch) => {
   dispatch({ type: GET_THEME });
@@ -25,7 +25,9 @@ export const setUserTheme = (theme: string): AppThunkAction<string> => async (di
 
   if (auth) {
     try {
-      await Theme.setTheme(theme);
+      const user = dispatch((_, gestState: () => AppState) => gestState().user.login);
+
+      await Theme.setTheme({ theme, user });
     } catch (error) {
       console.warn(error);
     }

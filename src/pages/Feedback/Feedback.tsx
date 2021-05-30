@@ -10,8 +10,11 @@ import { validateEmail, validateName } from 'utils';
 import { FeedbackErrors } from './types';
 import some from 'lodash/some';
 import { Feedback as FeeadBackAPI } from 'api/feedback';
+import { useAuth } from 'common/hooks/authHook';
 
 const Feedback: FC = () => {
+  useAuth();
+
   const [isSend, setIsSend] = useState(false);
   const [errors, setErrors] = useState<Partial<FeedbackErrors>>({});
 
@@ -47,7 +50,7 @@ const Feedback: FC = () => {
   };
 
   const handleSubmit = (): void => {
-    if ((name && email && text) || !some(errors, Boolean)) {
+    if (name && email && text && !some(errors, Boolean)) {
       FeeadBackAPI.send({ name, email, text }).then(() => setIsSend(true));
     }
   };

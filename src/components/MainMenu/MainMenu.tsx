@@ -3,16 +3,16 @@ import './MainMenu.css';
 import { ROUTES, THEME } from 'common/consts';
 import { t } from 'common/dictionary';
 import { useThunkAction } from 'common/hooks/actionHooks';
-import React, { FC, useEffect, useMemo } from 'react';
+import React, { FC, memo, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
 import { Menu } from 'semantic-ui-react';
 import { logOutAction } from 'store/actions/auth';
+import { setUserTheme } from 'store/actions/theme';
 import { getAuthSelector, getThemeSelector } from 'store/selectors';
 import { Checkbox, Icon, CheckboxProps } from 'semantic-ui-react';
-import { getTheme, setUserTheme } from 'store/actions/theme';
 
-const MainMenu: FC = () => {
+const MainMenu: FC = memo(() => {
   const activeItem = useLocation().pathname;
   const history = useHistory();
 
@@ -20,12 +20,7 @@ const MainMenu: FC = () => {
   const theme = useSelector(getThemeSelector);
 
   const logOut = useThunkAction(logOutAction);
-  const getThemeAction = useThunkAction(getTheme);
   const setThemeAction = useThunkAction(setUserTheme);
-
-  useEffect(() => {
-    isAuth && getThemeAction();
-  }, [isAuth]);
 
   const handleSignInAndLogOut = () => {
     isAuth && logOut();
@@ -94,5 +89,6 @@ const MainMenu: FC = () => {
       </Menu.Menu>
     </Menu>
   );
-};
+});
+
 export default MainMenu;
