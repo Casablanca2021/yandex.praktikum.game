@@ -7,7 +7,7 @@ import Forum from 'pages/Forum';
 import ForumView from 'pages/ForumView';
 import { Game } from 'pages/Game';
 import Home from 'pages/Home';
-import { Leaderboard } from 'pages/Leaderboard';
+import Leaderboard from 'pages/Leaderboard';
 import Profile from 'pages/Profile';
 import SignIn from 'pages/SignIn';
 import SignUp from 'pages/SignUp';

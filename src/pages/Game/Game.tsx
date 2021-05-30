@@ -8,8 +8,12 @@ import debounce from 'lodash/debounce';
 import React, { PureComponent } from 'react';
 import { Button } from 'semantic-ui-react';
 import { animate } from 'utils';
+import { connect } from 'react-redux';
+import { AppState } from 'store/types';
 
-type Props = Record<string, never>;
+type Props = {
+  theme: string;
+};
 
 type State = {
   fullscreenMode: boolean;
@@ -32,7 +36,7 @@ interface Canvas extends HTMLCanvasElement {
 
 const b = b_.with('game');
 
-export class Game extends PureComponent<Props, State> {
+class GameComponent extends PureComponent<Props, State> {
   canvasWidth = 800;
 
   canvasHeight = window.innerHeight;
@@ -43,7 +47,7 @@ export class Game extends PureComponent<Props, State> {
 
   private readonly formRef: React.RefObject<HTMLDivElement>;
 
-  constructor(props = {}) {
+  constructor(props: Props) {
     super(props);
     this.state = {
       alertText: '',
@@ -248,6 +252,7 @@ export class Game extends PureComponent<Props, State> {
 
   render(): JSX.Element {
     const { fullscreenMode, alertText, level, score } = this.state;
+    const { theme } = this.props;
     const modal = this.renderModalWindow();
     return (
       <div className={b()}>
@@ -256,11 +261,11 @@ export class Game extends PureComponent<Props, State> {
         <div ref={this.formRef} className={b('alert')}>
           <h1>{alertText}</h1>
         </div>
-        <div className={b('column', { position: 'left' })} />
+        <div className={b('column', { position: 'left', theme: `${theme}` })} />
         <div className={b('column', { position: 'center' })}>
           <canvas className={b('road')} id="road" ref={this.canvasRoad} width={this.canvasWidth} height={this.canvasHeight} />
         </div>
-        <div className={b('column', { position: 'right' })}>
+        <div className={b('column', { position: 'right', theme: `${theme}` })}>
           <div className={b('bar', { position: 'top' })}>
             <Button color="blue" onClick={this.toggleFullScreen}>
               {t(fullscreenMode ? 'normalScreen' : 'fullScreen')}
@@ -278,3 +283,9 @@ export class Game extends PureComponent<Props, State> {
     );
   }
 }
+
+const mapStateToProps = (state: AppState) => ({
+  theme: state.theme,
+});
+
+export const Game = connect(mapStateToProps)(GameComponent);
