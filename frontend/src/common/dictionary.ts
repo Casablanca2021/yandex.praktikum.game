@@ -20,7 +20,7 @@ const dictionary = {
   categories: 'Категории',
   saveButton: 'Сохранить',
   cancelButton: 'Отмена',
-  homeTitle: 'Играть',
+  homeTitle: 'Главная',
   leaderTitle: 'Лидеры',
   profileTitle: 'Профиль',
   error: 'Ошибка',

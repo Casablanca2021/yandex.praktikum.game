@@ -6,11 +6,10 @@ import { useThunkAction } from 'common/hooks/actionHooks';
 import React, { FC, memo, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
-import { Menu } from 'semantic-ui-react';
+import { Checkbox, CheckboxProps, Icon, Menu } from 'semantic-ui-react';
 import { logOutAction } from 'store/actions/auth';
 import { setUserTheme } from 'store/actions/theme';
 import { getAuthSelector, getThemeSelector } from 'store/selectors';
-import { Checkbox, Icon, CheckboxProps } from 'semantic-ui-react';
 
 const MainMenu: FC = memo(() => {
   const activeItem = useLocation().pathname;

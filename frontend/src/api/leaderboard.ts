@@ -1,7 +1,7 @@
+import { ApiPath, headersJSON as headers } from 'api/consts';
 import { post } from 'api/http';
 import { LeaderboardResponse } from 'api/types';
 import store from 'store';
-import { ApiPath, headersJSON as headers } from 'api/consts';
 
 export const leaderboard = {
   getAll(): Promise<LeaderboardResponse> {

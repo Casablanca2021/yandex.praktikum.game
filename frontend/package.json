@@ -4,12 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack serve --open --config webpack.dev.js",
-    "build": "webpack --config webpack.dev.js",
     "dev:client": "NODE_ENV=development webpack --config webpack/configs/webpack.client.ts --mode=development -w",
     "dev:server": "NODE_ENV=development webpack --config webpack/configs/webpack.server.ts --mode=development -w",
     "dev:start": "nodemon ./dist/server.js",
     "dev": "npm-run-all --parallel dev:*",
+    "production:client": "NODE_ENV=development webpack --config webpack/configs/webpack.client.ts --mode=development",
+    "production:server": "NODE_ENV=development webpack --config webpack/configs/webpack.server.ts --mode=development",
+    "build": "npm-run-all --parallel production:*",
     "lint": "eslint src/**/*.tsx",
     "lint-fix": "eslint src/**/*.tsx --fix && prettier -w src/**/*.{ts,tsx,css}",
     "test": "jest"

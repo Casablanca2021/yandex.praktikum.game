@@ -2,6 +2,19 @@ version: '3.5'
 
 services:
 
+  client-app:
+    build:
+      context: ./frontend
+    ports:
+      - "443:443"
+    depends_on:
+      - backend-app
+      - postgres
+      - mongo
+    networks:
+      - main-networks
+    restart: always
+
   backend-app:
     build:
       context: ./backend

@@ -1,5 +1,6 @@
 import { routerMiddleware } from 'connected-react-router';
-import { Request, Response } from 'express';
+import { Express, Request, Response } from 'express';
+import fetch from 'node-fetch';
 import React from 'react';
 import { renderToStaticMarkup, renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
@@ -7,20 +8,17 @@ import { StaticRouter } from 'react-router-dom';
 import { applyMiddleware, createStore } from 'redux';
 import thunk from 'redux-thunk';
 
-import { App } from '../src/components/App';
-import { setTheme } from '../src/store/actions/theme';
-import history from '../src/store/history';
-import reducer from '../src/store/reducers';
-import { renderObject } from './utils/renderObject';
-
-import { Express } from 'express';
-import fetch from 'node-fetch';
-import { HTTP_METHODS } from '../src/api/http';
 import { ApiPath, baseUrl, baseUrlResources, headersJSON } from '../src/api/consts';
-import { setUserInfo } from '../src/store/actions/user';
+import { HTTP_METHODS } from '../src/api/http';
+import { App } from '../src/components/App';
 import { setAuth } from '../src/store/actions/auth';
 import { setSSR } from '../src/store/actions/ssr';
+import { setTheme } from '../src/store/actions/theme';
+import { setUserInfo } from '../src/store/actions/user';
+import history from '../src/store/history';
+import reducer from '../src/store/reducers';
 import { getRequestCookies, getResponseCookies, setCookies } from './utils/cookieUtils';
+import { renderObject } from './utils/renderObject';
 
 function getHtml(store: ReturnType<typeof createStore>, locationUrl: string): string {
   const state = store.getState();

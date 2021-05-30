@@ -6,14 +6,13 @@ import { ModalWindow } from 'components/ModalWindow';
 import { GameProcess } from 'core';
 import debounce from 'lodash/debounce';
 import React, { PureComponent } from 'react';
-import { Button } from 'semantic-ui-react';
-import { animate } from 'utils';
 import { connect } from 'react-redux';
+import { RouteComponentProps } from 'react-router-dom';
+import { Button } from 'semantic-ui-react';
 import { AppState } from 'store/types';
+import { animate } from 'utils';
 
-type Props = {
-  theme: string;
-};
+type Props = Partial<RouteComponentProps> & { theme: string };
 
 type State = {
   fullscreenMode: boolean;
@@ -214,6 +213,7 @@ class GameComponent extends PureComponent<Props, State> {
   }
 
   renderModalWindow(): JSX.Element {
+    const { history } = this.props;
     const { modalStatus } = this.state;
     return ModalWindow(
       modalStatus,
@@ -226,7 +226,7 @@ class GameComponent extends PureComponent<Props, State> {
         this.gameProcess?.startGame();
       },
       () => {
-        console.log('Конец');
+        history?.push('/home');
       },
       t('ok'),
       t('cancel')
@@ -234,19 +234,26 @@ class GameComponent extends PureComponent<Props, State> {
   }
 
   renderRestartModal(): JSX.Element {
+    const { history } = this.props;
     const { restartModalStatus, score } = this.state;
     return ModalWindow(
       restartModalStatus,
       t('gameOver'),
       `${t('gameOverScore')} ${score}`,
-      undefined,
+      () => {
+        this.setState({
+          restartModalStatus: false,
+        });
+        history?.push('/home');
+      },
       () => {
         this.setState({
           restartModalStatus: false,
         });
         this.gameProcess?.restartGame();
       },
-      t('restart')
+      t('restart'),
+      t('exit')
     );
   }
 

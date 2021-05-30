@@ -1,10 +1,10 @@
 import express from 'express';
-import https from 'https';
 import fs from 'fs';
+import https from 'https';
 
 import { ssr } from './ssr';
 
-const PORT = process.env.PORT || 443; //3000 localhost
+const PORT = process.env.PORT || 443;
 const app = express();
 
 app.use('/', express.static('./dist/static'));
