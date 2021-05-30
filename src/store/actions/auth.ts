@@ -7,7 +7,7 @@ import { setNotificationError } from 'utils/notifications';
 import { clearUserInfo, getUserAction } from './user';
 import { LOG_OUT, SET_AUTH, SIGN_IN, SIGN_IN_YANDEX_OAUTH, SIGN_UP } from 'store/consts';
 import { yandexOauthUrl } from 'api/consts';
-import { getLeaderboard } from 'store/actions/leaderboard';
+import { getTheme } from 'store/actions//theme';
 
 export const setAuth = (payload: boolean) => ({ type: SET_AUTH, payload });
 
@@ -17,8 +17,8 @@ export const signInAction = (data: SignInData): AppThunkAction<string> => async 
   try {
     await Auth.signIn(data);
 
-    dispatch(getUserAction());
-    dispatch(getLeaderboard());
+    await dispatch(getUserAction());
+    dispatch(getTheme());
     dispatch(push(ROUTES.HOME));
   } catch (error) {
     setNotificationError(error);
@@ -43,8 +43,8 @@ export const signUpAction = (data: SignUpData): AppThunkAction<string> => async 
   try {
     await Auth.signUp(data);
 
-    dispatch(getUserAction());
-    dispatch(getLeaderboard());
+    await dispatch(getUserAction());
+    dispatch(getTheme());
     dispatch(push(ROUTES.HOME));
   } catch (error) {
     setNotificationError(error);

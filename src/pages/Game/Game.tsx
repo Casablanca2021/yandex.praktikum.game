@@ -255,17 +255,17 @@ class GameComponent extends PureComponent<Props, State> {
     const { theme } = this.props;
     const modal = this.renderModalWindow();
     return (
-      <div className={b()}>
+      <div className={`${b()} ${theme}`}>
         {modal}
         {this.renderRestartModal()}
         <div ref={this.formRef} className={b('alert')}>
           <h1>{alertText}</h1>
         </div>
-        <div className={b('column', { position: 'left', theme: `${theme}` })} />
+        <div className={b('column', { position: 'left' })} />
         <div className={b('column', { position: 'center' })}>
           <canvas className={b('road')} id="road" ref={this.canvasRoad} width={this.canvasWidth} height={this.canvasHeight} />
         </div>
-        <div className={b('column', { position: 'right', theme: `${theme}` })}>
+        <div className={b('column', { position: 'right' })}>
           <div className={b('bar', { position: 'top' })}>
             <Button color="blue" onClick={this.toggleFullScreen}>
               {t(fullscreenMode ? 'normalScreen' : 'fullScreen')}

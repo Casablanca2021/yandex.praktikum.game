@@ -52,3 +52,8 @@ export type FeedBack = {
   email: string;
   text: string;
 };
+
+export type ThemeRequest = {
+  theme: string;
+  user: string;
+};

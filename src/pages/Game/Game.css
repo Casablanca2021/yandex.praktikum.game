@@ -27,6 +27,10 @@
   &__column_position_left {
     padding: 10px;
     flex: 1;
+
+    .dark & {
+      background-color: #000000;
+    }
   }
 
   &__column_position_center {
@@ -36,6 +40,10 @@
   &__column_position_right {
     padding: 10px;
     flex: 1;
+
+    .dark & {
+      background-color: #000000;
+    }
   }
 
   &__road {
@@ -77,11 +85,9 @@
   &__info-item_size_small {
     font-size: 16px;
     color: #000;
-  }
 
-  &__column_theme {
-    &_dark {
-      background-color: #000000;
+    .dark & {
+      color: #ffffff;
     }
   }
 }

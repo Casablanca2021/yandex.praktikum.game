@@ -1,6 +1,6 @@
 import { post } from 'api/http';
 import { FeedBack } from 'api/types';
-import { headersJSON as headers } from 'common';
+import { headersJSON as headers } from 'api/consts';
 
 interface Feedback {
   send: (data: FeedBack) => Promise<void>;

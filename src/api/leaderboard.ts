@@ -16,21 +16,23 @@ export const leaderboard = {
     );
   },
 
-  save(score: number, level: number): Promise<LeaderboardResponse> {
-    const { user } = store.getState();
+  save(score: number, level: number): Promise<LeaderboardResponse> | undefined {
+    const { auth, user } = store.getState();
 
-    return post(
-      ApiPath.SET_LEADERBOARD,
-      {
-        data: {
-          casablanca_score: score,
-          level,
-          login: user.login,
-          avatar: user.avatar,
+    if (auth) {
+      return post(
+        ApiPath.SET_LEADERBOARD,
+        {
+          data: {
+            casablanca_score: score,
+            level,
+            login: user.login,
+            avatar: user.avatar,
+          },
+          ratingFieldName: 'casablanca_score',
         },
-        ratingFieldName: 'casablanca_score',
-      },
-      { headers }
-    );
+        { headers }
+      );
+    }
   },
 };

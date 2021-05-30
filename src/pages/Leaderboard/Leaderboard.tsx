@@ -6,9 +6,18 @@ import { Image, Label, List, Menu } from 'semantic-ui-react';
 import { useSelector } from 'react-redux';
 import { getLeaderboardSelector } from 'store/selectors';
 import Layout from 'components/Layout';
+import { useAuth } from 'common/hooks/authHook';
+import { useEffect } from 'react';
+import { getLeaderboard } from 'store/actions/leaderboard';
+import { useThunkAction } from 'common/hooks/actionHooks';
 
 const Leaderboard: FC = () => {
+  useAuth();
+
   const leaders = useSelector(getLeaderboardSelector);
+  const getLeaderboardAction = useThunkAction(getLeaderboard);
+
+  useEffect(() => getLeaderboardAction(), []);
 
   return (
     <Layout className="leaderboard" transparent>
