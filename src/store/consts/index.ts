@@ -20,3 +20,6 @@ export const SET_THEME = 'SET_THEME';
 
 // Leaderboard actions
 export const SET_LEADERBOARD = 'SET_LEADERBOARD';
+
+// Feedback actions
+export const SEND_FEEDBACK = 'SEND_FEEDBACK';

@@ -60,6 +60,11 @@ const MainMenu: FC = () => {
         path: ROUTES.LEADERBOARD,
         visible: isAuth,
       },
+      {
+        name: t('feedbackTitle'),
+        path: ROUTES.FEEDBACK,
+        visible: isAuth,
+      },
     ],
     [isAuth]
   );
