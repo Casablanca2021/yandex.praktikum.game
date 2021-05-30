@@ -1,7 +1,7 @@
 import express from 'express';
 
-import { createFeedBack } from '../controllers/feedback';
-import { createUserTheme, getUserTheme } from '../controllers/theme';
+import { createComment, createFeedBack, createTopic, createUserTheme, getComments, getTopics, getUserTheme } from '../controllers';
+import { authenticate } from '../middleware/authenticate';
 
 const router = express.Router();
 
@@ -14,6 +14,8 @@ const router = express.Router();
  *     description: Ручки для формы обратной связи
  *   - name: Theme
  *     description: Ручки для темизации
+ *   - name: Forum
+ *     description: Ручки для для форума
  * components:
  *   schemas:
  *     FeedBack:
@@ -43,6 +45,51 @@ const router = express.Router();
  *         user:
  *           type: string
  *           format: string
+ *     Topic:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: number
+ *           format: number
+ *         user:
+ *           type: string
+ *           format: string
+ *         title:
+ *           type: string
+ *           format: string
+ *         description:
+ *           type: string
+ *           format: string
+ *         comments:
+ *           type: array
+ *           items:
+ *             $ref: '#/components/schemas/Comment'
+ *     Comment:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: number
+ *           format: number
+ *         user:
+ *           type: string
+ *           format: string
+ *         comment:
+ *           type: string
+ *           format: string
+ *         comments:
+ *           type: array
+ *           items:
+ *             type: object
+ *             properties:
+ *               id:
+ *                 type: number
+ *                 format: number
+ *               user:
+ *                 type: string
+ *                 format: string
+ *               comment:
+ *                 type: string
+ *                 format: string
  */
 
 /**
@@ -113,5 +160,64 @@ router.post('/theme', createUserTheme);
  *               format: string
  */
 router.get('/theme', getUserTheme);
+
+/**
+ * @openapi
+ * /forum/topic:
+ *   get:
+ *     tags: ['Forum']
+ *     description: Получение топиков
+ *     responses:
+ *       200:
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Topic'
+ */
+router.get('/forum/topic', getTopics);
+
+/**
+ * @openapi
+ * /forum/topic:
+ *   post:
+ *     tags: ['Forum']
+ *     description: Добавление топика
+ *     requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Topic'
+ *     responses:
+ *       200:
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Topic'
+ */
+router.post('/forum/topic', authenticate, createTopic);
+
+/**
+ * @openapi
+ * /forum/comment:
+ *   post:
+ *     tags: ['Forum']
+ *     description: Добавление комментария
+ *     requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Comment'
+ *     responses:
+ *       200:
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Comment'
+ */
+router.post('/forum/comment', authenticate, createComment);
 
 export default router;

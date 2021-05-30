@@ -8,12 +8,10 @@ services:
     ports:
       - "5000:5000"
     env_file:
-      - ./backend/dev.env
+      - .env
     depends_on:
       - postgres
       - mongo
-    volumes:
-      - ./shared:/var/www/shared
     networks:
       - main-networks
     restart: always
@@ -22,7 +20,7 @@ services:
     container_name: postgres_container
     image: postgres
     env_file:
-      - ./backend/dev.env
+      - .env
     environment:
       PGDATA: /data/postgres
     volumes:
@@ -37,7 +35,7 @@ services:
     container_name: pgadmin_container
     image: dpage/pgadmin4
     env_file:
-      - ./backend/dev.env
+      - .env
     environment:
       PGADMIN_CONFIG_SERVER_MODE: 'False'
     volumes:
@@ -53,7 +51,7 @@ services:
     ports:
       - "27017:27017"
     env_file:
-      - ./backend/dev.env
+      - .env
     volumes:
       - mongo-volume:/data/mongo
     networks:
@@ -65,7 +63,7 @@ services:
     ports:
       - 8081:8081
     env_file:
-      - ./backend/dev.env
+      - .env
     networks:
       - main-networks
     restart: always
