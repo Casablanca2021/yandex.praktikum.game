@@ -6,6 +6,9 @@ import React, { FC, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Image, Label, List, Menu } from 'semantic-ui-react';
 import { getLeaderboardSelector } from 'store/selectors';
+import { useAuth } from 'common/hooks/authHook';
+import { useThunkAction } from 'common/hooks/actionHooks';
+import { getLeaderboard } from 'store/actions/leaderboard';
 
 const Leaderboard: FC = () => {
   useAuth();
