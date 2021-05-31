@@ -18,6 +18,7 @@ import { Route, Switch, useHistory, useRouteMatch } from 'react-router-dom';
 import { getUserAction } from 'store/actions/user';
 import { getSSRSelector } from 'store/selectors';
 import Feedback from 'pages/Feedback';
+import ForumCreate from 'pages/ForumCreate';
 
 export const App: FC = () => {
   const history = useHistory();
@@ -49,6 +50,7 @@ export const App: FC = () => {
         <Route path={ROUTES.SIGNIN} component={SignIn} />
         <Route path={ROUTES.SIGNUP} component={SignUp} />
         <Route path={ROUTES.FORUM_BY_CATEGORY} component={Forum} exact />
+        <Route path={ROUTES.FORUM_CREATE} component={ForumCreate} />
         <Route path={ROUTES.FORUM_VIEW} component={ForumView} exact />
         <Route path={ROUTES.FORUM} component={Forum} />
         <Route path={ROUTES.PROFILE} component={Profile} />

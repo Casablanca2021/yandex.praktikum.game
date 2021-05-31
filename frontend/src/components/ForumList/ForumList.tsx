@@ -18,16 +18,15 @@ const ForumList: FC<OwnProps> = ({ items }: OwnProps) => (
 
     <Table.Body>
       {items
-        .filter((item) => item.active)
         .map((item) => (
           <Table.Row key={item.id}>
             <Table.Cell>
-              <Link to={ROUTES.FORUM_VIEW.replace(':id', item.id.toString())}>{item.name}</Link>
+              <Link to={ROUTES.FORUM_VIEW.replace(':id', item.id.toString())}>{item.title}</Link>
+              <br/>
+              <span>{item.description}</span>
             </Table.Cell>
-            <Table.Cell>{item.answersCount} answers</Table.Cell>
             <Table.Cell>
-              {' '}
-              <strong>{item.category}</strong> <br /> by <strong>{item.createdBy}</strong> <br /> {item.date}
+              by <strong>{item.user}</strong>
             </Table.Cell>
           </Table.Row>
         ))}

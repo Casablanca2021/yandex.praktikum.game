@@ -1,3 +1,5 @@
+import { ForumTopicResponse } from 'api/types';
+
 export type Item = {
   id: number,
   name: string,
@@ -11,5 +13,5 @@ export type Item = {
 export type Items = Item[];
 
 export type OwnProps = {
-  items: Items
+  items: ForumTopicResponse
 }

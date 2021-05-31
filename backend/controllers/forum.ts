@@ -43,7 +43,7 @@ export async function getTopics(request: Request, response: Response): Promise<v
 
 export async function createComment(request: Request, response: Response): Promise<void> {
   try {
-    ForumComment.create({ user: (global as any).user.login, ...request.body })
+    ForumComment.create({ user: (global as any).user.login, ...request.body, topicId: request.body.topic_id })
       .then((topic) => {
         response.status(200).json(topic);
       })

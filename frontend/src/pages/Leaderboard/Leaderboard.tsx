@@ -9,6 +9,9 @@ import { useSelector } from 'react-redux';
 import { Image, Label, List, Menu } from 'semantic-ui-react';
 import { getLeaderboard } from 'store/actions/leaderboard';
 import { getLeaderboardSelector } from 'store/selectors';
+import { useAuth } from 'common/hooks/authHook';
+import { getLeaderboard } from 'store/actions/leaderboard';
+import { useThunkAction } from 'common/hooks/actionHooks';
 
 const Leaderboard: FC = () => {
   useAuth();

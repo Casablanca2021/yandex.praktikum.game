@@ -36,7 +36,7 @@ mongoose
 const app = express();
 
 const corsOptions = {
-  origin: ['https://127.0.0.1', '127.0.0.1'],
+  origin: process.env.MAIN_HOST ? [process.env.MAIN_HOST] : ['https://127.0.0.1', '127.0.0.1'],
   credentials: true,
 }
 

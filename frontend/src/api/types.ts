@@ -53,6 +53,28 @@ export type FeedBack = {
   text: string;
 };
 
+export type ForumTopic = {
+  title: string;
+  description: string;
+};
+
+export type Comment = {
+  id: number;
+  comment: string;
+  topic_id: string;
+  user: string;
+};
+
+export type ForumTopicResponseItem = ForumTopic & {
+  id: number;
+  user: string;
+  description: string;
+  comments: Comment[];
+};
+
+export type ForumTopicResponse = ForumTopicResponseItem[];
+
+export type ForumTopicCreate = Omit<Comment, 'id' | 'user'>;
 export type ThemeRequest = {
   theme: string;
   user: string;

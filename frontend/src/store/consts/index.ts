@@ -23,3 +23,5 @@ export const SET_LEADERBOARD = 'SET_LEADERBOARD';
 
 // Feedback actions
 export const SEND_FEEDBACK = 'SEND_FEEDBACK';
+
+export const SET_FORUM_TOPIC = 'FETCH_FORUM_TOPIC';

@@ -20,7 +20,7 @@ const dictionary = {
   categories: 'Категории',
   saveButton: 'Сохранить',
   cancelButton: 'Отмена',
-  homeTitle: 'Главная',
+  homeTitle: 'Играть',
   leaderTitle: 'Лидеры',
   profileTitle: 'Профиль',
   error: 'Ошибка',
@@ -44,6 +44,9 @@ const dictionary = {
   send: 'Отправить',
   message: 'Сообщение',
   feedbackMessage: 'Спасибо за обратную связь!',
+  createTopic: 'Создать топик',
+  forum_title: 'Название',
+  success: 'Успешно!',
 };
 
 export const t = (key: keyof typeof dictionary): string => dictionary[key];

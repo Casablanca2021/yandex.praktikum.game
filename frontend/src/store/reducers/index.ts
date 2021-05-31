@@ -7,6 +7,7 @@ import user from './user';
 import ssr from './ssr';
 import theme from './theme';
 import leaderboard from './leaderboard';
+import forumTopic from './forumTopic';
 
 const reducer = combineReducers({
   router: connectRouter(history),
@@ -15,6 +16,7 @@ const reducer = combineReducers({
   ssr,
   theme,
   leaderboard,
+  forumTopic
 });
 
 export default reducer;

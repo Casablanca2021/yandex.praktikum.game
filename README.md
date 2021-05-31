@@ -36,3 +36,12 @@ https://casablanca-racing.herokuapp.com/
 - Jest
 - Service Worker
 - Fullscreen API
+
+## Как развернуть
+1. Создать файл .env как в .env.example
+2. Обязательно прописать MAIN_HOST (можно localhost)
+3. Для локальной разработки (будет следить за изменениями и обновляться):
+     `- docker-compose -f docker-compose.dev.yml up`
+     
+   Для production:
+     `- docker-compose -f docker-compose.yml up`

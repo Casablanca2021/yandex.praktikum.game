@@ -15,31 +15,11 @@ describe(`ForumList Component`, () => {
             <ForumList
               items={[
                 {
-                  active: true,
-                  category: 'cat 1',
-                  date: '21.03.2015',
-                  name: 'TEST',
-                  createdBy: 'me',
-                  answersCount: 5,
                   id: 1,
-                },
-                {
-                  active: false,
-                  category: 'cat 2',
-                  date: '21.01.2015',
-                  name: 'TEST 2',
-                  createdBy: 'me',
-                  answersCount: 5,
-                  id: 2,
-                },
-                {
-                  active: true,
-                  category: 'cat 3',
-                  date: '21.01.2011',
-                  name: 'TEST 3',
-                  createdBy: 'Arnold',
-                  answersCount: 15,
-                  id: 2,
+                  user: 'USER',
+                  title: 'TITLE',
+                  description: 'DESCR',
+                  comments: [],
                 },
               ]}
             />

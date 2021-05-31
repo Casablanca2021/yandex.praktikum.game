@@ -1,61 +1,99 @@
 import { t } from 'common/dictionary';
 import { useAuth } from 'common/hooks/authHook';
 import Layout from 'components/Layout';
-import React, { FC } from 'react';
-import { Button, Comment, Form, Label } from 'semantic-ui-react';
+import React, { FC, useEffect, useState } from 'react';
+import { Button, Comment, Form, Header, Label } from 'semantic-ui-react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getForumTopicsSelector } from 'store/selectors';
+import { getForumTopic } from 'store/actions/forumTopic';
+import { useParams } from 'react-router';
+import { FieldChangeEvent } from 'common/types';
+import { validateName } from 'utils';
+import { useStringField } from 'common/hooks/formHooks';
+import { ForumErrors } from './types';
+import some from 'lodash/some';
+import { Forum as ForumAPI } from 'api/forum';
 
 const ForumList: FC = () => {
   useAuth();
+  const dispatch = useDispatch();
+  const topics = useSelector(getForumTopicsSelector);
+  const { id } = useParams<{ id: string }>();
 
-  const question = {
-    createdBy: 'Jack',
-    date: '21.01.2020',
-    name:
-      'Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века?',
-    answers: [
-      {
-        date: '21.01.2010',
-        text: 'How artistic!',
-        createdBy: 'Matt',
-        authorImage:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Donald_Trump_official_portrait.jpg/1200px-Donald_Trump_official_portrait.jpg',
-      },
-      {
-        date: '21.01.2010',
-        text: 'How artistic!',
-        createdBy: 'Matt',
-        authorImage:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Donald_Trump_official_portrait.jpg/1200px-Donald_Trump_official_portrait.jpg',
-      },
-    ],
+  const [isSend, setIsSend] = useState(false);
+  const [errors, setErrors] = useState<Partial<ForumErrors>>({});
+
+  const [comment, handleChangeComment] = useStringField('');
+  const handleBlurComment = (event: FieldChangeEvent): void => {
+    const { name, value } = event.target;
+
+    setErrors((prevState) => ({
+      ...prevState,
+      [name]: validateName(value),
+
+    }));
   };
+
+  useEffect(() => {
+    dispatch(getForumTopic());
+  }, [isSend]);
+
+  const handleSubmit = (): void => {
+    if (!!comment && !some(errors, Boolean)) {
+      ForumAPI.createComment({ topic_id: id, comment }).then(() => setIsSend(true));
+    }
+  };
+
+
+  if (!topics.length) {
+    return <Layout title={t('question')}><div>Loading...</div></Layout>
+  }
+
+  const topic = topics.filter(topic => topic.id.toString() === id)[0];
+
+  if (typeof topic === 'undefined') {
+    return <Layout title={t('question')}><div>Topic not found!</div></Layout>
+  }
 
   return (
     <Layout title={t('question')}>
       <h3>
-        Lorem Ipsum - это текст-&quot;рыба&quot;, часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной
-        &quot;рыбой&quot; для текстов на латинице с начала XVI века?
+        {topic.title}
       </h3>
-      <Label>{question.date}</Label> by
-      {question.createdBy}
+      <p>
+        {topic.description}
+      </p>
+      <Label>by {topic.user}</Label>
+
+      <div style={{marginTop: '26px'}}><h3>Comments:</h3></div>
+
       <Comment.Group>
-        {question.answers.map((item, key) => (
-          <Comment key={`${key}k`}>
-            <Comment.Avatar src={item.authorImage} />
+        {topic.comments.map((item) => (
+          <Comment key={item.id}>
             <Comment.Content>
-              <Comment.Author as="a">{item.createdBy}</Comment.Author>
-              <Comment.Metadata>
-                <div>{item.date}</div>
-              </Comment.Metadata>
-              <Comment.Text>{item.text}</Comment.Text>
+              <Comment.Author as="a">{item.user}</Comment.Author>
+              <Comment.Text>{item.comment}</Comment.Text>
             </Comment.Content>
           </Comment>
         ))}
 
-        <Form reply>
-          <Form.TextArea />
-          <Button content="Add Reply" labelPosition="left" icon="edit" primary />
-        </Form>
+
+        {!isSend ? (<Form onSubmit={handleSubmit}>
+          <Form.TextArea
+            name="comment"
+            value={comment}
+            type="text"
+            onChange={handleChangeComment}
+            style={{ minHeight: 120 }}
+            onBlur={handleBlurComment}
+            error={errors.comment}
+          />
+          <Button content="Add Reply" type="submit" labelPosition="left" icon="edit" primary />
+        </Form>) : (
+          <Header as="h1" textAlign="center">
+            {t('success')}
+          </Header>
+        )}
       </Comment.Group>
     </Layout>
   );
