@@ -20,7 +20,8 @@ const dictionary = {
   categories: 'Категории',
   saveButton: 'Сохранить',
   cancelButton: 'Отмена',
-  homeTitle: 'Главная',
+  homeTitle: 'Играть',
+  leaderTitle: 'Лидеры',
   profileTitle: 'Профиль',
   error: 'Ошибка',
   changesSaved: 'Изменения сохранены',
@@ -38,6 +39,11 @@ const dictionary = {
   restart: 'Запустить снова',
   gameOverScore: 'Ваш счет:',
   gameOver: 'Игра окончена!',
+  leaderboardTitle: 'Рейтинг',
+  feedbackTitle: 'Обратная связь',
+  send: 'Отправить',
+  message: 'Сообщение',
+  feedbackMessage: 'Спасибо за обратную связь!',
 };
 
 export const t = (key: keyof typeof dictionary): string => dictionary[key];

@@ -1,15 +1,12 @@
 import './Home.css';
 
 import { ROUTES, t } from 'common';
-import { useAuth } from 'common/hooks/authHook';
 import Layout from 'components/Layout';
 import React, { FC, memo } from 'react';
 import { useHistory } from 'react-router';
 import { Button } from 'semantic-ui-react';
 
 const Home: FC = memo(() => {
-  useAuth();
-
   const history = useHistory();
 
   const handleClick = () => history.push(ROUTES.GAME);

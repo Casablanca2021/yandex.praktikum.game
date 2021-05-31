@@ -1,33 +1,26 @@
 import './Leaderboard.css';
 
 import { LeaderboardResponseItem } from 'api/types';
-import React, { PureComponent } from 'react';
+import React, { FC } from 'react';
 import { Image, Label, List, Menu } from 'semantic-ui-react';
+import { useSelector } from 'react-redux';
+import { getLeaderboardSelector } from 'store/selectors';
+import Layout from 'components/Layout';
+import { useAuth } from 'common/hooks/authHook';
+import { useEffect } from 'react';
+import { getLeaderboard } from 'store/actions/leaderboard';
+import { useThunkAction } from 'common/hooks/actionHooks';
 
-import { LeaderboardServices } from './LeaderboardServices';
-import { LeaderboardState } from './types';
+const Leaderboard: FC = () => {
+  useAuth();
 
-type Props = Record<string, never>;
+  const leaders = useSelector(getLeaderboardSelector);
+  const getLeaderboardAction = useThunkAction(getLeaderboard);
 
-export class Leaderboard extends PureComponent<Props, Partial<LeaderboardState>> {
-  services = new LeaderboardServices();
+  useEffect(() => getLeaderboardAction(), []);
 
-  constructor(props = {}) {
-    super(props);
-    this.state = {};
-  }
-
-  componentDidMount(): void {
-    this.services.getLeaderboard().then((leaders) => {
-      this.setState({
-        leaders,
-      });
-    });
-  }
-
-  render(): JSX.Element {
-    const { leaders } = this.state;
-    return (
+  return (
+    <Layout className="leaderboard" transparent>
       <div className="leaderboard__top">
         <div className="leaderboard__top-bar">
           <Menu color="blue" inverted widths={3}>
@@ -56,6 +49,8 @@ export class Leaderboard extends PureComponent<Props, Partial<LeaderboardState>>
           </List>
         </div>
       </div>
-    );
-  }
-}
+    </Layout>
+  );
+};
+
+export default Leaderboard;

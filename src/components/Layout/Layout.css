@@ -2,18 +2,36 @@
   min-height: 100vh;
   display: flex;
 
+  &.light {
+    background-color: #ffffff;
+  }
+
+  &.dark {
+    background-color: #000000;
+  }
+
   &__app-name {
     font-size: 3em;
-    color: #ffffff;
     padding: 4px 8px;
     border-radius: 8px;
     display: inline-block;
     line-height: 1;
-    background-color: black;
     font-weight: 700;
     margin-bottom: 12px;
     text-transform: uppercase;
     position: relative;
+
+    &.light {
+      background-color: #000000;
+      color: #ffffff;
+    }
+
+    &.dark,
+    &.dark:hover {
+      background-color: #fff;
+      color: #000000;
+      box-shadow: 0 0 6px #ffffffcf;
+    }
 
     &:hover {
       color: #ffffff;
@@ -52,6 +70,10 @@
 
 h1.ui.header.layout__header {
   font-size: 2.7em;
+
+  .dark & {
+    color: #ffffff;
+  }
 }
 
 .main {
@@ -63,5 +85,17 @@ h1.ui.header.layout__header {
   &_transparent {
     background-color: transparent;
     box-shadow: none;
+  }
+
+  .ui.green.button {
+    .light & {
+      color: #ffffff;
+    }
+    .dark & {
+      color: #000000;
+    }
+  }
+  .ui.green.button:hover {
+    color: #ffffff;
   }
 }

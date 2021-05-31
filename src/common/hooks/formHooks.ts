@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { InputChangeEvent } from 'common';
+import { FieldChangeEvent } from 'common/types';
 
-export const useStringField = (initialValue: string): [string, (event: InputChangeEvent) => void] => {
+export const useStringField = (initialValue: string): [string, (event: FieldChangeEvent) => void] => {
   const [value, setValue] = useState<string>(initialValue);
 
-  const handleChange = (event: InputChangeEvent): void => {
+  const handleChange = (event: FieldChangeEvent): void => {
     setValue(event.target.value);
   };
 

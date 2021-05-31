@@ -40,9 +40,20 @@ export type LeaderboardResponseItem = {
   };
 };
 
-export type LeaderboardResponse = [LeaderboardResponseItem] | [];
+export type LeaderboardResponse = LeaderboardResponseItem[] | [];
 
 export type YandexOAuthServiceId = {
   // eslint-disable-next-line camelcase
   service_id: string;
+};
+
+export type FeedBack = {
+  name: string;
+  email: string;
+  text: string;
+};
+
+export type ThemeRequest = {
+  theme: string;
+  user: string;
 };

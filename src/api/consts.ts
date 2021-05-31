@@ -17,4 +17,7 @@ export const ApiPath = {
   PROFILE: `${baseUrl}/user/profile`,
   AVATAR: `${baseUrl}/user/profile/avatar`,
   YANDEX_OAUTH_ID: `${baseUrl}/oauth/yandex/service-id`,
+  GET_LEADERBOARD: `${baseUrl}/leaderboard/all`,
+  SET_LEADERBOARD: `${baseUrl}/leaderboard`,
+  THEME: `/api/v1/theme`,
 };

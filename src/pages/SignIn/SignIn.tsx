@@ -1,6 +1,5 @@
 import './SignIn.css';
 
-import { InputChangeEvent, t } from 'common';
 import { useThunkAction } from 'common/hooks/actionHooks';
 import { useAuth } from 'common/hooks/authHook';
 import { useStringField } from 'common/hooks/formHooks';
@@ -11,6 +10,8 @@ import { signInAction, signInYandexAction } from 'store/actions/auth';
 import { validateLoginAndPassword } from 'utils';
 
 import { FieldErrors } from './types';
+import { FieldChangeEvent } from 'common/types';
+import { t } from 'common';
 
 const SignIn: FC = memo(() => {
   useAuth();
@@ -24,7 +25,7 @@ const SignIn: FC = memo(() => {
 
   const signInYandex = useThunkAction(signInYandexAction);
 
-  const handleBlur = (event: InputChangeEvent): void => {
+  const handleBlur = (event: FieldChangeEvent): void => {
     const { name, value } = event.target;
 
     setErrors((prevState) => ({

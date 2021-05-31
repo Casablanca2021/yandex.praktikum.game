@@ -1,36 +1,38 @@
 import { post } from 'api/http';
 import { LeaderboardResponse } from 'api/types';
-import { baseUrl, headersJSON as headers } from 'common';
 import store from 'store';
+import { ApiPath, headersJSON as headers } from 'api/consts';
 
 export const leaderboard = {
   getAll(): Promise<LeaderboardResponse> {
     return post(
-      `${baseUrl}/leaderboard/all`,
+      ApiPath.GET_LEADERBOARD,
       {
-        ratingFieldName: 'casablanca_score',
         cursor: 0,
+        ratingFieldName: 'casablanca_score',
         limit: 20,
       },
       { headers }
     );
   },
 
-  save(score: number, level: number): Promise<LeaderboardResponse> {
-    const { user } = store.getState();
+  save(score: number, level: number): Promise<LeaderboardResponse> | undefined {
+    const { auth, user } = store.getState();
 
-    return post(
-      `${baseUrl}/leaderboard`,
-      {
-        data: {
-          casablanca_score: score,
-          level,
-          login: user.login,
-          avatar: user.avatar,
+    if (auth) {
+      return post(
+        ApiPath.SET_LEADERBOARD,
+        {
+          data: {
+            casablanca_score: score,
+            level,
+            login: user.login,
+            avatar: user.avatar,
+          },
+          ratingFieldName: 'casablanca_score',
         },
-        ratingFieldName: 'casablanca_score',
-      },
-      { headers }
-    );
+        { headers }
+      );
+    }
   },
 };

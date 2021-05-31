@@ -1,7 +1,7 @@
 import { headersJSON as headers } from 'api/consts';
 import { get, post } from './http';
 import { LogOutResponse, SignInData, SignInResponse, SignUpData, SignUpResponse, YandexOAuthServiceId } from './types';
-import { ApiPath } from './consts';
+import { ApiPath } from 'api/consts';
 
 interface Auth {
   signUp: (data: SignUpData) => Promise<SignUpResponse>;

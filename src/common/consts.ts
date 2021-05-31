@@ -9,4 +9,10 @@ export enum ROUTES {
   HOME = '/home',
   LEADERBOARD = '/leaderboard',
   GAME = '/game',
+  FEEDBACK = '/feedback',
+}
+
+export enum THEME {
+  LIGHT = 'light',
+  DARK = 'dark',
 }

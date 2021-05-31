@@ -1,14 +1,23 @@
 import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
 import express from 'express';
 import mongoose from 'mongoose';
+import swaggerJsDoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
 
-import feedbackRoutes from './routes/feedback';
+import { sequelize } from './db_context/postgres';
+import router from './routes';
+import { options } from './swaggerConfig';
 
-const app = express();
+sequelize.authenticate().then(() => {
+  console.log('Connection to Postgres base established');
+});
 
-app.use(bodyParser.json());
-
-const baseUrl = process.env.BASE_MONGODB || 'mongodb://root:example@localhost:27017/my-db?authSource=admin';
+/* sequelize.sync({ force: true }).then(() => {
+  console.log('Connection to Postgres base established');
+}); */
+const baseUrl = `mongodb://${process.env.MONGO_INITDB_ROOT_USERNAME}:${process.env.MONGO_INITDB_ROOT_PASSWORD}@mongo:27017/${process.env.MONGO_INITDB_DATABASE}?authSource=admin`
+  || 'mongodb://root:example@localhost:27017/my-db?authSource=admin';;
 
 mongoose
   .connect(baseUrl, {
@@ -22,8 +31,17 @@ mongoose
     console.log(ex);
   });
 
+const app = express();
+
+app.use(bodyParser.json());
+app.use(cookieParser());
+
 const url = '/api/v1';
 
-app.use(`${url}/requests`, feedbackRoutes);
+app.use(`${url}`, router);
+
+const swaggerDocs = swaggerJsDoc(options);
+router.use('/api-docs', swaggerUi.serve);
+router.get('/api-docs', swaggerUi.setup(swaggerDocs));
 
 export default app;

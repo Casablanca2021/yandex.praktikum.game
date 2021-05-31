@@ -7,7 +7,7 @@ import Forum from 'pages/Forum';
 import ForumView from 'pages/ForumView';
 import { Game } from 'pages/Game';
 import Home from 'pages/Home';
-import { Leaderboard } from 'pages/Leaderboard';
+import Leaderboard from 'pages/Leaderboard';
 import Profile from 'pages/Profile';
 import SignIn from 'pages/SignIn';
 import SignUp from 'pages/SignUp';
@@ -17,6 +17,7 @@ import { useSelector } from 'react-redux';
 import { Route, Switch, useHistory, useRouteMatch } from 'react-router-dom';
 import { getUserAction } from 'store/actions/user';
 import { getSSRSelector } from 'store/selectors';
+import Feedback from 'pages/Feedback';
 
 export const App: FC = () => {
   const history = useHistory();
@@ -54,6 +55,7 @@ export const App: FC = () => {
         <Route path={ROUTES.HOME} component={Home} />
         <Route path={ROUTES.LEADERBOARD} component={Leaderboard} />
         <Route path={ROUTES.GAME} component={Game} />
+        <Route path={ROUTES.FEEDBACK} component={Feedback} />
       </Switch>
       <NotificationContainer />
     </>

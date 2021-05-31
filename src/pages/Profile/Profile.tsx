@@ -6,7 +6,7 @@ import { useAuth } from 'common/hooks/authHook';
 import Layout from 'components/Layout';
 import React, { FC, memo, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Button, Form, Image } from 'semantic-ui-react';
+import { Button, Container, Form, Image } from 'semantic-ui-react';
 import { changeAvatarAction, changeUserInfoAction } from 'store/actions/user';
 import { getUserSelector } from 'store/selectors';
 import { validateEmail, validateLoginAndPassword, validateName, validatePhone } from 'utils';
@@ -65,7 +65,7 @@ const Profile: FC = memo(() => {
 
   return (
     <Layout transparent verticalAlign>
-      <div className="profile">
+      <Container className="profile">
         <div className="profile__form">
           <Form id="form">
             <div className="profile__avatar">
@@ -141,13 +141,12 @@ const Profile: FC = memo(() => {
               onBlur={handleBlur(validatePhone(profile?.phone || ''))}
               onFocus={handleFocus}
             />
-            <Button onClick={handleSaveProfile} color="blue" type="button">
+            <Button onClick={handleSaveProfile} color="blue" type="button" fluid>
               {t('saveButton')}
             </Button>
-            <Button type="button">{t('cancelButton')}</Button>
           </Form>
         </div>
-      </div>
+      </Container>
     </Layout>
   );
 });
