@@ -47,6 +47,7 @@ const dictionary = {
   createTopic: 'Создать топик',
   forum_title: 'Название',
   success: 'Успешно!',
+  back: 'Назад',
 };
 
 export const t = (key: keyof typeof dictionary): string => dictionary[key];
