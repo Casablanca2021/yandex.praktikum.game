@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-import { UserTheme } from '../models/UserTheme';
+import { UserTheme } from '../models/userTheme';
 
 export async function createUserTheme(request: Request, response: Response): Promise<void> {
   try {

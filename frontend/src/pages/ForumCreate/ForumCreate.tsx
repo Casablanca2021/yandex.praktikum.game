@@ -1,0 +1,81 @@
+import { t } from 'common/dictionary';
+import Layout from 'components/Layout';
+import React, { FC, useState } from 'react';
+import { Button, Form, Header } from 'semantic-ui-react';
+import { ForumErrors } from 'pages/ForumCreate/types';
+import { FieldChangeEvent } from 'common/types';
+import { validateName } from 'utils';
+import { useStringField } from 'common/hooks/formHooks';
+import some from 'lodash/some';
+
+import { Forum as ForumAPI } from 'api/forum';
+
+
+const ForumCreate: FC = () => {
+  const [isSend, setIsSend] = useState(false);
+  const [errors, setErrors] = useState<Partial<ForumErrors>>({});
+
+  const [title, handleChangeTitle] = useStringField('');
+  const [description, handleChangeDescription] = useStringField('');
+
+
+  const handleBlurTitle = (event: FieldChangeEvent): void => {
+    const { name, value } = event.target;
+
+    setErrors((prevState) => ({
+      ...prevState,
+      [name]: validateName(value),
+    }));
+  };
+
+  const handleBlurDescription = (event: FieldChangeEvent): void => {
+    const { name, value } = event.target;
+
+    setErrors((prevState) => ({
+      ...prevState,
+      [name]: validateName(value),
+    }));
+  };
+
+  const handleSubmit = (): void => {
+    if ((title && description) && !some(errors, Boolean)) {
+      ForumAPI.create({ title, description }).then(() => setIsSend(true));
+    }
+  };
+
+  return (
+    <Layout title={t('forumTitle')}>
+      {!isSend ? (<Form onSubmit={handleSubmit}>
+        <Form.Input
+          name="title"
+          value={title}
+          label={t('first_name')}
+          placeholder={t('forum_title')}
+          onChange={handleChangeTitle}
+          onBlur={handleBlurTitle}
+          error={errors.title}
+        />
+        <Form.TextArea
+          name="description"
+          value={description}
+          type="text"
+          label={t('message')}
+          placeholder={t('message')}
+          onChange={handleChangeDescription}
+          style={{ minHeight: 120 }}
+          onBlur={handleBlurDescription}
+          error={errors.description}
+        />
+        <Button type="submit" color="blue" fluid>
+          {t('send')}
+        </Button>
+      </Form>) : (
+        <Header as="h1" textAlign="center">
+          {t('success')}
+        </Header>
+      )}
+    </Layout>
+  );
+};
+
+export default ForumCreate;

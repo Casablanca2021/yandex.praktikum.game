@@ -1,5 +1,6 @@
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 import express from 'express';
 import mongoose from 'mongoose';
 import swaggerJsDoc from 'swagger-jsdoc';
@@ -13,9 +14,10 @@ sequelize.authenticate().then(() => {
   console.log('Connection to Postgres base established');
 });
 
-/* sequelize.sync({ force: true }).then(() => {
+sequelize.sync({ force: true }).then(() => {
   console.log('Connection to Postgres base established');
-}); */
+});
+
 const baseUrl = `mongodb://${process.env.MONGO_INITDB_ROOT_USERNAME}:${process.env.MONGO_INITDB_ROOT_PASSWORD}@mongo:27017/${process.env.MONGO_INITDB_DATABASE}?authSource=admin`
   || 'mongodb://root:example@localhost:27017/my-db?authSource=admin';;
 
@@ -33,6 +35,12 @@ mongoose
 
 const app = express();
 
+const corsOptions = {
+  origin: process.env.MAIN_HOST ? [process.env.MAIN_HOST] : ['https://127.0.0.1', '127.0.0.1'],
+  credentials: true,
+}
+
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
