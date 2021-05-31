@@ -9,9 +9,14 @@ import { useStringField } from 'common/hooks/formHooks';
 import some from 'lodash/some';
 
 import { Forum as ForumAPI } from 'api/forum';
+import { useHistory } from 'react-router';
+import { useAuth } from 'common/hooks/authHook';
 
 
 const ForumCreate: FC = () => {
+  useAuth();
+
+  const history = useHistory();
   const [isSend, setIsSend] = useState(false);
   const [errors, setErrors] = useState<Partial<ForumErrors>>({});
 
@@ -45,6 +50,9 @@ const ForumCreate: FC = () => {
 
   return (
     <Layout title={t('forumTitle')}>
+      <Button onClick={() => history.goBack()} secondary>{t('back')}</Button>
+      <br />
+      <br />
       {!isSend ? (<Form onSubmit={handleSubmit}>
         <Form.Input
           name="title"
