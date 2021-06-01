@@ -12,5 +12,5 @@ interface Forum {
 export const Forum: Forum = {
   create: (data: ForumTopic): Promise<void> => post(ApiPath.FORUM_TOPIC, data, { headers }),
   get: (): Promise<ForumTopicResponse> => get(ApiPath.FORUM_TOPIC, { headers }),
-  createComment: (data: ForumTopicCreate): Promise<void> => post(ApiPath.FORUM_COMMENT, data, { headers })
+  createComment: (data: ForumTopicCreate): Promise<void> => post(ApiPath.FORUM_COMMENT, data, { headers }),
 };

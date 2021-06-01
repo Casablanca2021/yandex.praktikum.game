@@ -1,8 +1,8 @@
 import { leaderboard } from 'api/leaderboard';
+import { UserInfoResponse } from 'api/types';
 import { t } from 'common';
 import { Car, Range, Road } from 'core';
 import { getRandomIntInclusive, setNotificationError } from 'utils';
-import { UserInfoResponse } from 'api/types';
 
 type InformAlert = (text: string, hide?: boolean) => Promise<void> | undefined;
 type SetInfo = (score: number, level: number) => void;
@@ -55,6 +55,7 @@ export class GameProcess {
   private setInfo: SetInfo;
 
   private restartModal: RestartModal;
+
   private user: UserInfoResponse;
 
   constructor(

@@ -10,7 +10,7 @@ export enum ROUTES {
   LEADERBOARD = '/leaderboard',
   GAME = '/game',
   FEEDBACK = '/feedback',
-  FORUM_CREATE = '/forum/create'
+  FORUM_CREATE = '/forum/create',
 }
 
 export enum THEME {
