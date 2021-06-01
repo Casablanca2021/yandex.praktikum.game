@@ -8,7 +8,7 @@ import { StaticRouter } from 'react-router-dom';
 import { applyMiddleware, createStore } from 'redux';
 import thunk from 'redux-thunk';
 
-import { ApiPath, baseUrl, baseUrlResources, headersJSON } from '../src/api/consts';
+import { ApiPath, baseUrlResources, headersJSON } from '../src/api/consts';
 import { HTTP_METHODS } from '../src/api/http';
 import { App } from '../src/components/App';
 import { setAuth } from '../src/store/actions/auth';
@@ -77,7 +77,7 @@ export const ssr = (app: Express) => {
           store.dispatch(setAuth(true));
 
           const userTheme = await fetch(`${ApiPath.THEME}?user=${userInfo.login}`);
-          store.dispatch(setTheme(userTheme));
+          store.dispatch(setTheme(await userTheme.text()));
         }
       } catch (error) {
         console.warn(error);
@@ -90,7 +90,7 @@ export const ssr = (app: Express) => {
 
     if (code) {
       try {
-        const response = await fetch(`${baseUrl}/oauth/yandex`, {
+        const response = await fetch(ApiPath.YANDEX_OAUTH, {
           method: HTTP_METHODS.POST,
           headers: headersJSON,
           body: JSON.stringify({ code }),

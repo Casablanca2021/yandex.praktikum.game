@@ -1,7 +1,7 @@
 import setCookie from 'set-cookie-parser';
 import { Request as ExpressRequest, Response as ExpressResponse } from 'express';
 import { Response as FetchResponse } from 'node-fetch';
-import { serialize } from 'cookie';
+// import { serialize } from 'cookie';
 
 export const getRequestCookies = (expressRequest: ExpressRequest) => {
   const { cookie } = expressRequest.headers;
@@ -17,10 +17,24 @@ const getSetCookie = (response: FetchResponse) =>
 export const getResponseCookies = (fetchResponse: FetchResponse) => {
   const cookies = getSetCookie(fetchResponse);
 
+  const cookiesNames: string[] = [];
+
+  // const cookie = cookies
+  //   .map(function (cookie) {
+  //     return serialize(cookie.name, cookie.value);
+  //   })
+  //   .join('; ');
+
   const cookie = cookies
-    .map(function (cookie) {
-      return serialize(cookie.name, cookie.value);
+    .reverse()
+    .filter(({ name }) => {
+      if (!cookiesNames.includes(name)) {
+        cookiesNames.push(name);
+        return true;
+      }
+      return false;
     })
+    .map(({ name, value }) => `${name}=${value}`)
     .join('; ');
 
   return { cookie };

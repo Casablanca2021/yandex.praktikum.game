@@ -16,18 +16,18 @@ export const leaderboard = {
   },
 
   save(score: number, level: number, user: UserInfoResponse): Promise<LeaderboardResponse> | undefined {
-      return post(
-        ApiPath.SET_LEADERBOARD,
-        {
-          data: {
-            casablanca_score: score,
-            level,
-            login: user.login,
-            avatar: user.avatar,
-          },
-          ratingFieldName: 'casablanca_score',
+    return post(
+      ApiPath.SET_LEADERBOARD,
+      {
+        data: {
+          casablanca_score: score,
+          level,
+          login: user.login,
+          avatar: user.avatar,
         },
-        { headers }
-      );
+        ratingFieldName: 'casablanca_score',
+      },
+      { headers }
+    );
   },
 };
