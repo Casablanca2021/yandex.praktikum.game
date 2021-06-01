@@ -8,7 +8,6 @@ import { getForumTopicsSelector } from 'store/selectors';
 import { getForumTopic } from 'store/actions/forumTopic';
 import { useHistory, useParams } from 'react-router';
 import { FieldChangeEvent } from 'common/types';
-import { validateName } from 'utils';
 import { useStringField } from 'common/hooks/formHooks';
 import { ForumErrors } from './types';
 import some from 'lodash/some';
@@ -35,7 +34,7 @@ const ForumList: FC = () => {
 
     setErrors((prevState) => ({
       ...prevState,
-      [name]: validateName(value),
+      [name]: !value,
     }));
   };
 
@@ -44,7 +43,7 @@ const ForumList: FC = () => {
 
     setErrorsReply((prevState) => ({
       ...prevState,
-      [name]: validateName(value),
+      [name]: !value,
     }));
   };
 
