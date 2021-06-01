@@ -17,5 +17,5 @@ export const Auth: Auth = {
 
   logOut: (): Promise<LogOutResponse> => post(ApiPath.LOG_OUT),
 
-  getYandexOAuthServiceId: (): Promise<YandexOAuthServiceId> => get(ApiPath.YANDEX_OAUTH_ID),
+  getYandexOAuthServiceId: (): Promise<YandexOAuthServiceId> => get(`${ApiPath.YANDEX_OAUTH_ID}?redirect_uri=${window.location.origin}`),
 };
