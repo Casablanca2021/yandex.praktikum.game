@@ -38,7 +38,7 @@ const ForumCreate: FC = () => {
 
     setErrors((prevState) => ({
       ...prevState,
-      [name]: validateName(value),
+      [name]: !value,
     }));
   };
 
