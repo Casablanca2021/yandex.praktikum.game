@@ -2,29 +2,48 @@
 
 exports[`MainMenu Component 'Forum' tab active when uri is /forum 1`] = `
 <div
-  className="ui main-menu layout__main-menu menu"
+  className="ui main-menu light layout__main-menu menu"
 >
   <a
     className="item main-menu__item"
     onClick={[Function]}
   >
-    Главная
-  </a>
-  <a
-    className="item main-menu__item"
-    onClick={[Function]}
-  >
-    Профиль
-  </a>
-  <a
-    className="active item main-menu__item"
-    onClick={[Function]}
-  >
-    Форум
+    Играть
   </a>
   <div
     className="right menu"
   >
+    <div
+      className="toggle_theme"
+    >
+      <i
+        aria-hidden="true"
+        className="yellow sun large icon toggle_theme__icon"
+        onClick={[Function]}
+      />
+      <div
+        className="ui fitted toggle checkbox"
+        color="black"
+        onChange={[Function]}
+        onClick={[Function]}
+        onMouseDown={[Function]}
+        onMouseUp={[Function]}
+      >
+        <input
+          checked={false}
+          className="hidden"
+          readOnly={true}
+          tabIndex={0}
+          type="checkbox"
+        />
+        <label />
+      </div>
+      <i
+        aria-hidden="true"
+        className="moon large icon toggle_theme__icon"
+        onClick={[Function]}
+      />
+    </div>
     <a
       className="item main-menu__item"
       onClick={[Function]}
@@ -43,29 +62,48 @@ exports[`MainMenu Component 'Forum' tab active when uri is /forum 1`] = `
 
 exports[`MainMenu Component 'Home' tab active when uri is /home 1`] = `
 <div
-  className="ui main-menu layout__main-menu menu"
+  className="ui main-menu light layout__main-menu menu"
 >
   <a
     className="active item main-menu__item"
     onClick={[Function]}
   >
-    Главная
-  </a>
-  <a
-    className="item main-menu__item"
-    onClick={[Function]}
-  >
-    Профиль
-  </a>
-  <a
-    className="item main-menu__item"
-    onClick={[Function]}
-  >
-    Форум
+    Играть
   </a>
   <div
     className="right menu"
   >
+    <div
+      className="toggle_theme"
+    >
+      <i
+        aria-hidden="true"
+        className="yellow sun large icon toggle_theme__icon"
+        onClick={[Function]}
+      />
+      <div
+        className="ui fitted toggle checkbox"
+        color="black"
+        onChange={[Function]}
+        onClick={[Function]}
+        onMouseDown={[Function]}
+        onMouseUp={[Function]}
+      >
+        <input
+          checked={false}
+          className="hidden"
+          readOnly={true}
+          tabIndex={0}
+          type="checkbox"
+        />
+        <label />
+      </div>
+      <i
+        aria-hidden="true"
+        className="moon large icon toggle_theme__icon"
+        onClick={[Function]}
+      />
+    </div>
     <a
       className="item main-menu__item"
       onClick={[Function]}

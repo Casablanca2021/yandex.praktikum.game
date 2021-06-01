@@ -2,7 +2,7 @@
 
 exports[`Layout Component renders correctly 1`] = `
 <div
-  className="layout "
+  className="layout  light"
 >
   <div
     className="ui container"
@@ -11,7 +11,7 @@ exports[`Layout Component renders correctly 1`] = `
       className="layout__app-name-wrapper"
     >
       <a
-        className="layout__app-name"
+        className="layout__app-name light"
         data-highlightword="Casablanca"
         href="/"
         onClick={[Function]}
@@ -20,29 +20,48 @@ exports[`Layout Component renders correctly 1`] = `
       </a>
     </div>
     <div
-      className="ui main-menu layout__main-menu menu"
+      className="ui main-menu light layout__main-menu menu"
     >
       <a
         className="item main-menu__item"
         onClick={[Function]}
       >
-        Главная
-      </a>
-      <a
-        className="item main-menu__item"
-        onClick={[Function]}
-      >
-        Профиль
-      </a>
-      <a
-        className="item main-menu__item"
-        onClick={[Function]}
-      >
-        Форум
+        Играть
       </a>
       <div
         className="right menu"
       >
+        <div
+          className="toggle_theme"
+        >
+          <i
+            aria-hidden="true"
+            className="yellow sun large icon toggle_theme__icon"
+            onClick={[Function]}
+          />
+          <div
+            className="ui fitted toggle checkbox"
+            color="black"
+            onChange={[Function]}
+            onClick={[Function]}
+            onMouseDown={[Function]}
+            onMouseUp={[Function]}
+          >
+            <input
+              checked={false}
+              className="hidden"
+              readOnly={true}
+              tabIndex={0}
+              type="checkbox"
+            />
+            <label />
+          </div>
+          <i
+            aria-hidden="true"
+            className="moon large icon toggle_theme__icon"
+            onClick={[Function]}
+          />
+        </div>
         <a
           className="item main-menu__item"
           onClick={[Function]}
@@ -70,7 +89,7 @@ exports[`Layout Component renders correctly 1`] = `
 
 exports[`Layout Component renders correctly with all props 1`] = `
 <div
-  className="layout class-name"
+  className="layout class-name light"
 >
   <div
     className="ui container layout__container_valign"
@@ -79,7 +98,7 @@ exports[`Layout Component renders correctly with all props 1`] = `
       className="layout__app-name-wrapper"
     >
       <a
-        className="layout__app-name"
+        className="layout__app-name light"
         data-highlightword="Casablanca"
         href="/"
         onClick={[Function]}
@@ -88,29 +107,48 @@ exports[`Layout Component renders correctly with all props 1`] = `
       </a>
     </div>
     <div
-      className="ui main-menu layout__main-menu menu"
+      className="ui main-menu light layout__main-menu menu"
     >
       <a
         className="item main-menu__item"
         onClick={[Function]}
       >
-        Главная
-      </a>
-      <a
-        className="item main-menu__item"
-        onClick={[Function]}
-      >
-        Профиль
-      </a>
-      <a
-        className="item main-menu__item"
-        onClick={[Function]}
-      >
-        Форум
+        Играть
       </a>
       <div
         className="right menu"
       >
+        <div
+          className="toggle_theme"
+        >
+          <i
+            aria-hidden="true"
+            className="yellow sun large icon toggle_theme__icon"
+            onClick={[Function]}
+          />
+          <div
+            className="ui fitted toggle checkbox"
+            color="black"
+            onChange={[Function]}
+            onClick={[Function]}
+            onMouseDown={[Function]}
+            onMouseUp={[Function]}
+          >
+            <input
+              checked={false}
+              className="hidden"
+              readOnly={true}
+              tabIndex={0}
+              type="checkbox"
+            />
+            <label />
+          </div>
+          <i
+            aria-hidden="true"
+            className="moon large icon toggle_theme__icon"
+            onClick={[Function]}
+          />
+        </div>
         <a
           className="item main-menu__item"
           onClick={[Function]}
@@ -143,7 +181,7 @@ exports[`Layout Component renders correctly with all props 1`] = `
 
 exports[`Layout Component renders correctly with title prop 1`] = `
 <div
-  className="layout "
+  className="layout  light"
 >
   <div
     className="ui container"
@@ -152,7 +190,7 @@ exports[`Layout Component renders correctly with title prop 1`] = `
       className="layout__app-name-wrapper"
     >
       <a
-        className="layout__app-name"
+        className="layout__app-name light"
         data-highlightword="Casablanca"
         href="/"
         onClick={[Function]}
@@ -161,29 +199,48 @@ exports[`Layout Component renders correctly with title prop 1`] = `
       </a>
     </div>
     <div
-      className="ui main-menu layout__main-menu menu"
+      className="ui main-menu light layout__main-menu menu"
     >
       <a
         className="item main-menu__item"
         onClick={[Function]}
       >
-        Главная
-      </a>
-      <a
-        className="item main-menu__item"
-        onClick={[Function]}
-      >
-        Профиль
-      </a>
-      <a
-        className="item main-menu__item"
-        onClick={[Function]}
-      >
-        Форум
+        Играть
       </a>
       <div
         className="right menu"
       >
+        <div
+          className="toggle_theme"
+        >
+          <i
+            aria-hidden="true"
+            className="yellow sun large icon toggle_theme__icon"
+            onClick={[Function]}
+          />
+          <div
+            className="ui fitted toggle checkbox"
+            color="black"
+            onChange={[Function]}
+            onClick={[Function]}
+            onMouseDown={[Function]}
+            onMouseUp={[Function]}
+          >
+            <input
+              checked={false}
+              className="hidden"
+              readOnly={true}
+              tabIndex={0}
+              type="checkbox"
+            />
+            <label />
+          </div>
+          <i
+            aria-hidden="true"
+            className="moon large icon toggle_theme__icon"
+            onClick={[Function]}
+          />
+        </div>
         <a
           className="item main-menu__item"
           onClick={[Function]}

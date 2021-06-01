@@ -61,6 +61,7 @@ export type ForumTopic = {
 export type Comment = {
   id: number;
   comment: string;
+  commentId?: number;
   topic_id: string;
   user: string;
 };

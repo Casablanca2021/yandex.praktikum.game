@@ -25,7 +25,6 @@ const Forum: FC = () => {
       <div style={{paddingBottom: '8px'}}>
         {isAuth && <Button primary onClick={() => history.push(ROUTES.FORUM_CREATE)}>{t('createTopic')}</Button>}
       </div>
-      {`${t('categories')}:`}
       <ForumList items={topics} />
     </Layout>
   );

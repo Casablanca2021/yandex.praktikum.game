@@ -36,70 +36,20 @@ exports[`ForumList Component renders correctly 1`] = `
           href="/forum/1"
           onClick={[Function]}
         >
-          TEST
+          TITLE
         </a>
-      </td>
-      <td
-        className=""
-      >
-        5
-         answers
-      </td>
-      <td
-        className=""
-      >
-         
-        <strong>
-          cat 1
-        </strong>
-         
         <br />
-         by 
-        <strong>
-          me
-        </strong>
-         
-        <br />
-         
-        21.03.2015
-      </td>
-    </tr>
-    <tr
-      className=""
-    >
-      <td
-        className=""
-      >
-        <a
-          href="/forum/2"
-          onClick={[Function]}
-        >
-          TEST 3
-        </a>
+        <span>
+          DESCR
+        </span>
       </td>
       <td
         className=""
       >
-        15
-         answers
-      </td>
-      <td
-        className=""
-      >
-         
+        by 
         <strong>
-          cat 3
+          USER
         </strong>
-         
-        <br />
-         by 
-        <strong>
-          Arnold
-        </strong>
-         
-        <br />
-         
-        21.01.2011
       </td>
     </tr>
   </tbody>
