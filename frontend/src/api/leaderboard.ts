@@ -1,7 +1,6 @@
 import { ApiPath, headersJSON as headers } from 'api/consts';
 import { post } from 'api/http';
-import { LeaderboardResponse } from 'api/types';
-import store from 'store';
+import { LeaderboardResponse, UserInfoResponse } from 'api/types';
 
 export const leaderboard = {
   getAll(): Promise<LeaderboardResponse> {
@@ -16,10 +15,7 @@ export const leaderboard = {
     );
   },
 
-  save(score: number, level: number): Promise<LeaderboardResponse> | undefined {
-    const { auth, user } = store.getState();
-
-    if (auth) {
+  save(score: number, level: number, user: UserInfoResponse): Promise<LeaderboardResponse> | undefined {
       return post(
         ApiPath.SET_LEADERBOARD,
         {
@@ -33,6 +29,5 @@ export const leaderboard = {
         },
         { headers }
       );
-    }
   },
 };
