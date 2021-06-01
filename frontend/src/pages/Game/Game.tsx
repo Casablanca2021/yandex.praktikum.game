@@ -11,8 +11,9 @@ import { RouteComponentProps } from 'react-router-dom';
 import { Button } from 'semantic-ui-react';
 import { AppState } from 'store/types';
 import { animate } from 'utils';
+import { UserInfoResponse } from 'api/types';
 
-type Props = Partial<RouteComponentProps> & { theme: string };
+type Props = Partial<RouteComponentProps> & { theme: string, user: UserInfoResponse };
 
 type State = {
   fullscreenMode: boolean;
@@ -67,7 +68,8 @@ class GameComponent extends PureComponent<Props, State> {
       canvasRoad,
       this.alert.bind(this),
       this.setInfo.bind(this),
-      this.restartModal.bind(this)
+      this.restartModal.bind(this),
+      this.props.user
     );
     this.gameProcess.initGame();
     window.addEventListener('keyup', this.handleKeyUp);
@@ -293,6 +295,7 @@ class GameComponent extends PureComponent<Props, State> {
 
 const mapStateToProps = (state: AppState) => ({
   theme: state.theme,
+  user: state.user,
 });
 
 export const Game = connect(mapStateToProps)(GameComponent);

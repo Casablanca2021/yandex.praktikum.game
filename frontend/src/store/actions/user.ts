@@ -18,7 +18,9 @@ export const getUserAction = (): AppThunkAction<string> => async (dispatch) => {
   try {
     const userInfo = await User.getUser();
 
-    dispatch(setUserInfo({ ...userInfo, avatar: `${baseUrlResources}${userInfo.avatar}` }));
+    const avatar = userInfo.avatar ? `${baseUrlResources}${userInfo.avatar}` : '';
+
+    dispatch(setUserInfo({ ...userInfo, avatar }));
     dispatch(setAuth(true));
   } catch (error) {
     dispatch(setAuth(false));

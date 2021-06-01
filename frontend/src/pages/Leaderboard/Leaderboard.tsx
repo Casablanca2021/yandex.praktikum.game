@@ -9,6 +9,7 @@ import { getLeaderboardSelector } from 'store/selectors';
 import { useAuth } from 'common/hooks/authHook';
 import { useThunkAction } from 'common/hooks/actionHooks';
 import { getLeaderboard } from 'store/actions/leaderboard';
+import anonymous from '../../assets/anonymous.png';
 
 const Leaderboard: FC = () => {
   useAuth();
@@ -31,7 +32,7 @@ const Leaderboard: FC = () => {
             {leaders?.map((item: LeaderboardResponseItem, index: number) => (
               <List.Item key={index}>
                 <Label color="blue">{index + 1}</Label>
-                <Image avatar src={item.data.avatar} />
+                <Image avatar src={item.data.avatar ? item.data.avatar : anonymous} />
                 <List.Content>{item.data.login}</List.Content>
                 <List.Content floated="right">
                   <Label color="blue">

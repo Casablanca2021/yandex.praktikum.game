@@ -2,6 +2,7 @@ import { leaderboard } from 'api/leaderboard';
 import { t } from 'common';
 import { Car, Range, Road } from 'core';
 import { getRandomIntInclusive, setNotificationError } from 'utils';
+import { UserInfoResponse } from 'api/types';
 
 type InformAlert = (text: string, hide?: boolean) => Promise<void> | undefined;
 type SetInfo = (score: number, level: number) => void;
@@ -54,6 +55,7 @@ export class GameProcess {
   private setInfo: SetInfo;
 
   private restartModal: RestartModal;
+  private user: UserInfoResponse;
 
   constructor(
     canvasWidth: number,
@@ -61,13 +63,16 @@ export class GameProcess {
     canvasRoad: HTMLCanvasElement,
     informAlert: InformAlert,
     setInfo: SetInfo,
-    restartModal: RestartModal
+    restartModal: RestartModal,
+    user: UserInfoResponse
   ) {
     this.canvasHeight = canvasHeight;
     this.canvasWidth = canvasWidth;
     this.canvasRoad = canvasRoad;
 
     this.road = new Road(this.canvasHeight);
+
+    this.user = user;
 
     this.rangeX = { min: this.curb, max: this.canvasWidth - this.curb };
     this.rangeY = { min: 0, max: this.canvasHeight };
@@ -322,7 +327,7 @@ export class GameProcess {
 
   async saveScore(): Promise<void> {
     try {
-      await leaderboard.save(this.score, this.level);
+      await leaderboard.save(this.score, this.level, this.user);
     } catch (error) {
       setNotificationError(error);
     }
