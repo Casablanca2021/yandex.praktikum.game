@@ -1,6 +1,7 @@
 import { get, post } from 'api/http';
 import { ApiPath } from 'api/consts';
 import { ThemeRequest } from 'api/types';
+import { headersJSON as headers } from 'api/consts';
 
 interface Theme {
   getTheme: (user: string) => Promise<string>;
@@ -10,5 +11,5 @@ interface Theme {
 export const Theme: Theme = {
   getTheme: (user: string): Promise<string> => get(`${ApiPath.THEME}?user=${user}`),
 
-  setTheme: (data: ThemeRequest): Promise<void> => post(ApiPath.THEME, data),
+  setTheme: (data: ThemeRequest): Promise<void> => post(ApiPath.THEME, data, { headers }),
 };
