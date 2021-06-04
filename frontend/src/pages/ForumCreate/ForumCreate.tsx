@@ -11,7 +11,8 @@ import some from 'lodash/some';
 import { Forum as ForumAPI } from 'api/forum';
 import { useHistory } from 'react-router';
 import { useAuth } from 'common/hooks/authHook';
-
+import { useSelector } from 'react-redux';
+import { getUserSelector } from 'store/selectors';
 
 const ForumCreate: FC = () => {
   useAuth();
@@ -23,6 +24,7 @@ const ForumCreate: FC = () => {
   const [title, handleChangeTitle] = useStringField('');
   const [description, handleChangeDescription] = useStringField('');
 
+  const user = useSelector(getUserSelector);
 
   const handleBlurTitle = (event: FieldChangeEvent): void => {
     const { name, value } = event.target;
@@ -43,41 +45,45 @@ const ForumCreate: FC = () => {
   };
 
   const handleSubmit = (): void => {
-    if ((title && description) && !some(errors, Boolean)) {
-      ForumAPI.create({ title, description }).then(() => setIsSend(true));
+    if (title && description && !some(errors, Boolean)) {
+      ForumAPI.create({ title, description, user: user.login }).then(() => setIsSend(true));
     }
   };
 
   return (
     <Layout title={t('forumTitle')}>
-      <Button onClick={() => history.goBack()} secondary>{t('back')}</Button>
+      <Button onClick={() => history.goBack()} secondary>
+        {t('back')}
+      </Button>
       <br />
       <br />
-      {!isSend ? (<Form onSubmit={handleSubmit}>
-        <Form.Input
-          name="title"
-          value={title}
-          label={t('first_name')}
-          placeholder={t('forum_title')}
-          onChange={handleChangeTitle}
-          onBlur={handleBlurTitle}
-          error={errors.title}
-        />
-        <Form.TextArea
-          name="description"
-          value={description}
-          type="text"
-          label={t('message')}
-          placeholder={t('message')}
-          onChange={handleChangeDescription}
-          style={{ minHeight: 120 }}
-          onBlur={handleBlurDescription}
-          error={errors.description}
-        />
-        <Button type="submit" color="blue" fluid>
-          {t('send')}
-        </Button>
-      </Form>) : (
+      {!isSend ? (
+        <Form onSubmit={handleSubmit}>
+          <Form.Input
+            name="title"
+            value={title}
+            label={t('first_name')}
+            placeholder={t('forum_title')}
+            onChange={handleChangeTitle}
+            onBlur={handleBlurTitle}
+            error={errors.title}
+          />
+          <Form.TextArea
+            name="description"
+            value={description}
+            type="text"
+            label={t('message')}
+            placeholder={t('message')}
+            onChange={handleChangeDescription}
+            style={{ minHeight: 120 }}
+            onBlur={handleBlurDescription}
+            error={errors.description}
+          />
+          <Button type="submit" color="blue" fluid>
+            {t('send')}
+          </Button>
+        </Form>
+      ) : (
         <Header as="h1" textAlign="center">
           {t('success')}
         </Header>

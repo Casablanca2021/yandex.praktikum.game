@@ -8,11 +8,11 @@ export const getTheme = (): AppThunkAction<string> => async (dispatch) => {
   dispatch({ type: GET_THEME });
 
   try {
-    const user = dispatch((_, gestState: () => AppState) => gestState().user.login);
+    const user = await dispatch((_, gestState: () => AppState) => gestState().user.login);
 
-    const theme = await Theme.getTheme(user);
+    const response = await Theme.getTheme(user);
 
-    dispatch(setTheme(theme));
+    dispatch(setTheme(response.theme));
   } catch (error) {
     console.warn(error);
   }

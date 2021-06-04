@@ -1,47 +1,62 @@
 import setCookie from 'set-cookie-parser';
 import { Request as ExpressRequest, Response as ExpressResponse } from 'express';
 import { Response as FetchResponse } from 'node-fetch';
-// import { serialize } from 'cookie';
 
 export const getRequestCookies = (expressRequest: ExpressRequest) => {
-  const { cookie } = expressRequest.headers;
+  let { cookie } = expressRequest.headers;
 
-  return { cookie };
+  if (cookie) {
+    const cookieArr = cookie.split(';');
+
+    if (cookieArr.length > 2) cookie = cookieArr.slice(1).join('; ');
+
+    return { cookie };
+  }
+
+  return {};
 };
 
 const getSetCookie = (response: FetchResponse) =>
-  setCookie.parse(response.headers.raw()('set-cookie'), {
+  setCookie.parse((response.headers as any).raw()['set-cookie'], {
     decodeValues: true,
   });
 
 export const getResponseCookies = (fetchResponse: FetchResponse) => {
-  const cookies = getSetCookie(fetchResponse);
+  const cookies = setCookie.parse(fetchResponse.headers.raw()['set-cookie'], {
+    decodeValues: true,
+  });
 
-  const cookiesNames: string[] = [];
+  const cookiesSet = new Set<string>();
 
-  // const cookie = cookies
-  //   .map(function (cookie) {
-  //     return serialize(cookie.name, cookie.value);
-  //   })
-  //   .join('; ');
-
-  const cookie = cookies
-    .reverse()
-    .filter(({ name }) => {
-      if (!cookiesNames.includes(name)) {
-        cookiesNames.push(name);
-        return true;
+  const cookieString = cookies
+    .reduceRight((acc: string[], { name, value }) => {
+      if (!cookiesSet.has(name)) {
+        acc.push(`${name}=${value}`);
+        cookiesSet.add(name);
       }
-      return false;
-    })
-    .map(({ name, value }) => `${name}=${value}`)
+
+      return acc;
+    }, [])
     .join('; ');
 
-  return { cookie };
+  return {
+    cookie: cookieString,
+  };
 };
 
 export const setCookies = (fetchResponse: FetchResponse, expressResponse: ExpressResponse) => {
-  const cookies = getSetCookie(fetchResponse);
+  let cookies = getSetCookie(fetchResponse);
+
+  const cookiesNames: string[] = [];
+
+  cookies = cookies.reverse().filter(({ name }) => {
+    if (!cookiesNames.includes(name)) {
+      cookiesNames.push(name);
+      return true;
+    }
+
+    return false;
+  });
 
   cookies.forEach(({ name, value }) => {
     expressResponse.cookie(name, value, { secure: true, httpOnly: true });

@@ -10,11 +10,11 @@ export const getLeaderboard = (): AppThunkAction<string> => async (dispatch) => 
     const leaders = (await leaderboard.getAll()) as LeaderboardResponse;
 
     leaders.forEach((item: LeaderboardResponseItem) => {
-      if (item.data.avatar === undefined) {
+      if (!item.data.avatar || /resourcesnull/.test(item.data.avatar)) {
         // eslint-disable-next-line no-param-reassign
         item.data.avatar = avatar;
       }
-      if (item.data.login === undefined) {
+      if (!item.data.login) {
         // eslint-disable-next-line no-param-reassign
         item.data.login = 'Guest';
       }

@@ -1,7 +1,15 @@
-import express from 'express';
+import express from "express";
 
-import { createComment, createFeedBack, createTopic, createUserTheme, getComments, getTopics, getUserTheme } from '../controllers';
-import { authenticate } from '../middleware/authenticate';
+import {
+  createComment,
+  createFeedBack,
+  createTopic,
+  createUserTheme,
+  getComments,
+  getTopics,
+  getUserTheme,
+} from "../controllers";
+import { authenticate } from "../middleware/authenticate";
 
 const router = express.Router();
 
@@ -112,7 +120,7 @@ const router = express.Router();
  *             schema:
  *               $ref: '#/components/schemas/FeedBack'
  */
-router.post('/feedback', createFeedBack);
+router.post("/feedback", createFeedBack);
 
 /* -------- THEMA --------*/
 
@@ -139,7 +147,7 @@ router.post('/feedback', createFeedBack);
  *                  type: string
  *                  format: string
  */
-router.post('/theme', createUserTheme);
+router.post("/theme", createUserTheme);
 
 /**
  * @openapi
@@ -159,7 +167,7 @@ router.post('/theme', createUserTheme);
  *               type: string
  *               format: string
  */
-router.get('/theme', getUserTheme);
+router.get("/theme", getUserTheme);
 
 /**
  * @openapi
@@ -176,7 +184,7 @@ router.get('/theme', getUserTheme);
  *               items:
  *                 $ref: '#/components/schemas/Topic'
  */
-router.get('/forum/topic', getTopics);
+router.get("/forum/topic", getTopics);
 
 /**
  * @openapi
@@ -197,7 +205,7 @@ router.get('/forum/topic', getTopics);
  *             schema:
  *               $ref: '#/components/schemas/Topic'
  */
-router.post('/forum/topic', authenticate, createTopic);
+router.post("/forum/topic", createTopic);
 
 /**
  * @openapi
@@ -218,6 +226,6 @@ router.post('/forum/topic', authenticate, createTopic);
  *             schema:
  *               $ref: '#/components/schemas/Comment'
  */
-router.post('/forum/comment', authenticate, createComment);
+router.post("/forum/comment", authenticate, createComment);
 
 export default router;

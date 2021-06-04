@@ -1,8 +1,11 @@
-import { Request, Response } from 'express';
+import { Request, Response } from "express";
 
-import { UserTheme } from '../models/userTheme';
+import { UserTheme } from "../models/userTheme";
 
-export async function createUserTheme(request: Request, response: Response): Promise<void> {
+export async function createUserTheme(
+  request: Request,
+  response: Response
+): Promise<void> {
   try {
     await UserTheme.findOne({
       where: {
@@ -12,7 +15,7 @@ export async function createUserTheme(request: Request, response: Response): Pro
       if (!user) {
         await UserTheme.create(request.body)
           .then(() => {
-            response.status(201).json({ status: 'Ok' });
+            response.status(201).json({ status: "Ok" });
           })
           .catch((ex) => {
             response.status(500).json(ex);
@@ -29,7 +32,7 @@ export async function createUserTheme(request: Request, response: Response): Pro
           }
         )
           .then(() => {
-            response.status(201).json({ status: 'Ok' });
+            response.status(201).json({ status: "Ok" });
           })
           .catch((ex) => {
             response.status(500).json(ex);
@@ -41,7 +44,10 @@ export async function createUserTheme(request: Request, response: Response): Pro
   }
 }
 
-export async function getUserTheme(request: Request, response: Response): Promise<void> {
+export async function getUserTheme(
+  request: Request,
+  response: Response
+): Promise<void> {
   try {
     await UserTheme.findOne({
       where: {
@@ -50,9 +56,9 @@ export async function getUserTheme(request: Request, response: Response): Promis
     })
       .then((result) => {
         if (result) {
-          response.status(200).send(result.theme);
+          response.status(200).send({ theme: result.theme });
         } else {
-          response.status(200).send('light');
+          response.status(200).send({ theme: "light" });
         }
       })
       .catch((ex) => {

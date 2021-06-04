@@ -16,16 +16,19 @@ import { NotificationContainer } from 'react-notifications';
 import { useSelector } from 'react-redux';
 import { Route, Switch, useHistory, useRouteMatch } from 'react-router-dom';
 import { getUserAction } from 'store/actions/user';
-import { getSSRSelector } from 'store/selectors';
+import { getAuthSelector, getSSRSelector } from 'store/selectors';
 import Feedback from 'pages/Feedback';
 import ForumCreate from 'pages/ForumCreate';
+import { getTheme } from 'store/actions/theme';
 
 export const App: FC = () => {
   const history = useHistory();
 
   const isSSR = useSelector(getSSRSelector);
+  const auth = useSelector(getAuthSelector);
 
   const getUser = useThunkAction(getUserAction);
+  const getUserTheme = useThunkAction(getTheme);
 
   const isSignIn = [ROUTES.SIGNIN, ROUTES.SIGNUP].some(useRouteMatch);
 
@@ -37,6 +40,11 @@ export const App: FC = () => {
       history.replace(ROUTES.ROOT);
     }
   }, []);
+
+  // Установка темы пользователя
+  useEffect(() => {
+    auth && getUserTheme();
+  }, [auth]);
 
   // Получение инфо по текущему пользователю
   useEffect(() => {
