@@ -5,11 +5,9 @@ import {
   createFeedBack,
   createTopic,
   createUserTheme,
-  getComments,
   getTopics,
   getUserTheme,
 } from "../controllers";
-import { authenticate } from "../middleware/authenticate";
 
 const router = express.Router();
 
@@ -226,6 +224,6 @@ router.post("/forum/topic", createTopic);
  *             schema:
  *               $ref: '#/components/schemas/Comment'
  */
-router.post("/forum/comment", authenticate, createComment);
+router.post("/forum/comment", createComment);
 
 export default router;
