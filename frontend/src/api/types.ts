@@ -76,7 +76,7 @@ export type ForumTopicResponseItem = ForumTopic & {
 
 export type ForumTopicResponse = ForumTopicResponseItem[];
 
-export type ForumTopicCreate = Omit<Comment, 'id' | 'user'>;
+export type ForumTopicCreate = Omit<Comment, 'id'>;
 
 export type ThemeData = {
   theme: string;

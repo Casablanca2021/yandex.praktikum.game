@@ -22,8 +22,12 @@ const Forum: FC = () => {
 
   return (
     <Layout title={t('forumTitle')}>
-      <div style={{paddingBottom: '8px'}}>
-        {isAuth && <Button primary onClick={() => history.push(ROUTES.FORUM_CREATE)}>{t('createTopic')}</Button>}
+      <div style={{ paddingBottom: '8px' }}>
+        {isAuth && (
+          <Button primary onClick={() => history.push(ROUTES.FORUM_CREATE)}>
+            {t('createTopic')}
+          </Button>
+        )}
       </div>
       <ForumList items={topics} />
     </Layout>

@@ -53,7 +53,6 @@ export async function createComment(
 ): Promise<void> {
   try {
     ForumComment.create({
-      user: (global as any).user.login,
       ...request.body,
       topicId: request.body.topic_id,
     })
