@@ -1,10 +1,13 @@
-import { Request, Response } from 'express';
+import { Request, Response } from "express";
 
-import { ForumComment, ForumTopic } from '../models';
+import { ForumComment, ForumTopic } from "../models";
 
-export async function createTopic(request: Request, response: Response): Promise<void> {
+export async function createTopic(
+  request: Request,
+  response: Response
+): Promise<void> {
   try {
-    ForumTopic.create({ user: (global as any).user.login, ...request.body })
+    ForumTopic.create({ ...request.body })
       .then((topic) => {
         response.status(200).json(topic);
       })
@@ -16,7 +19,10 @@ export async function createTopic(request: Request, response: Response): Promise
   }
 }
 
-export async function getTopics(request: Request, response: Response): Promise<void> {
+export async function getTopics(
+  request: Request,
+  response: Response
+): Promise<void> {
   try {
     ForumTopic.findAll({
       include: [
@@ -41,9 +47,15 @@ export async function getTopics(request: Request, response: Response): Promise<v
   }
 }
 
-export async function createComment(request: Request, response: Response): Promise<void> {
+export async function createComment(
+  request: Request,
+  response: Response
+): Promise<void> {
   try {
-    ForumComment.create({ user: (global as any).user.login, ...request.body, topicId: request.body.topic_id })
+    ForumComment.create({
+      ...request.body,
+      topicId: request.body.topic_id,
+    })
       .then((topic) => {
         response.status(200).json(topic);
       })
@@ -55,7 +67,10 @@ export async function createComment(request: Request, response: Response): Promi
   }
 }
 
-export async function getComments(request: Request, response: Response): Promise<void> {
+export async function getComments(
+  request: Request,
+  response: Response
+): Promise<void> {
   try {
     ForumComment.findAll({
       where: {

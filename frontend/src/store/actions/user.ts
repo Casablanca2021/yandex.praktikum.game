@@ -1,12 +1,12 @@
 import { UserInfoResponse } from 'api/types';
 import { User } from 'api/user';
 import { t } from 'common';
-import { baseUrlResources } from 'api/consts';
 import { Profile } from 'pages/Profile/types';
 import { CHANGE_AVATAR, CHANGE_USER_INFO, GET_USER, SET_USER_INFO } from 'store/consts';
 import { AppThunkAction } from 'store/types';
 import { setNotificationError, setNotificationSuccess } from 'utils';
 import { setAuth } from './auth';
+import { baseUrlResources } from 'api/consts';
 
 export const setUserInfo = (payload: UserInfoResponse) => ({ type: SET_USER_INFO, payload });
 

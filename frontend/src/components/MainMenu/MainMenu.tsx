@@ -3,7 +3,7 @@ import './MainMenu.css';
 import { ROUTES, THEME } from 'common/consts';
 import { t } from 'common/dictionary';
 import { useThunkAction } from 'common/hooks/actionHooks';
-import React, { FC, memo, useMemo } from 'react';
+import React, { FC, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
 import { Checkbox, CheckboxProps, Icon, Menu } from 'semantic-ui-react';
@@ -11,7 +11,7 @@ import { logOutAction } from 'store/actions/auth';
 import { setUserTheme } from 'store/actions/theme';
 import { getAuthSelector, getThemeSelector } from 'store/selectors';
 
-const MainMenu: FC = memo(() => {
+const MainMenu: FC = () => {
   const activeItem = useLocation().pathname;
   const history = useHistory();
 
@@ -88,6 +88,6 @@ const MainMenu: FC = memo(() => {
       </Menu.Menu>
     </Menu>
   );
-});
+};
 
 export default MainMenu;

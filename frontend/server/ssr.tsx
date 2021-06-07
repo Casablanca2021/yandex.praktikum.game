@@ -8,12 +8,11 @@ import { StaticRouter } from 'react-router-dom';
 import { applyMiddleware, createStore } from 'redux';
 import thunk from 'redux-thunk';
 
-import { ApiPath, baseUrlResources, headersJSON } from '../src/api/consts';
+import { ApiPath, baseUrlResources, getYandexUrl, headersJSON } from '../src/api/consts';
 import { HTTP_METHODS } from '../src/api/http';
 import { App } from '../src/components/App';
 import { setAuth } from '../src/store/actions/auth';
 import { setSSR } from '../src/store/actions/ssr';
-import { setTheme } from '../src/store/actions/theme';
 import { setUserInfo } from '../src/store/actions/user';
 import history from '../src/store/history';
 import reducer from '../src/store/reducers';
@@ -56,6 +55,7 @@ function getHtml(store: ReturnType<typeof createStore>, locationUrl: string): st
 
 export const ssr = (app: Express) => {
   app.get('*', async (req: Request, res: Response) => {
+    console.info(req.method, req.hostname, req.url, res.statusCode);
     const enhancer = applyMiddleware(thunk, routerMiddleware(history));
     const store = createStore(reducer, enhancer);
 
@@ -65,7 +65,7 @@ export const ssr = (app: Express) => {
     /** Получение данных пользователя */
     const getUser = async (headers: Record<string, string | undefined>) => {
       try {
-        const response = await fetch(ApiPath.USER, {
+        const response = await fetch(getYandexUrl(ApiPath.USER), {
           method: HTTP_METHODS.GET,
           headers,
         });
@@ -75,9 +75,6 @@ export const ssr = (app: Express) => {
 
           store.dispatch(setUserInfo({ ...userInfo, avatar: `${baseUrlResources}${userInfo.avatar}` }));
           store.dispatch(setAuth(true));
-
-          const userTheme = await fetch(`${ApiPath.THEME}?user=${userInfo.login}`);
-          store.dispatch(setTheme(await userTheme.text()));
         }
       } catch (error) {
         console.warn(error);
@@ -93,7 +90,7 @@ export const ssr = (app: Express) => {
         const response = await fetch(ApiPath.YANDEX_OAUTH, {
           method: HTTP_METHODS.POST,
           headers: headersJSON,
-          body: JSON.stringify({ code }),
+          body: JSON.stringify({ code, redirect_uri: process.env.MAIN_HOST }),
         });
 
         setCookies(response, res);
